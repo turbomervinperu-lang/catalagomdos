@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Catálogo Oficial | Tecnosistemas MDOS</title>
+    <meta name="description" content="Catálogo de productos de tecnología, computación, redes y accesorios en Tecnosistemas MDOS. Compra directo por WhatsApp.">
+    <link rel="icon" type="image/jpeg" href="assets/images/logo.jpg">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        },
+                        whatsapp: {
+                            DEFAULT: '#25D366',
+                            dark: '#128C7E',
+                            light: '#dcf8c6'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-slate-100/70 text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-blue-500 selection:text-white pb-16 sm:pb-0">
+
+    <!-- Barra de Anuncio Superior -->
+    <div class="bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-900 text-white text-xs py-2 px-3 sm:px-4 shadow-xs">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <p id="banner-text" class="truncate font-medium flex items-center gap-1.5 text-[11px] sm:text-xs">
+                <span>🚀</span>
+                <span>¡Envíos a todo el Perú y recojo en tienda! Pagos por Yape, Plin, BCP e Interbank.</span>
+            </p>
+            <div class="hidden sm:flex items-center gap-3 text-xs font-semibold shrink-0">
+                <span class="flex items-center gap-1.5 opacity-95">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Tienda en Línea Activa
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navegación Principal (Mobile First y Adaptable) -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-20 gap-3">
+                
+                <!-- Logotipo Oficial Tecnosistemas MDOS -->
+                <a href="index.html" class="flex items-center gap-2.5 sm:gap-3.5 group focus:outline-hidden">
+                    <img
+                        id="store-logo-img"
+                        src="assets/images/logo.jpg"
+                        alt="Logo Tecnosistemas MDOS"
+                        class="w-10 h-10 sm:w-13 sm:h-13 rounded-xl object-contain shadow-xs border border-slate-200 group-hover:scale-105 transition-transform"
+                    >
+                    <div>
+                        <span id="store-name" class="text-base sm:text-xl lg:text-2xl font-black tracking-tight bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent block leading-tight">
+                            Tecnosistemas MDOS
+                        </span>
+                        <span id="store-slogan" class="hidden sm:block text-[11px] text-slate-500 font-medium">
+                            Venta de Computadoras • Reparación, Mantenimiento y Programación
+                        </span>
+                    </div>
+                </a>
+
+                <!-- Buscador de Escritorio -->
+                <div class="flex-1 max-w-md hidden md:block">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
+                        <input
+                            type="text"
+                            id="search-input"
+                            placeholder="Buscar productos, marcas, servicios..."
+                            class="w-full pl-10 pr-9 py-2 bg-slate-100 hover:bg-slate-100/80 focus:bg-white border border-transparent focus:border-blue-500 rounded-xl text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-hidden focus:ring-3 focus:ring-blue-500/10 transition-all"
+                        >
+                        <button
+                            id="clear-search-btn"
+                            class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600"
+                            title="Limpiar búsqueda"
+                        >
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Botón de Carrito del Header -->
+                <div class="flex items-center gap-2">
+                    <button
+                        type="button"
+                        id="cart-btn"
+                        class="relative inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-bold px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl shadow-md shadow-blue-600/20 transition-all duration-200"
+                        title="Ver carrito de compras"
+                    >
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <span class="hidden sm:inline text-xs font-bold">Carrito</span>
+                        <span id="cart-badge-count" class="hidden bg-white text-blue-700 text-xs font-black px-1.5 py-0.2 rounded-full shadow-xs">
+                            0
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Buscador en Teléfonos Móviles -->
+            <div class="pb-2.5 md:hidden">
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                    <input
+                        type="text"
+                        oninput="document.getElementById('search-input').value = this.value; document.getElementById('search-input').dispatchEvent(new Event('input'))"
+                        placeholder="Buscar en el catálogo..."
+                        class="w-full pl-9 pr-4 py-2 bg-slate-100 rounded-xl text-xs border-0 focus:ring-2 focus:ring-blue-500 placeholder-slate-400"
+                    >
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+         HERO / ENCABEZADO PRINCIPAL CON IMAGEN OFICIAL
+         ========================================================================== -->
+    <section class="relative bg-slate-950 text-white overflow-hidden border-b border-slate-800">
+        <!-- Contenedor de Banner Responsivo -->
+        <div class="relative w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
+            <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-800 shadow-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-blue-950">
+                
+                <!-- Imagen Oficial del Encabezado como fondo artístico -->
+                <div class="relative w-full min-h-[170px] sm:min-h-[260px] md:min-h-[320px] flex items-center overflow-hidden">
+                    <img
+                        id="hero-banner-img"
+                        src="assets/images/header-banner.jpg"
+                        alt="Encabezado Tecnosistemas MDOS"
+                        class="absolute inset-0 w-full h-full object-cover object-center opacity-85 sm:opacity-90 hover:scale-102 transition-transform duration-700"
+                    >
+                    <!-- Degradado para legibilidad -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/50 to-transparent sm:bg-gradient-to-r sm:from-slate-950/90 sm:via-slate-950/50 sm:to-transparent"></div>
+
+                    <!-- Texto Superpuesto Elegante -->
+                    <div class="relative z-10 p-4 sm:p-8 md:p-10 max-w-xl space-y-2 sm:space-y-3">
+                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider bg-blue-500/25 text-blue-300 border border-blue-400/30 backdrop-blur-xs">
+                            ⚡ Tienda Oficial & Servicio
+                        </span>
+                        <h1 class="text-xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-white leading-tight drop-shadow-md">
+                            Tecnosistemas MDOS
+                        </h1>
+                        <p class="text-slate-200 text-xs sm:text-sm font-medium leading-relaxed drop-shadow-sm">
+                            Venta de Computadoras, Reparación, Mantenimiento y Programación de Computadoras. Selecciona tus productos y ordénalos directo a nuestro WhatsApp.
+                        </p>
+                        <div class="flex items-center gap-2 pt-1">
+                            <span class="text-[10px] sm:text-xs text-emerald-300 bg-emerald-950/80 border border-emerald-500/40 px-2.5 py-1 rounded-lg font-semibold flex items-center gap-1 backdrop-blur-xs">
+                                💬 Pedidos Directos por WhatsApp
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Barra de Filtros de Categorías (Selector Desplegable para el Usuario) -->
+    <div class="sticky top-16 sm:top-20 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-2xs py-2.5 sm:py-3">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+                
+                <!-- Selector Desplegable de Categorías -->
+                <div class="flex items-center gap-2 flex-1 max-w-lg">
+                    <label for="user-category-select" class="text-xs font-bold text-slate-700 whitespace-nowrap flex items-center gap-1.5 shrink-0">
+                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
+                        </svg>
+                        <span>Categoría:</span>
+                    </label>
+                    <div class="relative flex-1">
+                        <select
+                            id="user-category-select"
+                            onchange="window.StoreCatalog.selectCategory(this.value)"
+                            class="w-full appearance-none bg-slate-50 hover:bg-slate-100 border border-slate-300 focus:border-blue-500 rounded-xl px-3.5 py-2 pr-9 text-xs sm:text-sm font-bold text-slate-800 shadow-2xs focus:ring-2 focus:ring-blue-500/20 focus:outline-hidden transition-all cursor-pointer"
+                        >
+                            <option value="Mostrar todas">📂 Mostrar todas</option>
+                            <option value="🔥 Más Pedidos">🔥 Más Pedidos</option>
+                            <option value="Almacenamiento">Almacenamiento</option>
+                            <option value="Case">Case</option>
+                            <option value="Estabilizadores / UPS">Estabilizadores / UPS</option>
+                            <option value="Fuente de Poder">Fuente de Poder</option>
+                            <option value="Laptop">Laptop</option>
+                            <option value="Memoria Ram">Memoria Ram</option>
+                            <option value="Monitores">Monitores</option>
+                            <option value="Periféricos">Periféricos</option>
+                            <option value="Placas Madres">Placas Madres</option>
+                            <option value="Procesadores">Procesadores</option>
+                            <option value="Procesadores OEM">Procesadores OEM</option>
+                            <option value="Refrigeración">Refrigeración</option>
+                            <option value="Tarjetas de Video">Tarjetas de Video</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-slate-500">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Indicador de Resultados Activos -->
+                <div class="flex items-center justify-between sm:justify-end gap-2 text-xs">
+                    <span id="active-category-indicator" class="font-bold text-slate-600 truncate">
+                        Mostrando: <strong class="text-blue-600">Todas las categorías</strong>
+                    </span>
+                    <button
+                        type="button"
+                        id="reset-filter-btn"
+                        onclick="window.StoreCatalog.selectCategory('Mostrar todas')"
+                        class="hidden text-[11px] text-blue-600 hover:text-blue-800 underline font-bold shrink-0"
+                    >
+                        Ver todas
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenido Principal: Cuadrícula Adaptable a Móviles (2 Columnas en Celular) -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-2.5 sm:px-6 lg:px-8 py-4 sm:py-8">
+        
+        <!-- Grid de Productos: 2 columnas en mobile, 3 en tablet, 4 en desktop -->
+        <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-5">
+            <!-- Renderizado dinámico desde app.js -->
+        </div>
+
+        <!-- Estado Vacío -->
+        <div id="empty-state" class="hidden text-center py-16 px-4">
+            <div class="w-16 h-16 mx-auto rounded-full bg-slate-100 flex items-center justify-center text-2xl mb-3 text-slate-400">
+                🔍
+            </div>
+            <h3 class="text-base font-bold text-slate-800">No encontramos productos que coincidan</h3>
+            <p class="text-xs text-slate-500 mt-1 max-w-xs mx-auto">
+                Prueba con otro término de búsqueda o selecciona otra categoría.
+            </p>
+            <button
+                onclick="document.getElementById('clear-search-btn').click();"
+                class="mt-3 px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-xl shadow-xs"
+            >
+                Ver todos los productos
+            </button>
+        </div>
+    </main>
+
+    <!-- ==========================================================================
+         BARRA FLOTANTE INFERIOR PARA TELÉFONOS MÓVILES
+         ========================================================================== -->
+    <div
+        id="floating-cart-btn"
+        class="hidden fixed bottom-0 inset-x-0 z-40 bg-white border-t border-slate-200 p-2.5 shadow-2xl sm:hidden"
+    >
+        <button
+            onclick="window.StoreCatalog.openCart()"
+            class="w-full flex items-center justify-between bg-blue-600 active:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl shadow-md text-xs transition-transform active:scale-98"
+        >
+            <div class="flex items-center gap-2">
+                <span class="relative">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                    <span id="floating-badge-count" class="absolute -top-1 -right-2 bg-red-500 text-white text-[10px] font-black w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                </span>
+                <span>Ver Mi Pedido</span>
+            </div>
+            <div class="flex items-center gap-1.5 font-black text-sm">
+                <span id="floating-cart-total">S/ 0.00</span>
+                <span>➔</span>
+            </div>
+        </button>
+    </div>
+
+    <!-- ==========================================================================
+         DRAWER / PANEL LATERAL DEL CARRITO DE COMPRAS
+         ========================================================================== -->
+    <div id="cart-drawer" class="hidden fixed inset-0 z-50 overflow-hidden">
+        <div id="cart-drawer-backdrop" class="absolute inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity"></div>
+
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-6 sm:pl-10">
+            <div id="cart-panel" class="w-screen max-w-md bg-white shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300">
+                
+                <!-- Header del Carrito -->
+                <div class="p-4 sm:p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center shadow-xs">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        </div>
+                        <div>
+                            <h2 class="text-sm sm:text-base font-bold text-slate-800">Carrito de Pedido</h2>
+                            <p class="text-[11px] text-slate-500">Se enviará directo al WhatsApp de la tienda</p>
+                        </div>
+                    </div>
+                    <button id="close-cart-btn" class="p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-200/60">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+
+                <!-- Lista de Artículos -->
+                <div class="flex-1 overflow-y-auto p-3.5 sm:p-5 space-y-3">
+                    <div id="cart-items-container" class="space-y-2.5"></div>
+
+                    <!-- Estado Vacío -->
+                    <div id="cart-empty-state" class="text-center py-12 px-4">
+                        <div class="w-14 h-14 mx-auto rounded-full bg-blue-50 text-blue-500 flex items-center justify-center text-xl mb-2">
+                            🛒
+                        </div>
+                        <h4 class="font-bold text-slate-800 text-xs sm:text-sm">Tu carrito está vacío</h4>
+                        <p class="text-[11px] text-slate-500 mt-1 max-w-xs mx-auto">
+                            Agrega los artículos que deseas adquirir desde el catálogo.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Formulario de Finalización y Envío a WhatsApp -->
+                <div id="cart-summary-section" class="p-4 sm:p-5 border-t border-slate-200 bg-slate-50/70 space-y-3">
+                    <div class="space-y-1 text-xs text-slate-600">
+                        <div class="flex justify-between">
+                            <span>Subtotal:</span>
+                            <span id="cart-subtotal-text" class="font-bold text-slate-800">S/ 0.00</span>
+                        </div>
+                        <div class="flex justify-between text-emerald-600 font-semibold">
+                            <span>Envío / Retiro:</span>
+                            <span>A coordinar</span>
+                        </div>
+                        <div class="pt-1.5 border-t border-slate-200 flex justify-between text-sm sm:text-base font-black text-slate-900">
+                            <span>Total Estimado:</span>
+                            <span id="cart-total-text" class="text-blue-600 font-black">S/ 0.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Datos del Cliente -->
+                    <div class="space-y-2 pt-1">
+                        <p class="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1">
+                            <span>📋</span> Datos para el Pedido:
+                        </p>
+                        
+                        <input
+                            type="text"
+                            id="customer-name"
+                            placeholder="Tu Nombre y Apellido *"
+                            required
+                            class="w-full px-3 py-2 text-xs bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
+                        >
+
+                        <div class="grid grid-cols-2 gap-2">
+                            <input
+                                type="tel"
+                                id="customer-phone"
+                                placeholder="Teléfono WhatsApp"
+                                class="w-full px-3 py-2 text-xs bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
+                            >
+                            <select
+                                id="delivery-type"
+                                class="w-full px-3 py-2 text-xs bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
+                            >
+                                <option value="delivery">🚚 Delivery / Envío</option>
+                                <option value="retiro">🏬 Retiro en Tienda</option>
+                            </select>
+                        </div>
+
+                        <div id="address-container">
+                            <input
+                                type="text"
+                                id="customer-address"
+                                placeholder="Dirección de entrega (Sector, ciudad, punto de ref.)"
+                                class="w-full px-3 py-2 text-xs bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
+                            >
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2">
+                            <select
+                                id="payment-method"
+                                class="w-full px-3 py-2 text-xs bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden font-semibold text-slate-800"
+                            >
+                                <option value="Yape">🟣 Yape</option>
+                                <option value="Plin">🔵 Plin</option>
+                                <option value="BCP">🟠 BCP (Banco de Crédito)</option>
+                                <option value="Interbank">🟢 Interbank</option>
+                            </select>
+                            <input
+                                type="text"
+                                id="customer-notes"
+                                placeholder="Notas opcionales"
+                                class="w-full px-3 py-2 text-xs bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Botón de Envío por WhatsApp -->
+                    <button
+                        type="button"
+                        id="checkout-whatsapp-btn"
+                        class="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] active:scale-98 text-white font-bold py-3 px-4 rounded-xl shadow-lg shadow-emerald-500/25 transition-all text-xs sm:text-sm uppercase tracking-wide btn-whatsapp-glow"
+                    >
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.861.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/>
+                            <path d="M12 2C6.477 2 2 6.477 2 12c0 1.891.528 3.66 1.448 5.174L2 22l4.981-1.307A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.2c-1.636 0-3.15-.494-4.417-1.341l-.316-.213-2.97.778.793-2.898-.235-.373A8.163 8.163 0 013.8 12c0-4.521 3.679-8.2 8.2-8.2 4.522 0 8.2 3.679 8.2 8.2 0 4.522-3.678 8.2-8.2 8.2z"/>
+                        </svg>
+                        <span>Pedir por WhatsApp</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         MODAL DE DETALLE DE PRODUCTO
+         ========================================================================== -->
+    <div id="product-modal" class="hidden fixed inset-0 z-50 overflow-y-auto">
+        <div id="product-modal-backdrop" class="modal-backdrop fixed inset-0 transition-opacity"></div>
+        <div class="flex min-h-full items-center justify-center p-3 sm:p-4 text-center">
+            <div class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all w-full max-w-lg border border-slate-200">
+                <button
+                    id="product-modal-close"
+                    class="absolute top-3 right-3 z-20 p-1.5 rounded-full bg-white/90 hover:bg-slate-100 text-slate-500 shadow-xs"
+                >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+
+                <div class="grid grid-cols-1">
+                    <div class="relative bg-slate-50 flex flex-col items-center justify-center p-3 sm:p-4 border-b border-slate-200 select-none">
+                        <span id="modal-product-badge" class="absolute top-3 left-3 z-10 px-2.5 py-1 text-[10px] sm:text-xs font-bold rounded-lg uppercase tracking-wider bg-blue-600 text-white shadow-xs">
+                            Nuevo
+                        </span>
+
+                        <!-- Contador de foto actual (ej. 1 de 4) -->
+                        <span id="modal-gallery-counter" class="hidden absolute top-3 right-12 z-10 px-2 py-0.5 text-[10px] sm:text-xs font-bold rounded-md bg-slate-900/80 text-white backdrop-blur-xs">
+                            1 / 4
+                        </span>
+
+                        <!-- Contenedor de la foto principal con botones anterior/siguiente -->
+                        <div class="relative w-full h-56 sm:h-64 flex items-center justify-center overflow-hidden">
+                            <!-- Botón Foto Anterior -->
+                            <button
+                                type="button"
+                                id="modal-photo-prev-btn"
+                                onclick="window.StoreCatalog.changeModalPhoto(-1)"
+                                class="hidden absolute left-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-slate-800 shadow-md flex items-center justify-center transition-all hover:scale-110 active:scale-95 border border-slate-200 cursor-pointer"
+                                aria-label="Foto anterior"
+                            >
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+                            </button>
+
+                            <!-- Imagen Principal del Modal -->
+                            <img
+                                id="modal-product-image"
+                                src=""
+                                alt="Producto"
+                                class="max-h-52 sm:max-h-60 max-w-full object-contain rounded-xl transition-all duration-300"
+                            >
+
+                            <!-- Botón Foto Siguiente -->
+                            <button
+                                type="button"
+                                id="modal-photo-next-btn"
+                                onclick="window.StoreCatalog.changeModalPhoto(1)"
+                                class="hidden absolute right-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/90 hover:bg-white text-slate-800 shadow-md flex items-center justify-center transition-all hover:scale-110 active:scale-95 border border-slate-200 cursor-pointer"
+                                aria-label="Foto siguiente"
+                            >
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                            </button>
+                        </div>
+
+                        <!-- Tira / Carrusel de Miniaturas de Fotografías -->
+                        <div
+                            id="modal-thumbnails-strip"
+                            class="hidden w-full flex items-center justify-center gap-2 pt-2.5 overflow-x-auto"
+                        >
+                            <!-- Miniaturas inyectadas dinámicamente -->
+                        </div>
+                    </div>
+
+                    <div class="p-4 sm:p-5 space-y-3">
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <span id="modal-product-category" class="text-[11px] font-bold uppercase tracking-wider text-blue-600">
+                                    Categoría
+                                </span>
+                                <span id="modal-product-orders" class="text-[11px] font-bold text-amber-600">
+                                    🔥 0 pedidos
+                                </span>
+                            </div>
+                            <h3 id="modal-product-title" class="text-base sm:text-lg font-extrabold text-slate-900 mt-1 leading-snug">
+                                Título del Producto
+                            </h3>
+                            <div class="mt-1 text-xl font-black text-slate-900">
+                                <span id="modal-product-price">S/ 0.00</span>
+                            </div>
+                            <div class="mt-3 border-t border-slate-100 pt-2.5">
+                                <p id="modal-product-description" class="text-xs text-slate-600 leading-relaxed max-h-40 overflow-y-auto">
+                                    Detalle del producto...
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="pt-2">
+                            <button
+                                id="modal-add-to-cart-btn"
+                                class="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-xl shadow-md text-xs sm:text-sm"
+                            >
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                Agregar al Carrito
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         MODAL DE ACCESO PRIVADO DE ADMINISTRADOR
+         ========================================================================== -->
+    <div id="admin-login-modal" class="hidden fixed inset-0 z-50 overflow-y-auto">
+        <div id="admin-login-backdrop" class="modal-backdrop fixed inset-0"></div>
+        <div class="flex min-h-full items-center justify-center p-4">
+            <div class="relative bg-white rounded-2xl p-6 shadow-2xl max-w-sm w-full border border-slate-200 text-center space-y-4">
+                <button
+                    id="admin-login-close"
+                    class="absolute top-3 right-3 text-slate-400 hover:text-slate-600 p-1"
+                >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+
+                <div class="w-12 h-12 mx-auto rounded-full bg-slate-900 text-white flex items-center justify-center text-xl shadow-md">
+                    🔒
+                </div>
+                <div>
+                    <h3 class="text-base font-bold text-slate-900">Acceso Privado de Administración</h3>
+                    <p class="text-xs text-slate-500 mt-1">Introduce el PIN de seguridad para ingresar al panel.</p>
+                </div>
+
+                <div class="space-y-2">
+                    <input
+                        type="password"
+                        id="admin-pin-input"
+                        maxlength="10"
+                        placeholder="••••"
+                        class="w-full text-center tracking-widest text-lg font-bold py-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
+                    >
+                    <p id="admin-login-error" class="hidden text-xs text-red-600 font-bold">PIN incorrecto</p>
+                </div>
+
+                <button
+                    type="button"
+                    id="admin-login-submit"
+                    class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-md transition-colors"
+                >
+                    Ingresar al Panel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Oficial (Discreto con Acceso Privado) -->
+    <footer class="bg-slate-950 text-slate-400 text-xs border-t border-slate-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <img src="assets/images/logo.jpg" alt="Logo" class="w-8 h-8 rounded-lg object-contain">
+                    <div>
+                        <p class="text-white font-bold text-sm">Tecnosistemas MDOS</p>
+                        <p class="text-[11px] text-slate-500">Venta de Computadoras • Reparación, Mantenimiento y Programación de Computadoras</p>
+                    </div>
+                </div>
+
+                <!-- Acceso Privado Discreto de Administrador -->
+                <div class="flex items-center gap-4 text-[11px]">
+                    <span class="text-slate-500">© 2026 Tecnosistemas MDOS.</span>
+                    <button
+                        type="button"
+                        onclick="window.StoreCatalog.openAdminLoginModal()"
+                        class="text-slate-600 hover:text-slate-400 transition-colors flex items-center gap-1 cursor-pointer"
+                        title="Acceso Administrativo"
+                    >
+                        <span>🔒</span>
+                        <span class="hover:underline">Acceso Interno</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/compressor.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

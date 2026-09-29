@@ -1,0 +1,25 @@
+{
+  "name": "catalogo-tecnosistemas-mdos",
+  "version": "1.0.0",
+  "description": "Catálogo de productos estándar con carrito de compras, compresión automática de imágenes <= 1MB, base de datos Neon Postgres y checkout a WhatsApp para Tecnosistemas MDOS",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve ."
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4",
+    "pg": "^8.13.1"
+  },
+  "keywords": [
+    "catalogo",
+    "ecommerce",
+    "whatsapp",
+    "tecnosistemas-mdos",
+    "vercel",
+    "neon",
+    "postgres"
+  ],
+  "author": "Tecnosistemas MDOS",
+  "license": "MIT"
+}
