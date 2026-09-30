@@ -8,6 +8,7 @@
     "dev": "npx serve ."
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.758.0",
     "@neondatabase/serverless": "^0.10.4",
     "pg": "^8.13.1"
   },

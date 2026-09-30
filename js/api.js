@@ -205,7 +205,40 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ orderedProductIds })
             }).catch(() => {});
+    /**
+     * Sube una imagen a Cloudflare R2 a través del endpoint serverless /api/upload
+     */
+    async function uploadImage(dataUrl, filename, contentType = 'image/webp') {
+        try {
+            const res = await fetch(`${API_BASE}/upload`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ data: dataUrl, filename, contentType })
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                if (data.success && data.url) {
+                    return { success: true, url: data.url, provider: 'cloudflare-r2' };
+                }
+            }
+        } catch (err) {
+            console.warn('No se pudo subir a /api/upload (Cloudflare R2):', err.message);
+        }
+        return { success: false, url: dataUrl, provider: 'local' };
+    }
+
+    /**
+     * Diagnóstico del estado de Cloudflare R2
+     */
+    async function checkR2Status() {
+        try {
+            const res = await fetch(`${API_BASE}/upload`);
+            if (res.ok) {
+                return await res.json();
+            }
         } catch (e) {}
+        return { enabled: false };
     }
 
     window.StoreApi = {
@@ -216,7 +249,9 @@
         syncAllProducts,
         getConfig,
         saveConfig,
-        recordOrder
+        recordOrder,
+        uploadImage,
+        checkR2Status
     };
 
 })();

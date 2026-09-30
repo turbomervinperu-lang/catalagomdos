@@ -77,6 +77,22 @@
                 }
             }).catch(() => {});
 
+            // Diagnóstico de Cloudflare R2
+            if (window.StoreApi.checkR2Status) {
+                window.StoreApi.checkR2Status().then(r2 => {
+                    const r2Badge = document.getElementById('r2-status-badge');
+                    if (r2Badge) {
+                        if (r2 && r2.enabled) {
+                            r2Badge.className = 'inline-flex items-center gap-1.5 text-[11px] font-bold bg-cyan-950/80 text-cyan-400 border border-cyan-500/30 px-2.5 py-1.5 rounded-lg shadow-xs';
+                            r2Badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span><span class="hidden lg:inline">Fotos:</span><span class="text-white font-mono">Cloudflare R2</span>`;
+                        } else {
+                            r2Badge.className = 'inline-flex items-center gap-1.5 text-[11px] font-bold bg-slate-800 text-slate-400 border border-slate-700/60 px-2.5 py-1.5 rounded-lg shadow-xs';
+                            r2Badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-slate-500"></span><span class="hidden lg:inline">Fotos:</span><span class="text-slate-300 font-mono">R2 (Pendiente)</span>`;
+                        }
+                    }
+                }).catch(() => {});
+            }
+
             window.StoreApi.getProducts().then(res => {
                 if (res && res.products && res.products.length > 0) {
                     products = res.products;
@@ -505,8 +521,12 @@
     /**
      * Guardar o Actualizar Producto
      */
-    function saveProduct(event) {
+    async function saveProduct(event) {
         event.preventDefault();
+
+        const submitBtn = event.target.querySelector('button[type="submit"]');
+        const submitLabel = document.getElementById('submit-btn-label');
+        const originalLabel = submitLabel ? submitLabel.textContent : 'Guardar Producto';
 
         const name = document.getElementById('prod-name').value.trim();
         const category = document.getElementById('prod-category').value.trim();
@@ -520,6 +540,8 @@
             alert('Completa el nombre y un precio válido.');
             return;
         }
+
+        if (submitBtn) submitBtn.disabled = true;
 
         let imageList = [];
         if (currentProductImages.length > 0) {
@@ -537,6 +559,24 @@
 
         if (imageList.length === 0) {
             imageList = ['assets/images/logo.jpg'];
+        }
+
+        // Subir a Cloudflare R2 cualquier imagen en formato dataUrl (base64)
+        if (window.StoreApi && window.StoreApi.uploadImage) {
+            if (submitLabel) submitLabel.textContent = 'Subiendo a Cloudflare R2...';
+            const uploadedList = [];
+            for (let i = 0; i < imageList.length; i++) {
+                const img = imageList[i];
+                if (typeof img === 'string' && img.startsWith('data:')) {
+                    const uploadRes = await window.StoreApi.uploadImage(img, `${name}-${i}.webp`);
+                    if (uploadRes && uploadRes.success && uploadRes.url) {
+                        uploadedList.push(uploadRes.url);
+                        continue;
+                    }
+                }
+                uploadedList.push(img);
+            }
+            imageList = uploadedList;
         }
 
         const primaryImage = imageList[0];
@@ -581,10 +621,14 @@
         localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(products));
 
         if (window.StoreApi && savedItem) {
-            window.StoreApi.saveProduct(savedItem).catch(err => {
+            if (submitLabel) submitLabel.textContent = 'Guardando en Neon...';
+            await window.StoreApi.saveProduct(savedItem).catch(err => {
                 console.warn('Error al guardar en Neon Postgres:', err);
             });
         }
+
+        if (submitBtn) submitBtn.disabled = false;
+        if (submitLabel) submitLabel.textContent = originalLabel;
 
         renderProductsTable();
         renderMetrics();
