@@ -155,10 +155,21 @@ async function ensureTables() {
  */
 function mapProductRow(row) {
     let images = [];
-    if (row.images) {
-        images = typeof row.images === 'string' ? JSON.parse(row.images) : row.images;
+    if (Array.isArray(row.images)) {
+        images = row.images;
+    } else if (typeof row.images === 'string') {
+        try {
+            const parsed = JSON.parse(row.images);
+            images = Array.isArray(parsed) ? parsed : [parsed];
+        } catch (e) {
+            images = [row.images];
+        }
+    } else if (row.images && typeof row.images === 'object') {
+        images = [row.image || 'assets/images/logo.jpg'];
     }
-    if (!Array.isArray(images) || images.length === 0) {
+
+    images = images.filter(img => typeof img === 'string' && img.trim().length > 0);
+    if (images.length === 0) {
         images = [row.image || 'assets/images/logo.jpg'];
     }
 
