@@ -51,15 +51,11 @@ module.exports = async function handler(req, res) {
             process.env.R2_PUBLIC_URL
         );
 
-        const accountId = (process.env.R2_ACCOUNT_ID || '').trim();
         return res.status(200).json({
             enabled: isConfigured,
             provider: 'Cloudflare R2 Object Storage',
-            bucket: process.env.R2_BUCKET_NAME || 'no-configurado',
-            publicUrl: process.env.R2_PUBLIC_URL || 'no-configurado',
-            endpoint: `https://${accountId}.r2.cloudflarestorage.com`,
-            accessKeyLen: (process.env.R2_ACCESS_KEY_ID || '').length,
-            secretKeyLen: (process.env.R2_SECRET_ACCESS_KEY || '').length
+            bucket: process.env.R2_BUCKET_NAME || 'catalago-mdos',
+            publicUrl: process.env.R2_PUBLIC_URL || 'https://pub-03357662772540c68740c6e96697d46b.r2.dev'
         });
     }
 
