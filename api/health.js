@@ -3,7 +3,7 @@
  * GET /api/health
  */
 
-const { getDb, ensureTables, getConnectionString } = require('./db');
+const { getDb, ensureTables, getConnectionString, getDbInfo } = require('./db');
 
 module.exports = async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -14,12 +14,15 @@ module.exports = async function handler(req, res) {
     }
 
     const connStr = getConnectionString();
+    const info = getDbInfo();
+
     if (!connStr) {
         return res.status(200).json({
             status: 'offline',
             connected: false,
-            message: 'No se detectó la variable de conexión POSTGRES_URL de Neon en el entorno actual.',
-            database: 'neon-green-ladder'
+            message: 'No se detectó la variable de conexión POSTGRES_URL de Neon en Vercel ni en .env.',
+            database: info.database,
+            host: info.host
         });
     }
 
@@ -34,8 +37,9 @@ module.exports = async function handler(req, res) {
         return res.status(200).json({
             status: 'online',
             connected: true,
-            database: 'neon-green-ladder',
-            provider: 'Neon Serverless PostgreSQL (Vercel)',
+            database: info.database,
+            host: info.host,
+            provider: 'Neon Serverless PostgreSQL',
             productsCount: countRes[0]?.count || 0,
             configReady: (configRes[0]?.count || 0) > 0,
             timestamp: new Date().toISOString()
@@ -44,7 +48,8 @@ module.exports = async function handler(req, res) {
         return res.status(500).json({
             status: 'error',
             connected: false,
-            database: 'neon-green-ladder',
+            database: info.database,
+            host: info.host,
             error: error.message
         });
     }

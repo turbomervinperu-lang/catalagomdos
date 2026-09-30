@@ -61,11 +61,19 @@
         if (window.StoreApi) {
             window.StoreApi.checkDatabaseStatus().then(status => {
                 const badge = document.getElementById('neon-status-badge');
-                if (badge && status) {
-                    if (status.connected) {
+                const bannerBadge = document.getElementById('neon-banner-badge');
+                if (status && status.connected) {
+                    const dbName = status.database || 'En línea';
+                    if (badge) {
                         badge.className = 'inline-flex items-center gap-1.5 text-[11px] font-bold bg-emerald-950/80 text-emerald-400 border border-emerald-500/30 px-2.5 py-1.5 rounded-lg shadow-xs';
-                        badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span class="hidden md:inline">Neon Postgres:</span><span class="text-white font-mono">neon-green-ladder (En línea)</span>`;
+                        badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span class="hidden md:inline">Neon:</span><span class="text-white font-mono">${dbName} (En línea)</span>`;
                     }
+                    if (bannerBadge) {
+                        bannerBadge.textContent = dbName;
+                    }
+                } else if (badge) {
+                    badge.className = 'inline-flex items-center gap-1.5 text-[11px] font-bold bg-amber-950/80 text-amber-300 border border-amber-500/30 px-2.5 py-1.5 rounded-lg shadow-xs';
+                    badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-400"></span><span class="hidden md:inline">Neon:</span><span class="text-white font-mono">Modo Local (Sin Vercel/Neon)</span>`;
                 }
             }).catch(() => {});
 
@@ -799,7 +807,7 @@
         try {
             await window.StoreApi.syncAllProducts(products);
             await window.StoreApi.saveConfig(config);
-            alert('¡Catálogo completo sincronizado exitosamente con la base de datos Neon PostgreSQL (neon-green-ladder)!');
+            alert('¡Catálogo completo sincronizado exitosamente con la base de datos Neon PostgreSQL!');
         } catch (e) {
             alert('Error al sincronizar con Neon: ' + e.message);
         } finally {

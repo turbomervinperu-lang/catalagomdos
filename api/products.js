@@ -5,7 +5,7 @@
  * DELETE /api/products?id=xxx   -> Elimina un producto por ID
  */
 
-const { getDb, ensureTables, mapProductRow, getConnectionString } = require('./db');
+const { getDb, ensureTables, mapProductRow, getConnectionString, getDbInfo } = require('./db');
 
 module.exports = async function handler(req, res) {
     // Cabeceras CORS y JSON
@@ -40,12 +40,13 @@ module.exports = async function handler(req, res) {
             `;
 
             const products = rows.map(mapProductRow);
+            const info = getDbInfo();
 
             return res.status(200).json({
                 success: true,
                 count: products.length,
                 products,
-                database: 'neon-green-ladder',
+                database: info.database,
                 connected: true
             });
         }

@@ -55,28 +55,39 @@ El catálogo cuenta con las 13 categorías oficiales solicitadas para filtrado i
 
 ---
 
-## 🗄️ Base de Datos Neon PostgreSQL (`neon-green-ladder`)
+## 🗄️ Base de Datos Neon PostgreSQL
 
-El proyecto está configurado para conectarse directamente a la base de datos **Neon Serverless Postgres** conectada en tu proyecto de Vercel (`catalago-mdos`):
+El proyecto está configurado para conectarse directamente a tu base de datos **Neon Serverless Postgres** creada en tu cuenta:
+- **Consola Neon:** [https://console.neon.tech/app/org-shiny-feather-88417736/projects](https://console.neon.tech/app/org-shiny-feather-88417736/projects)
+- **Repositorio GitHub:** [https://github.com/turbomervinperu-lang/catalagomdos](https://github.com/turbomervinperu-lang/catalagomdos)
 - **Endpoints Serverless:** `/api/products`, `/api/config` y `/api/health`.
 - **Persistencia Total:** Los productos creados, fotos comprimidas (WebP/JPEG $\le 1\text{ MB}$), cambios de precios, reordenamiento de fotos y pedidos se guardan de forma permanente en la nube.
-- **Inicialización Automática:** Si la base de datos está vacía, el sistema crea las tablas `products` y `store_config` e inserta automáticamente los 13 productos oficiales.
+- **Inicialización Automática:** Si la base de datos está vacía, el sistema crea las tablas `products` y `store_config` e inserta automáticamente los productos iniciales.
 - **Respaldo Híbrido:** Si se visualiza sin conexión o de forma local, el catálogo utiliza su almacenamiento local (`localStorage`) y se sincroniza automáticamente al reconectar con Neon.
 
 ---
 
-## ⚡ Cómo Desplegar en Vercel (`tecnosistemas-mdos`)
+## ⚡ Conexión Neon + GitHub + Vercel
 
-1. **Subir a GitHub:**
-   - Crea un repositorio en [GitHub.com](https://github.com/new) (ej. `catalogo-mdos-peru`).
-   - Sube los archivos de esta carpeta.
-2. **Importar en Vercel:**
-   - Abre **[https://vercel.com/new?teamSlug=tecnosistemas-mdos](https://vercel.com/new?teamSlug=tecnosistemas-mdos)**.
-   - Como la base de datos `neon-green-ladder` ya está conectada al proyecto `catalago-mdos`, Vercel inyecta automáticamente `POSTGRES_URL` y las funciones de `/api` comenzarán a guardar todos los datos directamente en Neon sin configuración adicional.
+### Paso 1: Obtener la Connection String de Neon
+1. Entra a [https://console.neon.tech/app/org-shiny-feather-88417736/projects](https://console.neon.tech/app/org-shiny-feather-88417736/projects).
+2. Haz clic en tu proyecto.
+3. En la sección **Connection Details** (Dashboard), selecciona **Connection string** y cópiala (empieza con `postgresql://...`).
+
+### Paso 2: Conectar con Vercel
+1. En tu proyecto de [Vercel](https://vercel.com), asegúrate de que el repositorio importado sea **`turbomervinperu-lang/catalagomdos`**.
+2. Ve a la pestaña **Settings** -> **Environment Variables**.
+3. Agrega la variable:
+   - **Key:** `POSTGRES_URL`
+   - **Value:** *(Pega tu Connection string de Neon)*
+   - Marca: **Production**, **Preview**, **Development**.
+4. Haz clic en **Save** y luego haz un **Redeploy** (o haz un nuevo commit) para que tome efecto.
+
+*Nota:* También puedes conectar Neon en 1 solo clic desde Neon en **Integrations -> Vercel**.
 
 ---
 
 ## 💻 Prueba Local en Windows
 
 Haz doble clic en **`iniciar-catalogo.bat`** o abre **`index.html`** directamente en tu navegador.
-"# catalagomdos" 
+

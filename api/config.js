@@ -5,7 +5,7 @@
  * PATCH /api/config   -> Registra nuevo pedido y suma contador
  */
 
-const { getDb, ensureTables, getConnectionString } = require('./db');
+const { getDb, ensureTables, getConnectionString, getDbInfo } = require('./db');
 
 module.exports = async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -35,11 +35,12 @@ module.exports = async function handler(req, res) {
             `;
 
             const config = rows[0]?.value || {};
+            const info = getDbInfo();
             return res.status(200).json({
                 success: true,
                 config,
                 connected: true,
-                database: 'neon-green-ladder'
+                database: info.database
             });
         }
 

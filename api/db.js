@@ -178,9 +178,35 @@ function mapProductRow(row) {
     };
 }
 
+function getDbInfo() {
+    const conn = getConnectionString();
+    if (!conn) {
+        return {
+            database: 'Desconectado',
+            host: 'Sin conexión',
+            connected: false
+        };
+    }
+    try {
+        const u = new URL(conn);
+        return {
+            database: u.pathname.replace(/^\//, '') || 'neondb',
+            host: u.hostname,
+            connected: true
+        };
+    } catch {
+        return {
+            database: 'neondb',
+            host: 'neon.tech',
+            connected: true
+        };
+    }
+}
+
 module.exports = {
     getConnectionString,
     getDb,
     ensureTables,
-    mapProductRow
+    mapProductRow,
+    getDbInfo
 };
