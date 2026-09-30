@@ -8,9 +8,9 @@
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
 
 function getR2Client() {
-    const accountId = process.env.R2_ACCOUNT_ID;
-    const accessKeyId = process.env.R2_ACCESS_KEY_ID;
-    const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY;
+    const accountId = (process.env.R2_ACCOUNT_ID || '').trim();
+    const accessKeyId = (process.env.R2_ACCESS_KEY_ID || '').trim();
+    const secretAccessKey = (process.env.R2_SECRET_ACCESS_KEY || '').trim();
 
     if (!accountId || !accessKeyId || !secretAccessKey) {
         return null;
@@ -23,6 +23,7 @@ function getR2Client() {
             accessKeyId,
             secretAccessKey,
         },
+        forcePathStyle: true,
     });
 }
 
