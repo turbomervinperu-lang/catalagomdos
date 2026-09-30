@@ -268,8 +268,8 @@
                 Prueba con otro término de búsqueda o selecciona otra categoría.
             </p>
             <button
-                onclick="document.getElementById('clear-search-btn').click();"
-                class="mt-3 px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-xl shadow-xs"
+                onclick="if (document.getElementById('clear-search-btn')) document.getElementById('clear-search-btn').click(); if (window.StoreCatalog) window.StoreCatalog.selectCategory('Mostrar todas');"
+                class="mt-3 px-4 py-2 bg-blue-600 text-white text-xs font-bold rounded-xl shadow-xs cursor-pointer hover:bg-blue-700 active:scale-95 transition-all"
             >
                 Ver todos los productos
             </button>

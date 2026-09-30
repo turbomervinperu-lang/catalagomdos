@@ -99,26 +99,21 @@
         }
 
         const savedProducts = localStorage.getItem(STORAGE_KEYS.PRODUCTS);
-        if (!savedProducts || (savedProducts.includes('"Componentes"') || savedProducts.includes('"Servicios"'))) {
-            state.products = window.STORE_DATA?.DEFAULT_PRODUCTS || [];
-            localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(state.products));
-        } else {
-            state.products = JSON.parse(savedProducts);
-            let updated = false;
-            state.products.forEach(p => {
-                if (!p.images || !Array.isArray(p.images) || p.images.length === 0) {
-                    if (p.id === 'prod-1') {
-                        p.images = ["assets/images/logo.jpg", "assets/images/header-banner.jpg", "assets/images/logo.jpg", "assets/images/header-banner.jpg"];
-                    } else if (p.id === 'prod-3') {
-                        p.images = ["assets/images/header-banner.jpg", "assets/images/logo.jpg", "assets/images/header-banner.jpg", "assets/images/logo.jpg"];
-                    } else {
-                        p.images = [p.image || 'assets/images/logo.jpg'];
-                    }
-                    updated = true;
-                }
-            });
-            if (updated) {
+        const defaultList = (window.STORE_DATA && Array.isArray(window.STORE_DATA.DEFAULT_PRODUCTS) && window.STORE_DATA.DEFAULT_PRODUCTS.length > 0)
+            ? window.STORE_DATA.DEFAULT_PRODUCTS
+            : (window.INITIAL_PRODUCTS || []);
+
+        if (!savedProducts || savedProducts === '[]' || savedProducts.includes('"Componentes"') || savedProducts.includes('"Servicios"')) {
+            state.products = defaultList;
+            if (state.products.length > 0) {
                 localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(state.products));
+            }
+        } else {
+            try {
+                const parsed = JSON.parse(savedProducts);
+                state.products = (Array.isArray(parsed) && parsed.length > 0) ? parsed : defaultList;
+            } catch (e) {
+                state.products = defaultList;
             }
         }
 
@@ -133,17 +128,20 @@
         if (elements.heroBannerImg && state.config.headerBannerUrl) elements.heroBannerImg.src = state.config.headerBannerUrl;
 
         renderCategories();
-        renderProducts();
+        selectCategory(state.activeCategory || 'Mostrar todas');
         updateCartUI();
 
         // Cargar datos en vivo desde la base de datos Neon Postgres
         if (window.StoreApi) {
             window.StoreApi.getProducts().then(res => {
-                if (res && res.products && res.products.length > 0) {
+                if (res && res.products && Array.isArray(res.products) && res.products.length > 0) {
                     state.products = res.products;
-                    renderProducts();
+                    localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(state.products));
+                    selectCategory(state.activeCategory || 'Mostrar todas');
                 }
-            }).catch(() => {});
+            }).catch(err => {
+                console.warn('Error conectando a Neon DB:', err);
+            });
 
             window.StoreApi.getConfig().then(res => {
                 if (res && res.config) {
@@ -154,7 +152,7 @@
                     if (elements.storeLogo && state.config.logoUrl) elements.storeLogo.src = state.config.logoUrl;
                     if (elements.heroBannerImg && state.config.headerBannerUrl) elements.heroBannerImg.src = state.config.headerBannerUrl;
                     renderCategories();
-                    renderProducts();
+                    selectCategory(state.activeCategory || 'Mostrar todas');
                     updateCartUI();
                 }
             }).catch(() => {});
