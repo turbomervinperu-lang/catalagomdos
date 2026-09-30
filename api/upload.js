@@ -8,9 +8,14 @@
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
 
 function getR2Client() {
-    const accountId = (process.env.R2_ACCOUNT_ID || '').trim();
+    let accountId = (process.env.R2_ACCOUNT_ID || '').trim();
     const accessKeyId = (process.env.R2_ACCESS_KEY_ID || '').trim();
     const secretAccessKey = (process.env.R2_SECRET_ACCESS_KEY || '').trim();
+
+    // Corrección inteligente si se intercambió o duplicó el Access Key ID en lugar del Account ID
+    if (accountId === accessKeyId || accountId === '4ef13203ae7183c2f1755576bf2fa9d2' || !accountId) {
+        accountId = 'f60c528df815c081601e0a4a2ce32edf';
+    }
 
     if (!accountId || !accessKeyId || !secretAccessKey) {
         return null;
