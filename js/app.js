@@ -783,7 +783,32 @@
         }
         showToast('¡Redirigiendo a WhatsApp con tu pedido!', 'success');
 
+        // Limpiar el carrito de compras al enviar el pedido
+        state.cart = [];
+        localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(state.cart));
+        updateCartUI();
+
+        // Limpiar notas y dirección para el próximo pedido
+        if (elements.customerNotes) elements.customerNotes.value = '';
+        if (elements.customerAddress) elements.customerAddress.value = '';
+
+        // Cerrar el modal del carrito
+        setTimeout(() => {
+            closeCart();
+        }, 500);
+
         renderProducts(); // Actualiza contadores de pedidos
+    }
+
+    /**
+     * Vacía completamente los productos del carrito
+     */
+    function clearCart() {
+        if (state.cart.length === 0) return;
+        state.cart = [];
+        localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(state.cart));
+        updateCartUI();
+        showToast('Carrito vaciado.', 'info');
     }
 
     /**
@@ -912,7 +937,8 @@
         closeAdminLoginModal,
         selectCategory,
         showToast,
-        sendTestWhatsAppMessage
+        sendTestWhatsAppMessage,
+        clearCart
     };
 
 })();

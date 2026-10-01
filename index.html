@@ -321,9 +321,19 @@
                             <p class="text-[11px] text-slate-500">Se enviará directo al WhatsApp de la tienda</p>
                         </div>
                     </div>
-                    <button id="close-cart-btn" class="p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-200/60">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                    </button>
+                    <div class="flex items-center gap-1.5">
+                        <button
+                            type="button"
+                            onclick="window.StoreCatalog.clearCart()"
+                            class="text-[11px] font-semibold text-slate-400 hover:text-red-500 hover:bg-red-50 px-2 py-1 rounded transition-colors cursor-pointer"
+                            title="Vaciar todos los artículos del carrito"
+                        >
+                            Vaciar
+                        </button>
+                        <button id="close-cart-btn" class="p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-200/60 cursor-pointer">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Lista de Artículos -->
