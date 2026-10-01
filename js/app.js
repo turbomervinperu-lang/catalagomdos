@@ -81,7 +81,16 @@
         adminLoginClose: document.getElementById('admin-login-close'),
         adminPinInput: document.getElementById('admin-pin-input'),
         adminLoginSubmit: document.getElementById('admin-login-submit'),
-        adminLoginError: document.getElementById('admin-login-error')
+        adminLoginError: document.getElementById('admin-login-error'),
+        // Modal de Agradecimiento y Total
+        orderSuccessModal: document.getElementById('order-success-modal'),
+        orderSuccessBackdrop: document.getElementById('order-success-backdrop'),
+        orderSuccessClose: document.getElementById('order-success-close'),
+        orderSuccessTotal: document.getElementById('order-success-total'),
+        orderSuccessCustomer: document.getElementById('order-success-customer'),
+        orderSuccessPayment: document.getElementById('order-success-payment'),
+        orderSuccessDelivery: document.getElementById('order-success-delivery'),
+        orderSuccessReopenWhatsapp: document.getElementById('order-success-reopen-whatsapp')
     };
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -221,11 +230,16 @@
             });
         }
 
+        // Modal de Agradecimiento por Compra
+        if (elements.orderSuccessClose) elements.orderSuccessClose.addEventListener('click', closeOrderSuccessModal);
+        if (elements.orderSuccessBackdrop) elements.orderSuccessBackdrop.addEventListener('click', closeOrderSuccessModal);
+
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 closeCart();
                 closeProductModal();
                 closeAdminLoginModal();
+                closeOrderSuccessModal();
             } else if (elements.productModal && !elements.productModal.classList.contains('hidden')) {
                 if (e.key === 'ArrowLeft') {
                     changeModalPhoto(-1);
@@ -771,33 +785,158 @@
             message += `   Subtotal: *${currency}${itemTotal.toFixed(2)}*\n\n`;
         });
 
+        const totalFormatted = `${currency}${total.toFixed(2)}`;
+
         message += `━━━━━━━━━━━━━━━━━━━━━━\n`;
-        message += `💰 *TOTAL A PAGAR: ${currency}${total.toFixed(2)}*\n`;
+        message += `💰 *TOTAL A PAGAR: ${totalFormatted}*\n`;
         message += `━━━━━━━━━━━━━━━━━━━━━━\n\n`;
         message += `_Hola, he generado este pedido desde el catálogo web oficial. Por favor confirmarme la disponibilidad y los datos para concretar el pago._`;
 
         const whatsappUrl = `https://wa.me/${cleanStoreNumber}?text=${encodeURIComponent(message)}`;
+
+        // 1. Sonido de caja registradora al cerrar la venta
+        playCashRegisterSound();
+
+        // 2. Redirección a WhatsApp
         const win = window.open(whatsappUrl, '_blank');
         if (!win || win.closed || typeof win.closed === 'undefined') {
             window.location.href = whatsappUrl;
         }
         showToast('¡Redirigiendo a WhatsApp con tu pedido!', 'success');
 
-        // Limpiar el carrito de compras al enviar el pedido
+        // 3. Limpiar el carrito de compras al enviar el pedido
         state.cart = [];
         localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(state.cart));
         updateCartUI();
 
-        // Limpiar notas y dirección para el próximo pedido
+        // 4. Limpiar notas y dirección para el próximo pedido
         if (elements.customerNotes) elements.customerNotes.value = '';
         if (elements.customerAddress) elements.customerAddress.value = '';
 
-        // Cerrar el modal del carrito
+        // 5. Cerrar drawer del carrito y mostrar el recuadro con el Total y "Muchas Gracias Por su Compra"
         setTimeout(() => {
             closeCart();
-        }, 500);
+            openOrderSuccessModal({
+                totalFormatted,
+                name,
+                payment,
+                deliveryMode,
+                whatsappUrl
+            });
+        }, 400);
 
         renderProducts(); // Actualiza contadores de pedidos
+    }
+
+    /**
+     * Reproduce un sonido auténtico de caja registradora ("Ka-Ching!") usando Web Audio API
+     */
+    function playCashRegisterSound() {
+        try {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (!AudioContext) return;
+            const ctx = new AudioContext();
+            if (ctx.state === 'suspended') {
+                ctx.resume();
+            }
+
+            const now = ctx.currentTime;
+
+            // 1. Mecanismo de apertura de cajón (ruido blanco filtrado de percusión metálica)
+            const bufferSize = Math.floor(ctx.sampleRate * 0.14);
+            const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+            const output = noiseBuffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                output[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.04));
+            }
+            const whiteNoise = ctx.createBufferSource();
+            whiteNoise.buffer = noiseBuffer;
+
+            const noiseFilter = ctx.createBiquadFilter();
+            noiseFilter.type = 'bandpass';
+            noiseFilter.frequency.setValueAtTime(1100, now);
+            noiseFilter.Q.setValueAtTime(2.5, now);
+
+            const noiseGain = ctx.createGain();
+            noiseGain.gain.setValueAtTime(0.35, now);
+            noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+
+            whiteNoise.connect(noiseFilter);
+            noiseFilter.connect(noiseGain);
+            noiseGain.connect(ctx.destination);
+            whiteNoise.start(now);
+
+            // 2. Tintineo de monedas (clink - clink rápido)
+            const coinNotes = [1850, 2480];
+            coinNotes.forEach((freq, idx) => {
+                const coinTime = now + 0.05 + idx * 0.04;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, coinTime);
+                gain.gain.setValueAtTime(0.3, coinTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, coinTime + 0.08);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(coinTime);
+                osc.stop(coinTime + 0.08);
+            });
+
+            // 3. Campana clásica y brillante de caja registradora ("¡CHIIIING!")
+            const bellTime = now + 0.13;
+            const bellHarmonics = [2093, 2637, 3135, 4186];
+            bellHarmonics.forEach((freq, idx) => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, bellTime);
+                const vol = idx === 0 ? 0.35 : idx === 1 ? 0.25 : 0.15;
+                gain.gain.setValueAtTime(vol, bellTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, bellTime + 1.3);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(bellTime);
+                osc.stop(bellTime + 1.3);
+            });
+        } catch (e) {
+            console.warn('AudioContext no disponible:', e);
+        }
+    }
+
+    /**
+     * Abre el recuadro de confirmación con el Total y Muchas Gracias Por su Compra
+     */
+    function openOrderSuccessModal(details) {
+        if (!elements.orderSuccessModal) return;
+        if (elements.orderSuccessTotal) {
+            elements.orderSuccessTotal.textContent = details.totalFormatted || 'S/ 0.00';
+        }
+        if (elements.orderSuccessCustomer) {
+            elements.orderSuccessCustomer.textContent = details.name || 'Cliente';
+        }
+        if (elements.orderSuccessPayment) {
+            elements.orderSuccessPayment.textContent = details.payment || 'Por acordar';
+        }
+        if (elements.orderSuccessDelivery) {
+            elements.orderSuccessDelivery.textContent = details.deliveryMode === 'delivery' 
+                ? '🚚 Delivery / Envío a Domicilio' 
+                : '🏬 Retiro en Tienda Física';
+        }
+        if (elements.orderSuccessReopenWhatsapp && details.whatsappUrl) {
+            elements.orderSuccessReopenWhatsapp.href = details.whatsappUrl;
+        }
+
+        elements.orderSuccessModal.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+    }
+
+    /**
+     * Cierra el modal de confirmación de pedido
+     */
+    function closeOrderSuccessModal() {
+        if (!elements.orderSuccessModal) return;
+        elements.orderSuccessModal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
     }
 
     /**
@@ -938,7 +1077,10 @@
         selectCategory,
         showToast,
         sendTestWhatsAppMessage,
-        clearCart
+        clearCart,
+        openOrderSuccessModal,
+        closeOrderSuccessModal,
+        playCashRegisterSound
     };
 
 })();

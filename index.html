@@ -369,6 +369,19 @@
                         </div>
                     </div>
 
+                    <!-- Aviso de Costo del Motorizado -->
+                    <div class="flex items-center gap-2.5 p-2.5 sm:p-3 bg-amber-50 border border-amber-300 rounded-xl text-amber-900 shadow-2xs">
+                        <span class="text-xl shrink-0">🛵</span>
+                        <div class="leading-tight">
+                            <p class="font-extrabold text-[11px] sm:text-xs text-amber-950">
+                                Recuerde Preguntar Cuánto es El Costo Del Motorizado
+                            </p>
+                            <p class="text-[10px] text-amber-800 mt-0.5">
+                                La tarifa del delivery se coordina directamente por WhatsApp según tu distrito o destino.
+                            </p>
+                        </div>
+                    </div>
+
                     <!-- Datos del Cliente -->
                     <div class="space-y-2 pt-1">
                         <p class="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1">
@@ -589,6 +602,94 @@
                 >
                     Ingresar al Panel
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         MODAL DE CONFIRMACIÓN: MUCHAS GRACIAS POR SU COMPRA
+         ========================================================================== -->
+    <div id="order-success-modal" class="hidden fixed inset-0 z-50 overflow-y-auto">
+        <div id="order-success-backdrop" class="modal-backdrop fixed inset-0 bg-slate-950/70 backdrop-blur-xs"></div>
+        <div class="flex min-h-full items-center justify-center p-4">
+            <div class="relative bg-white rounded-3xl p-6 sm:p-8 shadow-2xl max-w-sm sm:max-w-md w-full border border-slate-200 text-center space-y-4 animate-scale-up">
+                
+                <button
+                    type="button"
+                    id="order-success-close"
+                    onclick="window.StoreCatalog.closeOrderSuccessModal()"
+                    class="absolute top-3.5 right-3.5 text-slate-400 hover:text-slate-600 p-1.5 rounded-full hover:bg-slate-100 transition-colors cursor-pointer"
+                    title="Cerrar"
+                >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+
+                <!-- Ícono animado festivo / caja registradora -->
+                <div class="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 text-white flex items-center justify-center text-3xl shadow-lg shadow-emerald-500/30">
+                    🛍️
+                </div>
+
+                <!-- Título y Agradecimiento -->
+                <div>
+                    <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-300/60 mb-2">
+                        ✓ ¡Pedido Registrado con Éxito!
+                    </span>
+                    <h3 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                        Muchas Gracias Por su Compra
+                    </h3>
+                    <p class="text-xs text-slate-500 mt-1 max-w-xs mx-auto">
+                        Tu solicitud ha sido redirigida a nuestro WhatsApp oficial para coordinar entrega y pago.
+                    </p>
+                </div>
+
+                <!-- Recuadro del Total de la Compra -->
+                <div class="p-4 sm:p-5 bg-gradient-to-br from-slate-50 to-emerald-50/40 border border-emerald-200 rounded-2xl text-left space-y-2.5 shadow-xs">
+                    <div class="flex items-center justify-between border-b border-slate-200/80 pb-2">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-600">Total de la Compra:</span>
+                        <span id="order-success-total" class="text-xl sm:text-2xl font-black text-emerald-600">S/ 0.00</span>
+                    </div>
+
+                    <div class="space-y-1 text-xs text-slate-600 pt-1">
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">Cliente:</span>
+                            <span id="order-success-customer" class="font-bold text-slate-800">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">Método de Pago:</span>
+                            <span id="order-success-payment" class="font-bold text-slate-800">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">Modalidad:</span>
+                            <span id="order-success-delivery" class="font-bold text-slate-800">-</span>
+                        </div>
+                    </div>
+
+                    <!-- Recordatorio motorizado en el recuadro -->
+                    <div class="pt-2 border-t border-slate-200/80 flex items-center gap-2 text-[11px] text-amber-900 font-bold bg-amber-100/80 px-3 py-2 rounded-xl">
+                        <span class="text-base shrink-0">🛵</span>
+                        <span>Recuerde Preguntar Cuánto es El Costo Del Motorizado</span>
+                    </div>
+                </div>
+
+                <!-- Botones de Acción -->
+                <div class="space-y-2 pt-1">
+                    <button
+                        type="button"
+                        onclick="window.StoreCatalog.closeOrderSuccessModal()"
+                        class="w-full py-3 bg-blue-600 hover:bg-blue-700 active:scale-98 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md shadow-blue-600/20 transition-all uppercase tracking-wider cursor-pointer"
+                    >
+                        Seguir Explorando Productos
+                    </button>
+                    <a
+                        id="order-success-reopen-whatsapp"
+                        href="#"
+                        target="_blank"
+                        class="inline-flex items-center justify-center gap-1.5 text-xs font-bold text-emerald-600 hover:text-emerald-700 py-1"
+                    >
+                        <span>💬</span> Abrir chat de WhatsApp con el pedido
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>
