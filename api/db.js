@@ -132,7 +132,7 @@ async function ensureTables() {
             storeSlogan: "Venta de Computadoras • Reparación, Mantenimiento y Programación de Computadoras",
             logoUrl: "assets/images/logo.jpg",
             headerBannerUrl: "assets/images/header-banner.jpg",
-            whatsappNumber: "51900000000",
+            whatsappNumber: "51929198813",
             currencySymbol: "S/",
             currencyCode: "PEN",
             bannerMessage: "🚀 ¡Envíos a todo el Perú y recojo en tienda! Pagos por Yape, Plin, BCP e Interbank.",

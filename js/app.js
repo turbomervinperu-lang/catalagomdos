@@ -98,6 +98,13 @@
             localStorage.setItem(STORAGE_KEYS.CONFIG, JSON.stringify(state.config));
         }
 
+        // Garantizar el número oficial de WhatsApp de Tecnosistemas MDOS en Perú (+51 929198813)
+        const currentWhatsapp = state.config.whatsappNumber;
+        if (!currentWhatsapp || currentWhatsapp === '584120000000' || currentWhatsapp === '51900000000' || String(currentWhatsapp).startsWith('58')) {
+            state.config.whatsappNumber = '51929198813';
+            localStorage.setItem(STORAGE_KEYS.CONFIG, JSON.stringify(state.config));
+        }
+
         const savedProducts = localStorage.getItem(STORAGE_KEYS.PRODUCTS);
         const defaultList = (window.STORE_DATA && Array.isArray(window.STORE_DATA.DEFAULT_PRODUCTS) && window.STORE_DATA.DEFAULT_PRODUCTS.length > 0)
             ? window.STORE_DATA.DEFAULT_PRODUCTS
@@ -127,6 +134,7 @@
         if (elements.storeLogo && state.config.logoUrl) elements.storeLogo.src = state.config.logoUrl;
         if (elements.heroBannerImg && state.config.headerBannerUrl) elements.heroBannerImg.src = state.config.headerBannerUrl;
 
+        updateFloatingWhatsAppLink();
         renderCategories();
         selectCategory(state.activeCategory || 'Mostrar todas');
         updateCartUI();
@@ -146,11 +154,15 @@
             window.StoreApi.getConfig().then(res => {
                 if (res && res.config) {
                     state.config = res.config;
+                    if (!state.config.whatsappNumber || state.config.whatsappNumber === '584120000000' || state.config.whatsappNumber === '51900000000' || String(state.config.whatsappNumber).startsWith('58')) {
+                        state.config.whatsappNumber = '51929198813';
+                    }
                     if (elements.storeName) elements.storeName.textContent = state.config.storeName || 'Tecnosistemas MDOS';
                     if (elements.storeSlogan) elements.storeSlogan.textContent = state.config.storeSlogan || '';
                     if (elements.bannerText) elements.bannerText.textContent = state.config.bannerMessage || '';
                     if (elements.storeLogo && state.config.logoUrl) elements.storeLogo.src = state.config.logoUrl;
                     if (elements.heroBannerImg && state.config.headerBannerUrl) elements.heroBannerImg.src = state.config.headerBannerUrl;
+                    updateFloatingWhatsAppLink();
                     renderCategories();
                     selectCategory(state.activeCategory || 'Mostrar todas');
                     updateCartUI();
@@ -728,8 +740,7 @@
         }
 
         const currency = state.config.currencySymbol || 'S/';
-        const storeWhatsapp = state.config.whatsappNumber || '584120000000';
-        const cleanStoreNumber = storeWhatsapp.replace(/[^0-9]/g, '');
+        const cleanStoreNumber = normalizePeruWhatsApp(state.config.whatsappNumber);
 
         const dateStr = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
         const timeStr = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
@@ -766,10 +777,61 @@
         message += `_Hola, he generado este pedido desde el catálogo web oficial. Por favor confirmarme la disponibilidad y los datos para concretar el pago._`;
 
         const whatsappUrl = `https://wa.me/${cleanStoreNumber}?text=${encodeURIComponent(message)}`;
-        window.open(whatsappUrl, '_blank');
+        const win = window.open(whatsappUrl, '_blank');
+        if (!win || win.closed || typeof win.closed === 'undefined') {
+            window.location.href = whatsappUrl;
+        }
         showToast('¡Redirigiendo a WhatsApp con tu pedido!', 'success');
 
         renderProducts(); // Actualiza contadores de pedidos
+    }
+
+    /**
+     * Normaliza y valida el número de WhatsApp oficial para Perú (+51)
+     */
+    function normalizePeruWhatsApp(raw) {
+        const defaultPeruNumber = '51929198813';
+        if (!raw) return defaultPeruNumber;
+        let clean = String(raw).replace(/[^0-9]/g, '');
+        if (clean.startsWith('0051')) {
+            clean = clean.substring(2);
+        } else if (clean.startsWith('0') && clean.length === 10) {
+            clean = '51' + clean.substring(1);
+        }
+        // En Perú los números celulares tienen 9 dígitos (ej. 929198813)
+        if (clean.length === 9) {
+            clean = '51' + clean;
+        }
+        // Descartar números legacy o inválidos
+        if (!clean || clean.length < 9 || clean === '584120000000' || clean === '51900000000' || clean.startsWith('58')) {
+            clean = defaultPeruNumber;
+        }
+        return clean;
+    }
+
+    /**
+     * Actualiza el enlace del botón flotante de WhatsApp
+     */
+    function updateFloatingWhatsAppLink() {
+        const floatingBtn = document.getElementById('floating-whatsapp-btn');
+        if (floatingBtn) {
+            const num = normalizePeruWhatsApp(state.config.whatsappNumber);
+            floatingBtn.href = `https://wa.me/${num}?text=${encodeURIComponent('Hola Tecnosistemas MDOS, quisiera hacer una consulta sobre sus productos y servicios.')}`;
+        }
+    }
+
+    /**
+     * Envía un mensaje de prueba para validar la conexión de WhatsApp
+     */
+    function sendTestWhatsAppMessage() {
+        const cleanStoreNumber = normalizePeruWhatsApp(state.config.whatsappNumber);
+        const testMsg = `🇵🇪 *PRUEBA DE CONEXIÓN WHATSAPP - TECNOSISTEMAS MDOS*\n\n¡Hola! Este es un mensaje de prueba para confirmar que la integración de pedidos por WhatsApp con el número oficial 929198813 (+51 929 198 813) ha quedado 100% operativa y lista para recibir clientes.\n\n🌐 Catálogo Oficial: Tecnosistemas MDOS Perú.`;
+        const testUrl = `https://wa.me/${cleanStoreNumber}?text=${encodeURIComponent(testMsg)}`;
+        const win = window.open(testUrl, '_blank');
+        if (!win || win.closed || typeof win.closed === 'undefined') {
+            window.location.href = testUrl;
+        }
+        return testUrl;
     }
 
     /**
@@ -849,7 +911,8 @@
         openAdminLoginModal,
         closeAdminLoginModal,
         selectCategory,
-        showToast
+        showToast,
+        sendTestWhatsAppMessage
     };
 
 })();

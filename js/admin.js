@@ -33,6 +33,11 @@
             localStorage.setItem(STORAGE_KEYS.CONFIG, JSON.stringify(config));
         }
 
+        if (!config.whatsappNumber || config.whatsappNumber === '584120000000' || config.whatsappNumber === '51900000000' || String(config.whatsappNumber).startsWith('58')) {
+            config.whatsappNumber = '51929198813';
+            localStorage.setItem(STORAGE_KEYS.CONFIG, JSON.stringify(config));
+        }
+
         const savedProducts = localStorage.getItem(STORAGE_KEYS.PRODUCTS);
         if (!savedProducts || (savedProducts.includes('"Componentes"') || savedProducts.includes('"Servicios"'))) {
             products = window.STORE_DATA?.DEFAULT_PRODUCTS || [];
@@ -818,9 +823,13 @@
     }
 
     function loadSettingsForm() {
-        document.getElementById('setting-store-name').value = config.storeName || 'MDOS TECNOSISTEM';
+        document.getElementById('setting-store-name').value = config.storeName || 'Tecnosistemas MDOS';
         document.getElementById('setting-store-slogan').value = config.storeSlogan || '';
-        document.getElementById('setting-store-whatsapp').value = config.whatsappNumber || '584120000000';
+        let currentPhone = config.whatsappNumber;
+        if (!currentPhone || currentPhone === '584120000000' || currentPhone === '51900000000' || String(currentPhone).startsWith('58')) {
+            currentPhone = '51929198813';
+        }
+        document.getElementById('setting-store-whatsapp').value = currentPhone;
         document.getElementById('setting-store-pin').value = config.adminPin || '1234';
     }
 
@@ -829,7 +838,23 @@
 
         config.storeName = document.getElementById('setting-store-name').value.trim();
         config.storeSlogan = document.getElementById('setting-store-slogan').value.trim();
-        config.whatsappNumber = document.getElementById('setting-store-whatsapp').value.trim();
+        
+        let rawPhone = document.getElementById('setting-store-whatsapp').value.trim();
+        let cleanPhone = rawPhone.replace(/[^0-9]/g, '');
+        if (cleanPhone.startsWith('0051')) {
+            cleanPhone = cleanPhone.substring(2);
+        } else if (cleanPhone.startsWith('0') && cleanPhone.length === 10) {
+            cleanPhone = '51' + cleanPhone.substring(1);
+        }
+        if (cleanPhone.length === 9) {
+            cleanPhone = '51' + cleanPhone;
+        }
+        if (!cleanPhone || cleanPhone.length < 9) {
+            cleanPhone = '51929198813';
+        }
+
+        config.whatsappNumber = cleanPhone;
+        document.getElementById('setting-store-whatsapp').value = cleanPhone;
         config.adminPin = document.getElementById('setting-store-pin').value.trim() || '1234';
 
         localStorage.setItem(STORAGE_KEYS.CONFIG, JSON.stringify(config));
@@ -838,7 +863,7 @@
             await window.StoreApi.saveConfig(config);
         }
 
-        alert('¡Configuración y PIN de seguridad guardados en la base de datos Neon!');
+        alert('¡Configuración (WhatsApp +51 ' + cleanPhone.replace(/^51/, '') + ') y PIN de seguridad guardados!');
     }
 
     async function syncDatabaseNow() {
