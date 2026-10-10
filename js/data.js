@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Datos iniciales y configuración estándar para Tecnosistemas MDOS (Perú)
  * Sincronizado automáticamente con Cloudflare R2 y Neon PostgreSQL
  */
@@ -43,24 +43,8 @@ const DEFAULT_CONFIG = {
     totalOrdersCount: 38
 };
 
-// Catálogo de productos oficial de Tecnosistemas MDOS (174 productos alojados en Cloudflare R2)
+// Catálogo de productos oficial de Tecnosistemas MDOS (176 productos alojados en Cloudflare R2)
 const DEFAULT_PRODUCTS = [
-    {
-        "id":  "prod-1",
-        "name":  "MONITOR \" MSI 22 PULG \" PRO MP225 E12VL DE 120HZ",
-        "category":  "Monitores",
-        "price":  240,
-        "badge":  "Nuevo Ingreso",
-        "inStock":  true,
-        "description":  "MONITOR MSI 22 PULGADAS (PRO MP225 E12VL) GAMING FHD VA, FRECUENCIA 120HZ, 1MS . Su conectividad incluye puertos HDMI y VGA,",
-        "fullDescription":  "MONITOR MSI 22 PULGADAS (PRO MP225 E12VL) GAMING FHD VA, FRECUENCIA 120HZ, 1MS . Su conectividad incluye puertos HDMI y VGA,",
-        "orderCount":  179,
-        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745603942-prod-1-monitor---msi-22-pulg--.jpg",
-        "images":  [
-                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745603942-prod-1-monitor---msi-22-pulg--.jpg"
-                   ],
-        "sortOrder":  0
-    },
     {
         "id":  "prod-2",
         "name":  "MONITOR HP E24 G4 FHD 23.8 VGA - HDMI 60HZ 5MS",
@@ -75,7 +59,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745605633-prod-2-monitor-hp-e24-g4-fhd-2.jpg"
                    ],
-        "sortOrder":  1
+        "sortOrder":  0
     },
     {
         "id":  "prod-3",
@@ -91,23 +75,23 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745606968-prod-3-monitor-gaming-odyssey-.jpg"
                    ],
-        "sortOrder":  2
+        "sortOrder":  1
     },
     {
         "id":  "prod-4",
         "name":  "MONITOR SAMSUNG 24 PLANO ODYSSEY G3 LS24DG300ELXPE 180HZ PIVOT 90°",
         "category":  "Monitores",
-        "price":  410,
+        "price":  405,
         "badge":  "Oferta",
         "inStock":  true,
-        "description":  "MONITOR SAMSUNG ODYSSEY G3 LS24DG300ELXPE 24\" FHD 1920x1080/180HZ/1MS/AMD RADEON FREESYNC PIVOT 90°",
-        "fullDescription":  "MONITOR SAMSUNG ODYSSEY G3 LS24DG300ELXPE 24\" FHD 1920x1080/180HZ/1MS/AMD RADEON FREESYNC PIVOT 90°",
+        "description":  "MONITOR SAMSUNG ODYSSEY G3 LS24DG300ELXPE 24\" FHD 1920x1080/180HZ/1MS/AMD RADEON FREESYNC\nPIVOT 90°",
+        "fullDescription":  "MONITOR SAMSUNG ODYSSEY G3 LS24DG300ELXPE 24\" FHD 1920x1080/180HZ/1MS/AMD RADEON FREESYNC\nPIVOT 90°",
         "orderCount":  176,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745607764-prod-4-monitor-samsung-24-plan.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745607764-prod-4-monitor-samsung-24-plan.jpg"
                    ],
-        "sortOrder":  3
+        "sortOrder":  2
     },
     {
         "id":  "prod-5",
@@ -116,14 +100,14 @@ const DEFAULT_PRODUCTS = [
         "price":  808,
         "badge":  "Nuevo Ingreso",
         "inStock":  true,
-        "description":  "MONITOR SAMSUNG ODYSSEY G5 27\" (LS27FG500ELXPE) 180HZ / 1MS / QHD /2K/ 2560 X 1440 / IPS / NEGRO 2K",
-        "fullDescription":  "MONITOR SAMSUNG ODYSSEY G5 27\" (LS27FG500ELXPE) 180HZ / 1MS / QHD /2K/ 2560 X 1440 / IPS / NEGRO 2K",
+        "description":  "MONITOR SAMSUNG ODYSSEY G5 27\" (LS27FG500ELXPE) 180HZ / 1MS / QHD /2K/ 2560 X 1440 / IPS / NEGRO\n2K",
+        "fullDescription":  "MONITOR SAMSUNG ODYSSEY G5 27\" (LS27FG500ELXPE) 180HZ / 1MS / QHD /2K/ 2560 X 1440 / IPS / NEGRO\n2K",
         "orderCount":  175,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745608958-prod-5-monitor-gaming-odyssey-.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745608958-prod-5-monitor-gaming-odyssey-.jpg"
                    ],
-        "sortOrder":  4
+        "sortOrder":  3
     },
     {
         "id":  "prod-6",
@@ -139,23 +123,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745610039-prod-6-monitor-samsung-odyssey.jpg"
                    ],
-        "sortOrder":  5
-    },
-    {
-        "id":  "prod-7",
-        "name":  "TEROS MONITOR 2133S DE 120HZ ( 21.5 )",
-        "category":  "Monitores",
-        "price":  234,
-        "badge":  "Nuevo Ingreso",
-        "inStock":  true,
-        "description":  "MONITOR TEROS TE-2133S 21.5P FHD/IPS/120HZ/1MS",
-        "fullDescription":  "MONITOR TEROS TE-2133S 21.5P FHD/IPS/120HZ/1MS",
-        "orderCount":  173,
-        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745611194-prod-7-teros-monitor-2133s-de-.jpg",
-        "images":  [
-                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745611194-prod-7-teros-monitor-2133s-de-.jpg"
-                   ],
-        "sortOrder":  6
+        "sortOrder":  4
     },
     {
         "id":  "prod-8",
@@ -171,7 +139,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745612254-prod-8-monitor-teros-3220g----.jpg"
                    ],
-        "sortOrder":  7
+        "sortOrder":  5
     },
     {
         "id":  "prod-9",
@@ -187,23 +155,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745613494-prod-9-monitor-teros-23-8--te-.jpg"
                    ],
-        "sortOrder":  8
-    },
-    {
-        "id":  "prod-10",
-        "name":  "MONITOR TEROS 2416CS - 23.8 PLANO DE 100HZ 2K QHD 1MS (CON PARLANTE MAS CAMARA INCORPORADA)",
-        "category":  "Periféricos",
-        "price":  442,
-        "badge":  "",
-        "inStock":  true,
-        "description":  "Monitor plano TEROS TE-2416CS, 23.8\" QHD IPS, 100Hz, 1ms, X2 HDMI, DP, Cámara, Micrófono, Parlantes full equipo, PIVOT 90* 2K",
-        "fullDescription":  "Monitor plano TEROS TE-2416CS, 23.8\" QHD IPS, 100Hz, 1ms, X2 HDMI, DP, Cámara, Micrófono, Parlantes full equipo, PIVOT 90* 2K",
-        "orderCount":  170,
-        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745614579-prod-10-monitor-teros-2416cs--.jpg",
-        "images":  [
-                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745614579-prod-10-monitor-teros-2416cs--.jpg"
-                   ],
-        "sortOrder":  9
+        "sortOrder":  6
     },
     {
         "id":  "prod-11",
@@ -219,14 +171,14 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745615709-prod-11-monitor-teros-2475g---.jpg"
                    ],
-        "sortOrder":  10
+        "sortOrder":  7
     },
     {
         "id":  "prod-12",
         "name":  "MONITOR TEROS 2417S PLANO 144HS 1MS FH D 24¨",
         "category":  "Monitores",
-        "price":  260,
-        "badge":  "Nuevo Ingreso",
+        "price":  270,
+        "badge":  "Precio Actualizado",
         "inStock":  true,
         "description":  "MONITOR TEROS 2417S 144HS 1MS FHD 24¨ PLANO IPS HDMI DP PARLANTES AUDIO OUT",
         "fullDescription":  "MONITOR TEROS 2417S 144HS 1MS FHD 24¨ PLANO IPS HDMI DP PARLANTES AUDIO OUT",
@@ -235,7 +187,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745616519-prod-12-monitor-teros-2417s-pl.jpg"
                    ],
-        "sortOrder":  11
+        "sortOrder":  8
     },
     {
         "id":  "prod-13",
@@ -251,7 +203,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745617830-prod-13-monitor-teros-plano-te.jpg"
                    ],
-        "sortOrder":  12
+        "sortOrder":  9
     },
     {
         "id":  "prod-14",
@@ -267,7 +219,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745618852-prod-14-monitor-teros-curvo-te.jpg"
                    ],
-        "sortOrder":  13
+        "sortOrder":  10
     },
     {
         "id":  "prod-15",
@@ -283,7 +235,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745620277-prod-15-monitor-teros-2787g-cu.jpg"
                    ],
-        "sortOrder":  14
+        "sortOrder":  11
     },
     {
         "id":  "prod-16",
@@ -299,7 +251,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745621481-prod-16-teros-monitor-2766g-pi.jpg"
                    ],
-        "sortOrder":  15
+        "sortOrder":  12
     },
     {
         "id":  "prod-17",
@@ -308,21 +260,21 @@ const DEFAULT_PRODUCTS = [
         "price":  427,
         "badge":  "",
         "inStock":  true,
-        "description":  "MONITOR XIAOMI 27\" G27i PLANO IPS FHD 165 HZ 1MS. GAMING",
-        "fullDescription":  "MONITOR XIAOMI 27\" G27i PLANO IPS FHD 165 HZ 1MS. GAMING",
+        "description":  "MONITOR XIAOMI  27\" G27i PLANO IPS FHD 165 HZ 1MS. GAMING",
+        "fullDescription":  "MONITOR XIAOMI  27\" G27i PLANO IPS FHD 165 HZ 1MS. GAMING",
         "orderCount":  163,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745622302-prod-17-monitor-xiaomi-27--g27.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745622302-prod-17-monitor-xiaomi-27--g27.jpg"
                    ],
-        "sortOrder":  16
+        "sortOrder":  13
     },
     {
         "id":  "prod-18",
         "name":  "MONITOR XIAOMI 34 CURVO WQHD (2K) 180HZ/1MS",
         "category":  "Monitores",
-        "price":  974,
-        "badge":  "",
+        "price":  964,
+        "badge":  "Oferta",
         "inStock":  true,
         "description":  "MONITOR XIAOMI 34 CURVO WQHD (2K) 180HZ/1MS",
         "fullDescription":  "MONITOR XIAOMI 34 CURVO WQHD (2K) 180HZ/1MS",
@@ -331,7 +283,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745622981-prod-18-monitor-xiaomi-34-curv.jpg"
                    ],
-        "sortOrder":  17
+        "sortOrder":  14
     },
     {
         "id":  "prod-19",
@@ -340,14 +292,14 @@ const DEFAULT_PRODUCTS = [
         "price":  272,
         "badge":  "",
         "inStock":  true,
-        "description":  "Tamaño 24 Pulgadas Resolución FHD (1920 x 1080) ación de pantalla: +5° a -20° Panel A+: 0 Píxeles PPI 92 (Píxeles por Pulgada) Panel Plano IPS Tasa de Refresco: 144 Hz Tiempo de Respuesta 1ms. Contraste 4,000:1. Puertos: 1 HDMI y 1 DisplayPort Reducción de Luz Azul ESA: 100*100 reesync Sincronización Entre PC y Monitor. Incluye: Cable HDMI, Adaptador, Cable de poder y Manual",
-        "fullDescription":  "Tamaño 24 Pulgadas Resolución FHD (1920 x 1080) ación de pantalla: +5° a -20° Panel A+: 0 Píxeles PPI 92 (Píxeles por Pulgada) Panel Plano IPS Tasa de Refresco: 144 Hz Tiempo de Respuesta 1ms. Contraste 4,000:1. Puertos: 1 HDMI y 1 DisplayPort Reducción de Luz Azul ESA: 100*100 reesync Sincronización Entre PC y Monitor. Incluye: Cable HDMI, Adaptador, Cable de poder y Manual",
+        "description":  "Tamaño 24 Pulgadas Resolución FHD (1920 x 1080) ación de pantalla: +5° a -20° Panel A+: 0 Píxeles PPI 92 (Píxeles  por Pulgada) Panel Plano IPS Tasa de Refresco: 144 Hz Tiempo de Respuesta 1ms. Contraste 4,000:1. Puertos: 1 HDMI y 1 DisplayPort  Reducción de Luz Azul ESA: 100*100 reesync Sincronización Entre PC y Monitor.\nIncluye: Cable HDMI, Adaptador, Cable de poder y Manual",
+        "fullDescription":  "Tamaño 24 Pulgadas Resolución FHD (1920 x 1080) ación de pantalla: +5° a -20° Panel A+: 0 Píxeles PPI 92 (Píxeles  por Pulgada) Panel Plano IPS Tasa de Refresco: 144 Hz Tiempo de Respuesta 1ms. Contraste 4,000:1. Puertos: 1 HDMI y 1 DisplayPort  Reducción de Luz Azul ESA: 100*100 reesync Sincronización Entre PC y Monitor.\nIncluye: Cable HDMI, Adaptador, Cable de poder y Manual",
         "orderCount":  161,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745624115-prod-19-monitor-micronics-feni.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745624115-prod-19-monitor-micronics-feni.jpg"
                    ],
-        "sortOrder":  18
+        "sortOrder":  15
     },
     {
         "id":  "prod-20",
@@ -356,14 +308,14 @@ const DEFAULT_PRODUCTS = [
         "price":  473,
         "badge":  "",
         "inStock":  true,
-        "description":  "MONITOR MICRONIC MATRIX XT GAMER MACHINE 27\" 180 HZ QHD PIVOT Tamaño 27 Pulgadas. Grado de Inclinación de pantalla: +5° a -13° Panel A+: 0 Pixeles PPI 92 (Pixeles por Pulgada) Panel Plano IPS Tasa de Refresco: 180 Hz Tiempo de Respuesta 1ms. Freesync Sincronizacion Entre PC y Monitor. 2K",
-        "fullDescription":  "MONITOR MICRONIC MATRIX XT GAMER MACHINE 27\" 180 HZ QHD PIVOT Tamaño 27 Pulgadas. Grado de Inclinación de pantalla: +5° a -13° Panel A+: 0 Pixeles PPI 92 (Pixeles por Pulgada) Panel Plano IPS Tasa de Refresco: 180 Hz Tiempo de Respuesta 1ms. Freesync Sincronizacion Entre PC y Monitor. 2K",
+        "description":  "MONITOR MICRONIC MATRIX XT GAMER MACHINE 27\" 180 HZ QHD  PIVOT Tamaño 27 Pulgadas.\nGrado de Inclinación de pantalla: +5° a -13° Panel A+: 0 Pixeles PPI 92 (Pixeles por Pulgada) Panel Plano IPS  Tasa de Refresco: 180 Hz Tiempo de Respuesta 1ms. Freesync Sincronizacion Entre PC y Monitor. 2K",
+        "fullDescription":  "MONITOR MICRONIC MATRIX XT GAMER MACHINE 27\" 180 HZ QHD  PIVOT Tamaño 27 Pulgadas.\nGrado de Inclinación de pantalla: +5° a -13° Panel A+: 0 Pixeles PPI 92 (Pixeles por Pulgada) Panel Plano IPS  Tasa de Refresco: 180 Hz Tiempo de Respuesta 1ms. Freesync Sincronizacion Entre PC y Monitor. 2K",
         "orderCount":  160,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745625193-prod-20-m--micronic-matrix-xt-.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745625193-prod-20-m--micronic-matrix-xt-.jpg"
                    ],
-        "sortOrder":  19
+        "sortOrder":  16
     },
     {
         "id":  "prod-21",
@@ -372,14 +324,14 @@ const DEFAULT_PRODUCTS = [
         "price":  332,
         "badge":  "",
         "inStock":  true,
-        "description":  "MONITOR MICRONICS CURVO 27\" BRIKELL MIC DG27FC 1OO hz 3 ms VA FHD HDMI DP VESA FRESYNC brickel",
-        "fullDescription":  "MONITOR MICRONICS CURVO 27\" BRIKELL MIC DG27FC 1OO hz 3 ms VA FHD HDMI DP VESA FRESYNC brickel",
+        "description":  "MONITOR  MICRONICS CURVO 27\" BRIKELL MIC DG27FC 1OO hz 3 ms  VA FHD  HDMI DP VESA FRESYNC brickel",
+        "fullDescription":  "MONITOR  MICRONICS CURVO 27\" BRIKELL MIC DG27FC 1OO hz 3 ms  VA FHD  HDMI DP VESA FRESYNC brickel",
         "orderCount":  159,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745626453-prod-21-monitor-micronics-bric.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745626453-prod-21-monitor-micronics-bric.jpg"
                    ],
-        "sortOrder":  20
+        "sortOrder":  17
     },
     {
         "id":  "prod-22",
@@ -388,21 +340,21 @@ const DEFAULT_PRODUCTS = [
         "price":  391,
         "badge":  "",
         "inStock":  true,
-        "description":  "MONITOR MICRONICS PLAYER 27¨ 200HZ 1MS FHD FREE SYNC PLANO IPS INCLUYE PARLANTES",
-        "fullDescription":  "MONITOR MICRONICS PLAYER 27¨ 200HZ 1MS FHD FREE SYNC PLANO IPS INCLUYE PARLANTES",
+        "description":  "MONITOR MICRONICS PLAYER 27¨ 200HZ 1MS FHD FREE SYNC PLANO IPS  INCLUYE PARLANTES",
+        "fullDescription":  "MONITOR MICRONICS PLAYER 27¨ 200HZ 1MS FHD FREE SYNC PLANO IPS  INCLUYE PARLANTES",
         "orderCount":  158,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745627194-prod-22-monitor-micronics-play.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745627194-prod-22-monitor-micronics-play.jpg"
                    ],
-        "sortOrder":  21
+        "sortOrder":  18
     },
     {
         "id":  "prod-23",
         "name":  "MONITOR GAMER BUSINESS, CYBERTEL MO27FF 27P PLANO FHD 100HZ",
         "category":  "Monitores",
-        "price":  305,
-        "badge":  "Nuevo Ingreso",
+        "price":  293,
+        "badge":  "Oferta",
         "inStock":  true,
         "description":  "MONITOR GAMER BUSINESS CYBERTEL MO27FF 27P FHD 100HZ 3MS PLANO Puerto HDMI.Puerto DisplayPort.",
         "fullDescription":  "MONITOR GAMER BUSINESS CYBERTEL MO27FF 27P FHD 100HZ 3MS PLANO Puerto HDMI.Puerto DisplayPort.",
@@ -411,14 +363,14 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745628260-prod-23-monitor-gamer-business.jpg"
                    ],
-        "sortOrder":  22
+        "sortOrder":  19
     },
     {
         "id":  "prod-24",
         "name":  "MONITOR GAMER BUSINESS CYBERTEL MF24-120FF 24P FHD 120HZ grp-001",
         "category":  "Monitores",
-        "price":  239,
-        "badge":  "Nuevo Ingreso",
+        "price":  251,
+        "badge":  "Precio Actualizado",
         "inStock":  true,
         "description":  "MONITOR GAMER BUSINESS CYBERTEL MF24-120FF 24P FHD 120HZ grp-001",
         "fullDescription":  "MONITOR GAMER BUSINESS CYBERTEL MF24-120FF 24P FHD 120HZ grp-001",
@@ -427,7 +379,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790743967452-prod-24-monitor-gamer-business.webp"
                    ],
-        "sortOrder":  23
+        "sortOrder":  20
     },
     {
         "id":  "prod-25",
@@ -443,7 +395,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745629439-prod-25-refrigeracion-liquida-.jpg"
                    ],
-        "sortOrder":  24
+        "sortOrder":  21
     },
     {
         "id":  "prod-26",
@@ -452,30 +404,30 @@ const DEFAULT_PRODUCTS = [
         "price":  201,
         "badge":  "",
         "inStock":  true,
-        "description":  "REFRIGERACION ROG GAMING 240PRO NEGRO CON RELOJ DE TEMPERATURA",
-        "fullDescription":  "REFRIGERACION ROG GAMING 240PRO NEGRO CON RELOJ DE TEMPERATURA",
+        "description":  "REFRIGERACION ROG GAMING  240PRO NEGRO CON RELOJ  DE TEMPERATURA",
+        "fullDescription":  "REFRIGERACION ROG GAMING  240PRO NEGRO CON RELOJ  DE TEMPERATURA",
         "orderCount":  154,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745630676-prod-26-refrigeracion-rog-gami.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745630676-prod-26-refrigeracion-rog-gami.jpg"
                    ],
-        "sortOrder":  25
+        "sortOrder":  22
     },
     {
         "id":  "prod-27",
         "name":  "REFRIGERACION ROG GAMING 240PRO BLANCO RELOJ",
         "category":  "Refrigeración",
-        "price":  211,
+        "price":  201,
         "badge":  "",
         "inStock":  true,
-        "description":  "REFRIGERACION ROG GAMING 240PRO BLANCO RELOJ DE TEMPERATURA",
-        "fullDescription":  "REFRIGERACION ROG GAMING 240PRO BLANCO RELOJ DE TEMPERATURA",
+        "description":  "REFRIGERACION ROG GAMING  240PRO NEGRO CON RELOJ  DE TEMPERATURA",
+        "fullDescription":  "REFRIGERACION ROG GAMING  240PRO NEGRO CON RELOJ  DE TEMPERATURA",
         "orderCount":  153,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745631805-prod-27-refrigeracion-rog-gami.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745631805-prod-27-refrigeracion-rog-gami.jpg"
                    ],
-        "sortOrder":  26
+        "sortOrder":  23
     },
     {
         "id":  "prod-28",
@@ -491,7 +443,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745633200-prod-28-cooler-cpu-corsair-icu.jpg"
                    ],
-        "sortOrder":  27
+        "sortOrder":  24
     },
     {
         "id":  "prod-29",
@@ -507,7 +459,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745634287-prod-29-cooler-de-cpu-corsair-.jpg"
                    ],
-        "sortOrder":  28
+        "sortOrder":  25
     },
     {
         "id":  "prod-30",
@@ -523,23 +475,23 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745635516-prod-30-cooler-rog-gaming-4-he.jpg"
                    ],
-        "sortOrder":  29
+        "sortOrder":  26
     },
     {
         "id":  "prod-31",
         "name":  "COOLER CYBERTEL DE COBRE PARA PROC. INTEL PARA 2DA Y 10MA GEN.",
         "category":  "Refrigeración",
-        "price":  825,
+        "price":  905,
         "badge":  "Remate",
         "inStock":  true,
-        "description":  "CYBERTEL COOLER CPU - CBX ACX115. TAMAÑO 90X90X25MM. PESO TOTAL 210 G . VELOCIDAD VENTILADOR : 2200 RPM VOLTAJE 12V. NIVEL DE RUIDO 20 DB. COMPATIBILIDAD. INTEL CORE I3/I5/I7/I9/ DE 2TA A 10MA GENERACION",
-        "fullDescription":  "CYBERTEL COOLER CPU - CBX ACX115. TAMAÑO 90X90X25MM. PESO TOTAL 210 G . VELOCIDAD VENTILADOR : 2200 RPM VOLTAJE 12V. NIVEL DE RUIDO 20 DB. COMPATIBILIDAD. INTEL CORE I3/I5/I7/I9/ DE 2TA A 10MA GENERACION",
+        "description":  "CYBERTEL COOLER CPU - CBX ACX115. TAMAÑO 90X90X25MM. PESO TOTAL 210 G . VELOCIDAD VENTILADOR : 2200 RPM VOLTAJE 12V. NIVEL DE RUIDO 20 DB.  COMPATIBILIDAD. INTEL CORE I3/I5/I7/I9/ DE 2TA A 10MA GENERACION",
+        "fullDescription":  "CYBERTEL COOLER CPU - CBX ACX115. TAMAÑO 90X90X25MM. PESO TOTAL 210 G . VELOCIDAD VENTILADOR : 2200 RPM VOLTAJE 12V. NIVEL DE RUIDO 20 DB.  COMPATIBILIDAD. INTEL CORE I3/I5/I7/I9/ DE 2TA A 10MA GENERACION",
         "orderCount":  149,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745636922-prod-31-cooler-cybertel-de-cob.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745636922-prod-31-cooler-cybertel-de-cob.jpg"
                    ],
-        "sortOrder":  30
+        "sortOrder":  27
     },
     {
         "id":  "prod-32",
@@ -555,7 +507,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745638272-prod-32-cooler-teros-8161n-sol.jpg"
                    ],
-        "sortOrder":  31
+        "sortOrder":  28
     },
     {
         "id":  "prod-33",
@@ -571,7 +523,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745639348-prod-33-cooler-torre-teros-816.jpg"
                    ],
-        "sortOrder":  32
+        "sortOrder":  29
     },
     {
         "id":  "prod-34",
@@ -587,7 +539,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745640475-prod-34-cooler-msi-120-mm-orig.jpg"
                    ],
-        "sortOrder":  33
+        "sortOrder":  30
     },
     {
         "id":  "prod-35",
@@ -603,7 +555,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745641443-prod-35-cooler-amd-original.jpg"
                    ],
-        "sortOrder":  34
+        "sortOrder":  31
     },
     {
         "id":  "prod-36",
@@ -619,7 +571,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745642723-prod-36-cooler-rog-gaming-amd-.jpg"
                    ],
-        "sortOrder":  35
+        "sortOrder":  32
     },
     {
         "id":  "prod-37",
@@ -628,14 +580,14 @@ const DEFAULT_PRODUCTS = [
         "price":  44,
         "badge":  "",
         "inStock":  true,
-        "description":  "COOLER INTEL BASICO CON BASE DE COBRE",
-        "fullDescription":  "COOLER INTEL BASICO CON BASE DE COBRE",
+        "description":  "COOLER INTEL  BASICO CON  BASE DE COBRE",
+        "fullDescription":  "COOLER INTEL  BASICO CON  BASE DE COBRE",
         "orderCount":  143,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745643884-prod-37-cooler-intel-basico--c.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745643884-prod-37-cooler-intel-basico--c.jpg"
                    ],
-        "sortOrder":  36
+        "sortOrder":  33
     },
     {
         "id":  "prod-38",
@@ -644,14 +596,14 @@ const DEFAULT_PRODUCTS = [
         "price":  41,
         "badge":  "",
         "inStock":  true,
-        "description":  "COOLER INTEL BASICO CON BASE DE ALUMINIO",
-        "fullDescription":  "COOLER INTEL BASICO CON BASE DE ALUMINIO",
+        "description":  "COOLER INTEL  BASICO CON  BASE DE ALUMINIO",
+        "fullDescription":  "COOLER INTEL  BASICO CON  BASE DE ALUMINIO",
         "orderCount":  142,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745644937-prod-38-cooler-intel-basico--c.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745644937-prod-38-cooler-intel-basico--c.jpg"
                    ],
-        "sortOrder":  37
+        "sortOrder":  34
     },
     {
         "id":  "prod-39",
@@ -667,7 +619,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745645640-prod-39-camara-teros-te9073n-4.jpg"
                    ],
-        "sortOrder":  38
+        "sortOrder":  35
     },
     {
         "id":  "prod-40",
@@ -683,7 +635,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745646731-prod-40-camara-teros-te9072-2k.jpg"
                    ],
-        "sortOrder":  39
+        "sortOrder":  36
     },
     {
         "id":  "prod-41",
@@ -692,14 +644,14 @@ const DEFAULT_PRODUCTS = [
         "price":  68,
         "badge":  "Oferta",
         "inStock":  true,
-        "description":  "Quantum - MIC W700 Resolución 2K Quad HD: 2560 × 1440 px. Micrófono incorporado. Formato de video: 2560 × 1440 px a 30 fps. Conexión USB. Diseño compacto con soporte enganchable. Compatible con sistemas operativos Windows y otros.",
-        "fullDescription":  "Quantum - MIC W700 Resolución 2K Quad HD: 2560 × 1440 px. Micrófono incorporado. Formato de video: 2560 × 1440 px a 30 fps. Conexión USB. Diseño compacto con soporte enganchable. Compatible con sistemas operativos Windows y otros.",
+        "description":  "Quantum - MIC W700 Resolución 2K Quad HD: 2560 × 1440 px.\r\nMicrófono incorporado.\r\nFormato de video: 2560 × 1440 px a 30 fps.\r\nConexión USB.\r\nDiseño compacto con soporte enganchable.\r\nCompatible con sistemas operativos Windows y otros.",
+        "fullDescription":  "Quantum - MIC W700 Resolución 2K Quad HD: 2560 × 1440 px.\r\nMicrófono incorporado.\r\nFormato de video: 2560 × 1440 px a 30 fps.\r\nConexión USB.\r\nDiseño compacto con soporte enganchable.\r\nCompatible con sistemas operativos Windows y otros.",
         "orderCount":  139,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745647745-prod-41-camara-web-2k-quad-hd-.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745647745-prod-41-camara-web-2k-quad-hd-.jpg"
                    ],
-        "sortOrder":  40
+        "sortOrder":  37
     },
     {
         "id":  "prod-42",
@@ -715,7 +667,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745648563-prod-42-silla-gamer-abaddonx-r.jpg"
                    ],
-        "sortOrder":  41
+        "sortOrder":  38
     },
     {
         "id":  "prod-43",
@@ -731,7 +683,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745649352-prod-43-silla-gamer-abaddonx-n.jpg"
                    ],
-        "sortOrder":  42
+        "sortOrder":  39
     },
     {
         "id":  "prod-44",
@@ -747,7 +699,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745649983-prod-44-silla-gamer-abaddonx-n.jpg"
                    ],
-        "sortOrder":  43
+        "sortOrder":  40
     },
     {
         "id":  "prod-45",
@@ -763,7 +715,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745650776-prod-45-silla-gamer-abaddonx-n.jpg"
                    ],
-        "sortOrder":  44
+        "sortOrder":  41
     },
     {
         "id":  "prod-46",
@@ -779,7 +731,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745651516-prod-46-silla-gamer-abaddonx-n.jpg"
                    ],
-        "sortOrder":  45
+        "sortOrder":  42
     },
     {
         "id":  "prod-47",
@@ -795,7 +747,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745652342-prod-47-silla-gamer-abaddonx-n.jpg"
                    ],
-        "sortOrder":  46
+        "sortOrder":  43
     },
     {
         "id":  "prod-48",
@@ -804,14 +756,14 @@ const DEFAULT_PRODUCTS = [
         "price":  210,
         "badge":  "",
         "inStock":  true,
-        "description":  "CASE ATX ULTRA VISION BLANCO - 4 COOLERS - C/CONTROL C/SOPORTE GPU - ROG GAMING X",
-        "fullDescription":  "CASE ATX ULTRA VISION BLANCO - 4 COOLERS - C/CONTROL C/SOPORTE GPU - ROG GAMING X",
+        "description":  "CASE ATX ULTRA VISION BLANCO - 4 COOLERS -  C/CONTROL C/SOPORTE GPU - ROG GAMING X",
+        "fullDescription":  "CASE ATX ULTRA VISION BLANCO - 4 COOLERS -  C/CONTROL C/SOPORTE GPU - ROG GAMING X",
         "orderCount":  132,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745653608-prod-48-case-atx-ultra-vision-.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745653608-prod-48-case-atx-ultra-vision-.jpg"
                    ],
-        "sortOrder":  47
+        "sortOrder":  44
     },
     {
         "id":  "prod-49",
@@ -820,14 +772,14 @@ const DEFAULT_PRODUCTS = [
         "price":  270,
         "badge":  "",
         "inStock":  true,
-        "description":  "CASE ATX ULTRA RGB NEGRO X7 FAN ARGB + SOPORTE GPU + CONTROL REMOTO - ROG GAMING X",
-        "fullDescription":  "CASE ATX ULTRA RGB NEGRO X7 FAN ARGB + SOPORTE GPU + CONTROL REMOTO - ROG GAMING X",
+        "description":  "CASE ATX ULTRA RGB NEGRO X7 FAN ARGB + SOPORTE GPU\n+ CONTROL REMOTO - ROG GAMING X",
+        "fullDescription":  "CASE ATX ULTRA RGB NEGRO X7 FAN ARGB + SOPORTE GPU\n+ CONTROL REMOTO - ROG GAMING X",
         "orderCount":  131,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745654753-prod-49-case-atx-ultra-rgb-neg.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745654753-prod-49-case-atx-ultra-rgb-neg.jpg"
                    ],
-        "sortOrder":  48
+        "sortOrder":  45
     },
     {
         "id":  "prod-50",
@@ -836,14 +788,14 @@ const DEFAULT_PRODUCTS = [
         "price":  275,
         "badge":  "",
         "inStock":  true,
-        "description":  "CASE ATX ULTRA RGB BLANCO X7FAN + CONTROL + SOPORTE GPU - ROG GAMING X",
-        "fullDescription":  "CASE ATX ULTRA RGB BLANCO X7FAN + CONTROL + SOPORTE GPU - ROG GAMING X",
+        "description":  "CASE ATX ULTRA RGB BLANCO X7FAN + CONTROL +\nSOPORTE GPU - ROG GAMING X",
+        "fullDescription":  "CASE ATX ULTRA RGB BLANCO X7FAN + CONTROL +\nSOPORTE GPU - ROG GAMING X",
         "orderCount":  130,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745655872-prod-50-case-atx-ultra-rgb-bla.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745655872-prod-50-case-atx-ultra-rgb-bla.jpg"
                    ],
-        "sortOrder":  49
+        "sortOrder":  46
     },
     {
         "id":  "prod-51",
@@ -852,14 +804,14 @@ const DEFAULT_PRODUCTS = [
         "price":  230,
         "badge":  "",
         "inStock":  true,
-        "description":  "CASE ATX PROMAX BLANCO X7 FAN ARGB + SOPORTE GPU + CONTROL REMOTO ROG GAMING X",
-        "fullDescription":  "CASE ATX PROMAX BLANCO X7 FAN ARGB + SOPORTE GPU + CONTROL REMOTO ROG GAMING X",
+        "description":  "CASE ATX PROMAX BLANCO X7 FAN ARGB + SOPORTE GPU +\nCONTROL REMOTO ROG GAMING X",
+        "fullDescription":  "CASE ATX PROMAX BLANCO X7 FAN ARGB + SOPORTE GPU +\nCONTROL REMOTO ROG GAMING X",
         "orderCount":  129,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745657035-prod-51-case-atx-promax-blanco.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745657035-prod-51-case-atx-promax-blanco.jpg"
                    ],
-        "sortOrder":  50
+        "sortOrder":  47
     },
     {
         "id":  "prod-52",
@@ -875,7 +827,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745657994-prod-52-case-gambyte-dares-con.jpg"
                    ],
-        "sortOrder":  51
+        "sortOrder":  48
     },
     {
         "id":  "prod-53",
@@ -884,14 +836,14 @@ const DEFAULT_PRODUCTS = [
         "price":  135,
         "badge":  "Remate",
         "inStock":  true,
-        "description":  "CASE GAMER CYBERTEL SAMURAI ( CBX5021W ) S/FUENTE | NEGRO | PANEL VIDRIO TEMPLADO | LED-RGB | 1 FAN STRIPE",
-        "fullDescription":  "CASE GAMER CYBERTEL SAMURAI ( CBX5021W ) S/FUENTE | NEGRO | PANEL VIDRIO TEMPLADO | LED-RGB | 1 FAN STRIPE",
+        "description":  "CASE GAMER CYBERTEL SAMURAI ( CBX5021W ) S/FUENTE | NEGRO  | PANEL VIDRIO TEMPLADO | LED-RGB | 1 FAN STRIPE",
+        "fullDescription":  "CASE GAMER CYBERTEL SAMURAI ( CBX5021W ) S/FUENTE | NEGRO  | PANEL VIDRIO TEMPLADO | LED-RGB | 1 FAN STRIPE",
         "orderCount":  127,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745658990-prod-53-case-gamer-cybertel-sa.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745658990-prod-53-case-gamer-cybertel-sa.jpg"
                    ],
-        "sortOrder":  52
+        "sortOrder":  49
     },
     {
         "id":  "prod-54",
@@ -907,7 +859,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745660192-prod-54-case-gamer-cybertel-ex.jpg"
                    ],
-        "sortOrder":  53
+        "sortOrder":  50
     },
     {
         "id":  "prod-55",
@@ -923,7 +875,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745661512-prod-55-case-ruix-negro-atx-ti.jpg"
                    ],
-        "sortOrder":  54
+        "sortOrder":  51
     },
     {
         "id":  "prod-56",
@@ -932,14 +884,14 @@ const DEFAULT_PRODUCTS = [
         "price":  115,
         "badge":  "Remate",
         "inStock":  true,
-        "description":  "Motherboard Support Mini-ITX | Micro-ATX | ATX Puertos USB3.0 x1 | USB2.0x2 | Audio , 2 COOLER INCLUIDO",
-        "fullDescription":  "Motherboard Support Mini-ITX | Micro-ATX | ATX Puertos USB3.0 x1 | USB2.0x2 | Audio , 2 COOLER INCLUIDO",
+        "description":  "Motherboard Support Mini-ITX | Micro-ATX | ATX Puertos        USB3.0 x1 | USB2.0x2 | Audio , 2 COOLER INCLUIDO",
+        "fullDescription":  "Motherboard Support Mini-ITX | Micro-ATX | ATX Puertos        USB3.0 x1 | USB2.0x2 | Audio , 2 COOLER INCLUIDO",
         "orderCount":  124,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745662677-prod-56-case-gran-z-modelo-gz-.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745662677-prod-56-case-gran-z-modelo-gz-.jpg"
                    ],
-        "sortOrder":  55
+        "sortOrder":  52
     },
     {
         "id":  "prod-57",
@@ -955,7 +907,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745663812-prod-57-case-teros-1323g-negro.jpg"
                    ],
-        "sortOrder":  56
+        "sortOrder":  53
     },
     {
         "id":  "prod-58",
@@ -964,14 +916,14 @@ const DEFAULT_PRODUCTS = [
         "price":  174,
         "badge":  "Oferta",
         "inStock":  true,
-        "description":  "Case Gamer Teros TE 1316G, Blanco, USB 3.0 USB 2.0, Audio, 4 fan ARGB, MICRO ATX, MINI ATX",
-        "fullDescription":  "Case Gamer Teros TE 1316G, Blanco, USB 3.0 USB 2.0, Audio, 4 fan ARGB, MICRO ATX, MINI ATX",
+        "description":  "Case Gamer Teros TE 1316G, Blanco, USB 3.0  USB 2.0, Audio, 4 fan ARGB, MICRO ATX, MINI ATX",
+        "fullDescription":  "Case Gamer Teros TE 1316G, Blanco, USB 3.0  USB 2.0, Audio, 4 fan ARGB, MICRO ATX, MINI ATX",
         "orderCount":  122,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745664587-prod-58-case-teros-gaming-te13.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745664587-prod-58-case-teros-gaming-te13.jpg"
                    ],
-        "sortOrder":  57
+        "sortOrder":  54
     },
     {
         "id":  "prod-59",
@@ -987,7 +939,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745665885-prod-59-c-ase-cybertel-negro-r.jpg"
                    ],
-        "sortOrder":  58
+        "sortOrder":  55
     },
     {
         "id":  "prod-60",
@@ -996,14 +948,14 @@ const DEFAULT_PRODUCTS = [
         "price":  230,
         "badge":  "Oferta",
         "inStock":  true,
-        "description":  "CASE FRANTIC MIC GC702 GABINETE MICRONICS ATX BLACK + PSU 650W REAL, USB 3.0, 4 FAN ARGB, VIDRIO TEMPLADO LATERAL Y MESH FRONTAL PANEL, LIQUID COOLING SUPPORT TOP AND BOTTOM 240 MM, GRAFIC CARD 330 MM",
-        "fullDescription":  "CASE FRANTIC MIC GC702 GABINETE MICRONICS ATX BLACK + PSU 650W REAL, USB 3.0, 4 FAN ARGB, VIDRIO TEMPLADO LATERAL Y MESH FRONTAL PANEL, LIQUID COOLING SUPPORT TOP AND BOTTOM 240 MM, GRAFIC CARD 330 MM",
+        "description":  "CASE FRANTIC MIC GC702\nGABINETE MICRONICS ATX BLACK + PSU 650W REAL, USB 3.0, 4 FAN ARGB, VIDRIO TEMPLADO LATERAL Y MESH FRONTAL PANEL, LIQUID COOLING SUPPORT TOP AND BOTTOM 240 MM, GRAFIC CARD 330 MM",
+        "fullDescription":  "CASE FRANTIC MIC GC702\nGABINETE MICRONICS ATX BLACK + PSU 650W REAL, USB 3.0, 4 FAN ARGB, VIDRIO TEMPLADO LATERAL Y MESH FRONTAL PANEL, LIQUID COOLING SUPPORT TOP AND BOTTOM 240 MM, GRAFIC CARD 330 MM",
         "orderCount":  120,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745667141-prod-60-case-micronics-frantic.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745667141-prod-60-case-micronics-frantic.jpg"
                    ],
-        "sortOrder":  59
+        "sortOrder":  56
     },
     {
         "id":  "prod-61",
@@ -1012,14 +964,14 @@ const DEFAULT_PRODUCTS = [
         "price":  230,
         "badge":  "Oferta",
         "inStock":  true,
-        "description":  "FURIOUS MIC GC701 GABINETE MICRONICS ATX BLACK + PSU 650W REAL, USB 3.0, 4 FAN ARGB (3 FRONTAL, 1 BACK) VIDRIO TEMPLADO FRONTAL Y LATERAL, LIQUID COOLING SUPPORT TOP AND FRONTAL 240 MM, GRAFIC CARD 330 MM.",
-        "fullDescription":  "FURIOUS MIC GC701 GABINETE MICRONICS ATX BLACK + PSU 650W REAL, USB 3.0, 4 FAN ARGB (3 FRONTAL, 1 BACK) VIDRIO TEMPLADO FRONTAL Y LATERAL, LIQUID COOLING SUPPORT TOP AND FRONTAL 240 MM, GRAFIC CARD 330 MM.",
+        "description":  "FURIOUS MIC GC701\nGABINETE MICRONICS ATX BLACK + PSU 650W REAL, USB 3.0, 4 FAN ARGB (3 FRONTAL, 1 BACK) VIDRIO TEMPLADO FRONTAL Y LATERAL, LIQUID COOLING SUPPORT TOP AND FRONTAL 240 MM, GRAFIC CARD 330 MM.",
+        "fullDescription":  "FURIOUS MIC GC701\nGABINETE MICRONICS ATX BLACK + PSU 650W REAL, USB 3.0, 4 FAN ARGB (3 FRONTAL, 1 BACK) VIDRIO TEMPLADO FRONTAL Y LATERAL, LIQUID COOLING SUPPORT TOP AND FRONTAL 240 MM, GRAFIC CARD 330 MM.",
         "orderCount":  119,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745668253-prod-61-case-micronics-furious.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745668253-prod-61-case-micronics-furious.jpg"
                    ],
-        "sortOrder":  60
+        "sortOrder":  57
     },
     {
         "id":  "prod-62",
@@ -1028,14 +980,14 @@ const DEFAULT_PRODUCTS = [
         "price":  105,
         "badge":  "",
         "inStock":  true,
-        "description":  "CASE FALCON ENKORE ENC 5000 GABINETE ATX BLACK SIN FUENTE 04 FAN RAINBOW, VIDRIO TEMPLADO FRONTAL Y LATERAL, LIQUID COOLING SUPPORT 240 MM, GRAFIC CARD 300 MM, ESPACIO INFERIOR PARA LA FUENTE",
-        "fullDescription":  "CASE FALCON ENKORE ENC 5000 GABINETE ATX BLACK SIN FUENTE 04 FAN RAINBOW, VIDRIO TEMPLADO FRONTAL Y LATERAL, LIQUID COOLING SUPPORT 240 MM, GRAFIC CARD 300 MM, ESPACIO INFERIOR PARA LA FUENTE",
+        "description":  "CASE FALCON ENKORE ENC 5000 GABINETE ATX BLACK  SIN FUENTE 04 FAN RAINBOW, VIDRIO TEMPLADO FRONTAL Y LATERAL, LIQUID COOLING SUPPORT 240 MM, GRAFIC CARD 300 MM, ESPACIO INFERIOR PARA LA FUENTE",
+        "fullDescription":  "CASE FALCON ENKORE ENC 5000 GABINETE ATX BLACK  SIN FUENTE 04 FAN RAINBOW, VIDRIO TEMPLADO FRONTAL Y LATERAL, LIQUID COOLING SUPPORT 240 MM, GRAFIC CARD 300 MM, ESPACIO INFERIOR PARA LA FUENTE",
         "orderCount":  118,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745669449-prod-62-case-falcon-enk-5000-c.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745669449-prod-62-case-falcon-enk-5000-c.jpg"
                    ],
-        "sortOrder":  61
+        "sortOrder":  58
     },
     {
         "id":  "prod-63",
@@ -1051,7 +1003,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745670605-prod-63-case-falcon-enkore-pc-.jpg"
                    ],
-        "sortOrder":  62
+        "sortOrder":  59
     },
     {
         "id":  "prod-64",
@@ -1060,14 +1012,14 @@ const DEFAULT_PRODUCTS = [
         "price":  169,
         "badge":  "",
         "inStock":  true,
-        "description":  "CASE MICRONICS FANATIC LEGEND FNT 8007 ATX, Micro-ATX, Mini-ITX CRISTAL TEMPLADO",
-        "fullDescription":  "CASE MICRONICS FANATIC LEGEND FNT 8007 ATX, Micro-ATX, Mini-ITX CRISTAL TEMPLADO",
+        "description":  "CASE MICRONICS FANATIC LEGEND FNT 8007   ATX, Micro-ATX, Mini-ITX\nCRISTAL TEMPLADO",
+        "fullDescription":  "CASE MICRONICS FANATIC LEGEND FNT 8007   ATX, Micro-ATX, Mini-ITX\nCRISTAL TEMPLADO",
         "orderCount":  116,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745671390-prod-64-case-micronics-fanatic.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745671390-prod-64-case-micronics-fanatic.jpg"
                    ],
-        "sortOrder":  63
+        "sortOrder":  60
     },
     {
         "id":  "prod-65",
@@ -1083,7 +1035,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745672100-prod-65-case-antrix-rx-vortex-.jpg"
                    ],
-        "sortOrder":  64
+        "sortOrder":  61
     },
     {
         "id":  "prod-66",
@@ -1099,7 +1051,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745672733-prod-66-case-enkore-delta-1000.jpg"
                    ],
-        "sortOrder":  65
+        "sortOrder":  62
     },
     {
         "id":  "prod-67",
@@ -1108,14 +1060,14 @@ const DEFAULT_PRODUCTS = [
         "price":  115,
         "badge":  "",
         "inStock":  true,
-        "description":  "CASE CYBERTEL DERBY C1005 SLIM 230W | P8 2 FAN",
-        "fullDescription":  "CASE CYBERTEL DERBY C1005 SLIM 230W | P8 2 FAN",
+        "description":  "CASE CYBERTEL DERBY  C1005 SLIM  230W | P8 2 FAN",
+        "fullDescription":  "CASE CYBERTEL DERBY  C1005 SLIM  230W | P8 2 FAN",
         "orderCount":  113,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745673469-prod-67-case-cybertel-derby-cb.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745673469-prod-67-case-cybertel-derby-cb.jpg"
                    ],
-        "sortOrder":  66
+        "sortOrder":  63
     },
     {
         "id":  "prod-68",
@@ -1124,20 +1076,20 @@ const DEFAULT_PRODUCTS = [
         "price":  127,
         "badge":  "",
         "inStock":  true,
-        "description":  "CASE CYBERTEL EPICO CBX C1000 230W",
-        "fullDescription":  "CASE CYBERTEL EPICO CBX C1000 230W",
+        "description":  "CASE CYBERTEL EPICO  CBX C1000  230W",
+        "fullDescription":  "CASE CYBERTEL EPICO  CBX C1000  230W",
         "orderCount":  112,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745674567-prod-68-case-cybertel-epico-cb.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745674567-prod-68-case-cybertel-epico-cb.jpg"
                    ],
-        "sortOrder":  67
+        "sortOrder":  64
     },
     {
         "id":  "prod-69",
         "name":  "PROC. INTEL CORE ULTRA 5 225F LGA 1851",
         "category":  "Procesadores",
-        "price":  727,
+        "price":  722,
         "badge":  "",
         "inStock":  true,
         "description":  "PROC. INTEL CORE ULTRA 5 225F LGA 1851",
@@ -1147,13 +1099,13 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745675357-prod-69-proc--intel-core-ultra.jpg"
                    ],
-        "sortOrder":  68
+        "sortOrder":  65
     },
     {
         "id":  "prod-70",
         "name":  "PROCESADOR CORE I5 12600KF LGA 1700",
         "category":  "Procesadores",
-        "price":  819,
+        "price":  814,
         "badge":  "",
         "inStock":  true,
         "description":  "PROCESADOR CORE I5 12600KF LGA 1700",
@@ -1163,45 +1115,45 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745676062-prod-70-procesador-core-i5-126.jpg"
                    ],
-        "sortOrder":  69
+        "sortOrder":  66
     },
     {
         "id":  "prod-71",
         "name":  "Procesador Intel Core i5-12600K LGA1700, 125W, 10 nm. (CON VIDEO)",
         "category":  "Procesadores",
-        "price":  925,
+        "price":  920,
         "badge":  "",
         "inStock":  true,
-        "description":  "Procesador Intel Core i5-12600K 3.70 / 4.90GHz, 20MB Caché L3, LGA1700, 125W, 10 nm. CON TARJETA DE VIDEO",
-        "fullDescription":  "Procesador Intel Core i5-12600K 3.70 / 4.90GHz, 20MB Caché L3, LGA1700, 125W, 10 nm. CON TARJETA DE VIDEO",
+        "description":  "Procesador Intel Core i5-12600K 3.70 / 4.90GHz, 20MB Caché L3, LGA1700, 125W, 10 nm.  CON TARJETA DE VIDEO",
+        "fullDescription":  "Procesador Intel Core i5-12600K 3.70 / 4.90GHz, 20MB Caché L3, LGA1700, 125W, 10 nm.  CON TARJETA DE VIDEO",
         "orderCount":  109,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745677151-prod-71-procesador-intel-core-.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745677151-prod-71-procesador-intel-core-.jpg"
                    ],
-        "sortOrder":  70
+        "sortOrder":  67
     },
     {
         "id":  "prod-72",
         "name":  "PROCESADOR CORE 10TH GEN CORE I3 - 10100F (LGA1200)",
         "category":  "Procesadores",
-        "price":  244,
+        "price":  239,
         "badge":  "",
         "inStock":  true,
-        "description":  "PROCESADOR CORE 10TH GEN CORE I3 - 10100F (LGA1200)",
-        "fullDescription":  "PROCESADOR CORE 10TH GEN CORE I3 - 10100F (LGA1200)",
+        "description":  "PROCESADOR  CORE  10TH GEN CORE I3 - 10100F  (LGA1200)",
+        "fullDescription":  "PROCESADOR  CORE  10TH GEN CORE I3 - 10100F  (LGA1200)",
         "orderCount":  108,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745678226-prod-72-procesador-core-10th-g.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745678226-prod-72-procesador-core-10th-g.jpg"
                    ],
-        "sortOrder":  71
+        "sortOrder":  68
     },
     {
         "id":  "prod-73",
         "name":  "PROCESADOR INTEL CORE i5 12400",
         "category":  "Procesadores",
-        "price":  786,
+        "price":  781,
         "badge":  "Nuevo Ingreso",
         "inStock":  true,
         "description":  "Procesador intel core i5 12400 (bx8071512400) 2.5ghz-18mb | LGA 1700",
@@ -1211,13 +1163,13 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745679345-prod-73-procesador-intel-core-.jpg"
                    ],
-        "sortOrder":  72
+        "sortOrder":  69
     },
     {
         "id":  "prod-74",
         "name":  "PROCESADOR INTEL CORE i7 14700",
         "category":  "Procesadores",
-        "price":  1674,
+        "price":  1669,
         "badge":  "Nuevo Ingreso",
         "inStock":  true,
         "description":  "Intel Core i7-14700 Procesador 20 Núcleos 28 Hilos 5.4GHz LGA1700",
@@ -1227,13 +1179,13 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745680417-prod-74-procesador-intel-core-.jpg"
                    ],
-        "sortOrder":  73
+        "sortOrder":  70
     },
     {
         "id":  "prod-75",
         "name":  "PROCESADOR INTEL CORE i9 - 14900",
         "category":  "Procesadores",
-        "price":  2581,
+        "price":  2576,
         "badge":  "Nuevo Ingreso",
         "inStock":  true,
         "description":  "PROCESADOR INTEL CORE i9-14900, Cache 36 MB, Hasta 5.8 Ghz",
@@ -1243,13 +1195,13 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745681914-prod-75-procesador-intel-core-.jpg"
                    ],
-        "sortOrder":  74
+        "sortOrder":  71
     },
     {
         "id":  "prod-76",
         "name":  "PROCESADOR INTEL CORE i5 - 10500T OEM",
         "category":  "Procesadores",
-        "price":  495,
+        "price":  490,
         "badge":  "Nuevo Ingreso",
         "inStock":  true,
         "description":  "PROCESADOR INTEL CORE I5 -10500T LGA 1200 10TH GEN OEM",
@@ -1259,13 +1211,13 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745682930-prod-76-procesador-intel-core-.jpg"
                    ],
-        "sortOrder":  75
+        "sortOrder":  72
     },
     {
         "id":  "prod-77",
         "name":  "PROCESADOR CORE ULTRA 7 - 270K PLUS LGA1851",
         "category":  "Procesadores",
-        "price":  1495,
+        "price":  1490,
         "badge":  "Nuevo Ingreso",
         "inStock":  true,
         "description":  "PROCESADOR INTEL CORE ULTRA 7 270K PLUS",
@@ -1275,29 +1227,29 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745683590-prod-77-procesador-core-ultra-.jpg"
                    ],
-        "sortOrder":  76
+        "sortOrder":  73
     },
     {
         "id":  "prod-78",
         "name":  "RYZEN 9 9900X 12 NUCLEOS Y 24 HILOS",
         "category":  "Procesadores",
-        "price":  1645,
+        "price":  1640,
         "badge":  "Oferta",
         "inStock":  true,
-        "description":  "RYZEN 9 9900X 12 NUCLEOS Y 24 HILOS AM5",
-        "fullDescription":  "RYZEN 9 9900X 12 NUCLEOS Y 24 HILOS AM5",
+        "description":  "RYZEN 9 9900X  12 NUCLEOS Y 24 HILOS AM5",
+        "fullDescription":  "RYZEN 9 9900X  12 NUCLEOS Y 24 HILOS AM5",
         "orderCount":  102,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745684216-prod-78-ryzen-9-9900x-12-nucle.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745684216-prod-78-ryzen-9-9900x-12-nucle.jpg"
                    ],
-        "sortOrder":  77
+        "sortOrder":  74
     },
     {
         "id":  "prod-79",
         "name":  "Ryzen 5 9600x 6 núcleos y 12 hilos",
         "category":  "Procesadores",
-        "price":  770,
+        "price":  765,
         "badge":  "Oferta",
         "inStock":  true,
         "description":  "Ryzen 5 9600x 6 núcleos y 12 hilos AM5",
@@ -1307,13 +1259,13 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745684843-prod-79-ryzen-5-9600x-6-n-cleo.jpg"
                    ],
-        "sortOrder":  78
+        "sortOrder":  75
     },
     {
         "id":  "prod-80",
         "name":  "PROC RYZEN 5 8600G",
         "category":  "Procesadores",
-        "price":  685,
+        "price":  680,
         "badge":  "Oferta",
         "inStock":  true,
         "description":  "PROC RYZEN 5 8600G 6 CORE 12 THREAD 5.0 GHZ",
@@ -1323,13 +1275,13 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745685603-prod-80-proc-ryzen-5-8600g.jpg"
                    ],
-        "sortOrder":  79
+        "sortOrder":  76
     },
     {
         "id":  "prod-81",
         "name":  "PROCESADOR RYZEN 5 5500 AM4",
         "category":  "Procesadores",
-        "price":  372,
+        "price":  367,
         "badge":  "Oferta",
         "inStock":  true,
         "description":  "PROCESADOR RYZEN 5 5500 AM4",
@@ -1339,13 +1291,13 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745686647-prod-81-procesador-ryzen-5-550.jpg"
                    ],
-        "sortOrder":  80
+        "sortOrder":  77
     },
     {
         "id":  "prod-82",
         "name":  "PROCESADOR RYZEN 5 5600GT AM4",
         "category":  "Procesadores",
-        "price":  696,
+        "price":  691,
         "badge":  "Nuevo Ingreso",
         "inStock":  true,
         "description":  "PROCESADOR AMD RYZEN 5 5600GT 3.6GHZ HASTA 4.6GHZ 19MB (100-100001488BOX) AM4, 6 NUCLEOS",
@@ -1355,39 +1307,39 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745687751-prod-82-procesador-ryzen-5-560.jpg"
                    ],
-        "sortOrder":  81
+        "sortOrder":  78
     },
     {
         "id":  "prod-83",
         "name":  "PROCESADOR AMD RYZEN 7 5700G CON GRAFICOS",
         "category":  "Procesadores",
-        "price":  795,
-        "badge":  "",
+        "price":  790,
+        "badge":  "Precio Actualizado",
         "inStock":  true,
-        "description":  "PROCESADOR AMD RYZEN 7 5700G 3.8GHZ HASTA 4.6GHZ 20MB (100-100000263BOX) AM4, 8 NUCLEOS, RADEON GRAPHICS CON GRAFICOS",
-        "fullDescription":  "PROCESADOR AMD RYZEN 7 5700G 3.8GHZ HASTA 4.6GHZ 20MB (100-100000263BOX) AM4, 8 NUCLEOS, RADEON GRAPHICS CON GRAFICOS",
+        "description":  "PROCESADOR AMD RYZEN 7 5700G 3.8GHZ HASTA 4.6GHZ 20MB (100-100000263BOX) AM4, 8 NUCLEOS, RADEON GRAPHICS\nCON GRAFICOS",
+        "fullDescription":  "PROCESADOR AMD RYZEN 7 5700G 3.8GHZ HASTA 4.6GHZ 20MB (100-100000263BOX) AM4, 8 NUCLEOS, RADEON GRAPHICS\nCON GRAFICOS",
         "orderCount":  97,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745688709-prod-83-procesador-amd-ryzen-7.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745688709-prod-83-procesador-amd-ryzen-7.jpg"
                    ],
-        "sortOrder":  82
+        "sortOrder":  79
     },
     {
         "id":  "prod-84",
         "name":  "PROCESADOR RYZEN 5 7600X AM5",
         "category":  "Procesadores",
-        "price":  715,
+        "price":  710,
         "badge":  "Oferta",
         "inStock":  true,
-        "description":  "PROCESADOR RYZEN 5 7600X AM5. 4.7Ghz Hasta 5.3Ghz 6 núcleos y 12",
-        "fullDescription":  "PROCESADOR RYZEN 5 7600X AM5. 4.7Ghz Hasta 5.3Ghz 6 núcleos y 12",
+        "description":  "PROCESADOR RYZEN 5 7600X AM5.   4.7Ghz Hasta 5.3Ghz 6 núcleos y 12",
+        "fullDescription":  "PROCESADOR RYZEN 5 7600X AM5.   4.7Ghz Hasta 5.3Ghz 6 núcleos y 12",
         "orderCount":  96,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745689473-prod-84-procesador-ryzen-5-760.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745689473-prod-84-procesador-ryzen-5-760.jpg"
                    ],
-        "sortOrder":  83
+        "sortOrder":  80
     },
     {
         "id":  "prod-85",
@@ -1403,7 +1355,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745690597-prod-85-memoria-pny-lr8-duo-2x.jpg"
                    ],
-        "sortOrder":  84
+        "sortOrder":  81
     },
     {
         "id":  "prod-86",
@@ -1412,14 +1364,14 @@ const DEFAULT_PRODUCTS = [
         "price":  604,
         "badge":  "",
         "inStock":  true,
-        "description":  "MEMORIA CORSAIR VENGEANCE DUO 2X8 3600HZ 16GB DDR4",
-        "fullDescription":  "MEMORIA CORSAIR VENGEANCE DUO 2X8 3600HZ 16GB DDR4",
+        "description":  "MEMORIA CORSAIR  VENGEANCE DUO 2X8 3600HZ 16GB DDR4",
+        "fullDescription":  "MEMORIA CORSAIR  VENGEANCE DUO 2X8 3600HZ 16GB DDR4",
         "orderCount":  94,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745691554-prod-86-memoria-corsair-vengea.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745691554-prod-86-memoria-corsair-vengea.jpg"
                    ],
-        "sortOrder":  85
+        "sortOrder":  82
     },
     {
         "id":  "prod-87",
@@ -1435,7 +1387,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745692339-prod-87-memoria-ddr4-xpg-spect.jpg"
                    ],
-        "sortOrder":  86
+        "sortOrder":  83
     },
     {
         "id":  "prod-88",
@@ -1444,14 +1396,14 @@ const DEFAULT_PRODUCTS = [
         "price":  274,
         "badge":  "",
         "inStock":  true,
-        "description":  "MEMORIA DDR4 RGB LED HP 3600MHZ 8GB PC CARCASA DE REFRIGERACION DE METAL CEPILLADO",
-        "fullDescription":  "MEMORIA DDR4 RGB LED HP 3600MHZ 8GB PC CARCASA DE REFRIGERACION DE METAL CEPILLADO",
+        "description":  "MEMORIA DDR4 RGB LED HP 3600MHZ 8GB PC CARCASA DE REFRIGERACION  DE METAL CEPILLADO",
+        "fullDescription":  "MEMORIA DDR4 RGB LED HP 3600MHZ 8GB PC CARCASA DE REFRIGERACION  DE METAL CEPILLADO",
         "orderCount":  92,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745693309-prod-88-memoria-ddr4-rgb-led-h.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745693309-prod-88-memoria-ddr4-rgb-led-h.jpg"
                    ],
-        "sortOrder":  87
+        "sortOrder":  84
     },
     {
         "id":  "prod-89",
@@ -1467,7 +1419,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745694542-prod-89-memoria-ddr4-xpg-de-16.jpg"
                    ],
-        "sortOrder":  88
+        "sortOrder":  85
     },
     {
         "id":  "prod-90",
@@ -1483,7 +1435,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745695744-prod-90-memoria-ddr4-xpg-8gb-d.jpg"
                    ],
-        "sortOrder":  89
+        "sortOrder":  86
     },
     {
         "id":  "prod-91",
@@ -1499,7 +1451,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745696555-prod-91-memoria-ddr4-adata-bus.jpg"
                    ],
-        "sortOrder":  90
+        "sortOrder":  87
     },
     {
         "id":  "prod-92",
@@ -1515,7 +1467,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745697431-prod-92-memoria-ddr3-fury-hype.jpg"
                    ],
-        "sortOrder":  91
+        "sortOrder":  88
     },
     {
         "id":  "prod-93",
@@ -1524,14 +1476,14 @@ const DEFAULT_PRODUCTS = [
         "price":  415,
         "badge":  "Nuevo Ingreso",
         "inStock":  true,
-        "description":  "MEMORIA KINGSTON FURY BEAST 16GB DDR4 3200 BLACK KF432C16BB1/16 SIN DISIPADOR, ORIGINAL",
-        "fullDescription":  "MEMORIA KINGSTON FURY BEAST 16GB DDR4 3200 BLACK KF432C16BB1/16 SIN DISIPADOR, ORIGINAL",
+        "description":  "MEMORIA KINGSTON FURY BEAST 16GB DDR4 3200 BLACK KF432C16BB1/16\nSIN DISIPADOR, ORIGINAL",
+        "fullDescription":  "MEMORIA KINGSTON FURY BEAST 16GB DDR4 3200 BLACK KF432C16BB1/16\nSIN DISIPADOR, ORIGINAL",
         "orderCount":  87,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745698369-prod-93-memoria-kingston-fury-.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745698369-prod-93-memoria-kingston-fury-.jpg"
                    ],
-        "sortOrder":  92
+        "sortOrder":  89
     },
     {
         "id":  "prod-94",
@@ -1547,23 +1499,23 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745699169-prod-94-memoria-kingston-fury-.jpg"
                    ],
-        "sortOrder":  93
+        "sortOrder":  90
     },
     {
         "id":  "prod-95",
         "name":  "MEMORIA KINGSTON FURY DE 16GB DDR5 BUSS 5600",
         "category":  "Memoria Ram",
-        "price":  720,
-        "badge":  "",
+        "price":  415,
+        "badge":  "Nuevo Ingreso",
         "inStock":  true,
-        "description":  "MEMORIA KINGSTON FURY DE 16GB DDR5 BUSS 5600",
-        "fullDescription":  "MEMORIA KINGSTON FURY DE 16GB DDR5 BUSS 5600",
+        "description":  "MEMORIA KINGSTON FURY BEAST 16GB DDR4 3200 BLACK KF432C16BB1/16\nSIN DISIPADOR, ORIGINAL",
+        "fullDescription":  "MEMORIA KINGSTON FURY BEAST 16GB DDR4 3200 BLACK KF432C16BB1/16\nSIN DISIPADOR, ORIGINAL",
         "orderCount":  85,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745699936-prod-95-memoria-kingston-fury-.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745699936-prod-95-memoria-kingston-fury-.jpg"
                    ],
-        "sortOrder":  94
+        "sortOrder":  91
     },
     {
         "id":  "prod-96",
@@ -1572,14 +1524,14 @@ const DEFAULT_PRODUCTS = [
         "price":  775,
         "badge":  "Nuevo Ingreso",
         "inStock":  true,
-        "description":  "MEMORIA KINGSTON DDR4 32GB PARA ( PC )",
-        "fullDescription":  "MEMORIA KINGSTON DDR4 32GB PARA ( PC )",
+        "description":  "MEMORIA KINGSTON DDR4 32GB PARA  ( PC )",
+        "fullDescription":  "MEMORIA KINGSTON DDR4 32GB PARA  ( PC )",
         "orderCount":  84,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745700680-prod-96-memoria-kingston-ddr4-.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745700680-prod-96-memoria-kingston-ddr4-.jpg"
                    ],
-        "sortOrder":  95
+        "sortOrder":  92
     },
     {
         "id":  "prod-97",
@@ -1588,14 +1540,14 @@ const DEFAULT_PRODUCTS = [
         "price":  160,
         "badge":  "",
         "inStock":  true,
-        "description":  "MEMORIA PARA LAPTOP 8GB HYNIX DRR4 2400MHZ",
-        "fullDescription":  "MEMORIA PARA LAPTOP 8GB HYNIX DRR4 2400MHZ",
+        "description":  "MEMORIA OEM LAPTOP 8GB SAMSUNG DRR4 2666",
+        "fullDescription":  "MEMORIA OEM LAPTOP 8GB SAMSUNG DRR4 2666",
         "orderCount":  83,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745701826-prod-97-memoria-oem-laptop-8gb.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745701826-prod-97-memoria-oem-laptop-8gb.jpg"
                    ],
-        "sortOrder":  96
+        "sortOrder":  93
     },
     {
         "id":  "prod-98",
@@ -1611,7 +1563,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745702953-prod-98-memoria-oem-laptop-8gb.jpg"
                    ],
-        "sortOrder":  97
+        "sortOrder":  94
     },
     {
         "id":  "prod-99",
@@ -1627,14 +1579,14 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745704120-prod-99-memoria-kingston-lapto.jpg"
                    ],
-        "sortOrder":  98
+        "sortOrder":  95
     },
     {
         "id":  "prod-100",
         "name":  "SSD KINGSTON NV3, 500GB, M.2, 2280, NVMe PCIe 4.0 x4",
         "category":  "Almacenamiento",
         "price":  391,
-        "badge":  "",
+        "badge":  "Precio Actualizado",
         "inStock":  true,
         "description":  "SSD KINGSTON NV3, 500GB, M.2, 2280, NVMe PCIe 4.0 x4",
         "fullDescription":  "SSD KINGSTON NV3, 500GB, M.2, 2280, NVMe PCIe 4.0 x4",
@@ -1643,7 +1595,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745705419-prod-100-ssd-kingston-nv3--500.jpg"
                    ],
-        "sortOrder":  99
+        "sortOrder":  96
     },
     {
         "id":  "prod-101",
@@ -1659,7 +1611,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745706537-prod-101-ssd-kingston-nv3-1000.jpg"
                    ],
-        "sortOrder":  100
+        "sortOrder":  97
     },
     {
         "id":  "prod-102",
@@ -1675,7 +1627,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745707795-prod-102-ssd-kingston-fury-ren.jpg"
                    ],
-        "sortOrder":  101
+        "sortOrder":  98
     },
     {
         "id":  "prod-103",
@@ -1691,7 +1643,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745709059-prod-103-ssd-m-2-abaddonx-de-1.jpg"
                    ],
-        "sortOrder":  102
+        "sortOrder":  99
     },
     {
         "id":  "prod-104",
@@ -1700,14 +1652,14 @@ const DEFAULT_PRODUCTS = [
         "price":  184,
         "badge":  "Nuevo Ingreso",
         "inStock":  true,
-        "description":  "SSD M.2 ABADDONIX 256GB",
-        "fullDescription":  "SSD M.2 ABADDONIX 256GB",
+        "description":  "SSD M.2 ABADDONIX  256GB",
+        "fullDescription":  "SSD M.2 ABADDONIX  256GB",
         "orderCount":  76,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745710252-prod-104-ssd-m-2-abaddonx-256-.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745710252-prod-104-ssd-m-2-abaddonx-256-.jpg"
                    ],
-        "sortOrder":  103
+        "sortOrder":  100
     },
     {
         "id":  "prod-105",
@@ -1716,14 +1668,14 @@ const DEFAULT_PRODUCTS = [
         "price":  294,
         "badge":  "Nuevo Ingreso",
         "inStock":  true,
-        "description":  "SSD M.2 ABADDONIX 512GB",
-        "fullDescription":  "SSD M.2 ABADDONIX 512GB",
+        "description":  "SSD M.2 ABADDONIX  512GB",
+        "fullDescription":  "SSD M.2 ABADDONIX  512GB",
         "orderCount":  75,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745711498-prod-105-ssd-m-2-abaddonx-512-.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745711498-prod-105-ssd-m-2-abaddonx-512-.jpg"
                    ],
-        "sortOrder":  104
+        "sortOrder":  101
     },
     {
         "id":  "prod-106",
@@ -1739,7 +1691,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745712515-prod-106-ssd-ceamere---240gb-s.jpg"
                    ],
-        "sortOrder":  105
+        "sortOrder":  102
     },
     {
         "id":  "prod-107",
@@ -1755,7 +1707,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745713510-prod-107-ssd-adata-480gb-sata-.jpg"
                    ],
-        "sortOrder":  106
+        "sortOrder":  103
     },
     {
         "id":  "prod-108",
@@ -1764,30 +1716,14 @@ const DEFAULT_PRODUCTS = [
         "price":  170,
         "badge":  "Nuevo Ingreso",
         "inStock":  true,
-        "description":  "DISCO SOLIDO SSD SATA 2.5 ADATA 256GB SU630, UNIDAD DE ALMACENAMIENTO, COMPATIBLE CON LAPTOP Y PC DE ESCRITORIO ( ASU630",
-        "fullDescription":  "DISCO SOLIDO SSD SATA 2.5 ADATA 256GB SU630, UNIDAD DE ALMACENAMIENTO, COMPATIBLE CON LAPTOP Y PC DE ESCRITORIO ( ASU630",
+        "description":  "DISCO SOLIDO SSD SATA 2.5 ADATA  256GB SU630, UNIDAD DE ALMACENAMIENTO, COMPATIBLE CON LAPTOP Y PC DE ESCRITORIO ( ASU630",
+        "fullDescription":  "DISCO SOLIDO SSD SATA 2.5 ADATA  256GB SU630, UNIDAD DE ALMACENAMIENTO, COMPATIBLE CON LAPTOP Y PC DE ESCRITORIO ( ASU630",
         "orderCount":  72,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745714641-prod-108-ssd-adata-256gb-sata-.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745714641-prod-108-ssd-adata-256gb-sata-.jpg"
                    ],
-        "sortOrder":  107
-    },
-    {
-        "id":  "prod-109",
-        "name":  "HDD SEAGATE EXOS 10TB",
-        "category":  "Almacenamiento",
-        "price":  975,
-        "badge":  "",
-        "inStock":  true,
-        "description":  "HDD SEAGATE EXOS 10TB MODEL 7E10",
-        "fullDescription":  "HDD SEAGATE EXOS 10TB MODEL 7E10",
-        "orderCount":  71,
-        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745715270-prod-109-hdd-seagate-exos-10tb.jpg",
-        "images":  [
-                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745715270-prod-109-hdd-seagate-exos-10tb.jpg"
-                   ],
-        "sortOrder":  108
+        "sortOrder":  104
     },
     {
         "id":  "prod-110",
@@ -1796,14 +1732,14 @@ const DEFAULT_PRODUCTS = [
         "price":  290,
         "badge":  "",
         "inStock":  true,
-        "description":  "Tarjeta gráfica PELAND GT730 NVIDIA GeForce GT 730, 4 GB DDR3, 128 bits, 700 MHz, Tarjeta de vídeo GPU para PC Gaming, DVI, HDMI, VGA, PCI Express 2.0, Compatible con Dir ( VIENE - CON PERFIL BAJO )",
-        "fullDescription":  "Tarjeta gráfica PELAND GT730 NVIDIA GeForce GT 730, 4 GB DDR3, 128 bits, 700 MHz, Tarjeta de vídeo GPU para PC Gaming, DVI, HDMI, VGA, PCI Express 2.0, Compatible con Dir ( VIENE - CON PERFIL BAJO )",
+        "description":  "Tarjeta gráfica PELAND GT730 NVIDIA GeForce GT 730, 4 GB DDR3, 128 bits, 700 MHz, Tarjeta de vídeo GPU para PC Gaming, DVI, HDMI, VGA, PCI Express 2.0, Compatible con Dir  ( VIENE - CON PERFIL BAJO )",
+        "fullDescription":  "Tarjeta gráfica PELAND GT730 NVIDIA GeForce GT 730, 4 GB DDR3, 128 bits, 700 MHz, Tarjeta de vídeo GPU para PC Gaming, DVI, HDMI, VGA, PCI Express 2.0, Compatible con Dir  ( VIENE - CON PERFIL BAJO )",
         "orderCount":  70,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745716358-prod-110-tarjeta-graf-peland--.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745716358-prod-110-tarjeta-graf-peland--.jpg"
                    ],
-        "sortOrder":  109
+        "sortOrder":  105
     },
     {
         "id":  "prod-111",
@@ -1819,7 +1755,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745717458-prod-111-tarjeta-de-video-winn.jpg"
                    ],
-        "sortOrder":  110
+        "sortOrder":  106
     },
     {
         "id":  "prod-112",
@@ -1835,7 +1771,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745718412-prod-112-tarje--grafic-rog-gam.jpg"
                    ],
-        "sortOrder":  111
+        "sortOrder":  107
     },
     {
         "id":  "prod-113",
@@ -1844,21 +1780,21 @@ const DEFAULT_PRODUCTS = [
         "price":  720,
         "badge":  "",
         "inStock":  true,
-        "description":  "RX 5500 XT 8GD6 Gaming Graphics Card Product Series RX 5000 Graphics chip Navi 14 Chipset Process 7 nm Base frequency 1717MHz Memory Capacity 8G Memory Type GDDR6 Memory Clock 1750 MHz Bus Width 128 bit",
-        "fullDescription":  "RX 5500 XT 8GD6 Gaming Graphics Card Product Series RX 5000 Graphics chip Navi 14 Chipset Process 7 nm Base frequency 1717MHz Memory Capacity 8G Memory Type GDDR6 Memory Clock 1750 MHz Bus Width 128 bit",
+        "description":  "RX 5500 XT 8GD6 Gaming Graphics Card  Product Series\nRX 5000\nGraphics chip\nNavi 14\nChipset Process\n7 nm\nBase frequency\n1717MHz\nMemory Capacity\n8G\nMemory Type\nGDDR6\nMemory Clock\n1750 MHz\nBus Width\n128 bit",
+        "fullDescription":  "RX 5500 XT 8GD6 Gaming Graphics Card  Product Series\nRX 5000\nGraphics chip\nNavi 14\nChipset Process\n7 nm\nBase frequency\n1717MHz\nMemory Capacity\n8G\nMemory Type\nGDDR6\nMemory Clock\n1750 MHz\nBus Width\n128 bit",
         "orderCount":  67,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745719514-prod-113-rx-5500-peland-8gd6-g.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745719514-prod-113-rx-5500-peland-8gd6-g.jpg"
                    ],
-        "sortOrder":  112
+        "sortOrder":  108
     },
     {
         "id":  "prod-114",
         "name":  "TARJETA DE VIDEO TEROS RX 580 8GB GDDR5 ( 256 BIT)",
         "category":  "Tarjetas de Video",
-        "price":  615,
-        "badge":  "",
+        "price":  635,
+        "badge":  "Precio Actualizado",
         "inStock":  true,
         "description":  "Tarjeta de video TEROS AMD Radeon RX 580 8GB GDDR5, PCI Express Gen 3.0 x16",
         "fullDescription":  "Tarjeta de video TEROS AMD Radeon RX 580 8GB GDDR5, PCI Express Gen 3.0 x16",
@@ -1867,30 +1803,30 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745720820-prod-114-tarjeta-de-video-tero.jpg"
                    ],
-        "sortOrder":  113
+        "sortOrder":  109
     },
     {
         "id":  "prod-115",
         "name":  "T. VIDEO ASUS GEFORCE NVIDIA RTX 3050 DUAL 6GB GDDR6",
         "category":  "Tarjetas de Video",
-        "price":  925,
-        "badge":  "",
+        "price":  950,
+        "badge":  "Precio Actualizado",
         "inStock":  true,
-        "description":  "TARJETA DE VIDEO ASUS GEFORCE RTX 3050 DUAL 6GB GDDR6 (90YV0K60-M0AA00) GEFORCE NVIDIA 96 BITS, 2 VENTILADORES",
-        "fullDescription":  "TARJETA DE VIDEO ASUS GEFORCE RTX 3050 DUAL 6GB GDDR6 (90YV0K60-M0AA00) GEFORCE NVIDIA 96 BITS, 2 VENTILADORES",
+        "description":  "TARJETA DE VIDEO ASUS GEFORCE RTX 3050 DUAL  6GB GDDR6 (90YV0K60-M0AA00) GEFORCE NVIDIA 96 BITS, 2 VENTILADORES",
+        "fullDescription":  "TARJETA DE VIDEO ASUS GEFORCE RTX 3050 DUAL  6GB GDDR6 (90YV0K60-M0AA00) GEFORCE NVIDIA 96 BITS, 2 VENTILADORES",
         "orderCount":  65,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745721908-prod-115-t--video-asus-geforce.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745721908-prod-115-t--video-asus-geforce.jpg"
                    ],
-        "sortOrder":  114
+        "sortOrder":  110
     },
     {
         "id":  "prod-116",
         "name":  "PALIT GEFORCE PALIT RTX 3050 StormX 6GB",
         "category":  "Tarjetas de Video",
-        "price":  855,
-        "badge":  "",
+        "price":  885,
+        "badge":  "Precio Actualizado",
         "inStock":  true,
         "description":  "VGA PALIT GEFORCE RTX 3050 StormX 6GB GDDR6 1 FANS",
         "fullDescription":  "VGA PALIT GEFORCE RTX 3050 StormX 6GB GDDR6 1 FANS",
@@ -1899,7 +1835,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745723352-prod-116-palit-geforce-palit-r.jpg"
                    ],
-        "sortOrder":  115
+        "sortOrder":  111
     },
     {
         "id":  "prod-117",
@@ -1915,23 +1851,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745724110-prod-117-placa-rog-gaming-h610.jpg"
                    ],
-        "sortOrder":  116
-    },
-    {
-        "id":  "prod-118",
-        "name":  "Placa Base MSI B550M PRO-VDH WIFI",
-        "category":  "Placas Madres",
-        "price":  355,
-        "badge":  "Oferta",
-        "inStock":  true,
-        "description":  "Placa Base MSI B550M PRO-VDH WIFI - ATX, Soporta 128 GB DDR4, 4400 MHz, HDMI y DisplayPort",
-        "fullDescription":  "Placa Base MSI B550M PRO-VDH WIFI - ATX, Soporta 128 GB DDR4, 4400 MHz, HDMI y DisplayPort",
-        "orderCount":  62,
-        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745724913-prod-118-placa-base-msi-b550m-.jpg",
-        "images":  [
-                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745724913-prod-118-placa-base-msi-b550m-.jpg"
-                   ],
-        "sortOrder":  117
+        "sortOrder":  112
     },
     {
         "id":  "prod-119",
@@ -1947,7 +1867,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745726285-prod-119-placa-b550-m-a-wifi-a.jpg"
                    ],
-        "sortOrder":  118
+        "sortOrder":  113
     },
     {
         "id":  "prod-120",
@@ -1963,7 +1883,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745727584-prod-120-placa-madre-gigabyte-.jpg"
                    ],
-        "sortOrder":  119
+        "sortOrder":  114
     },
     {
         "id":  "prod-121",
@@ -1972,14 +1892,14 @@ const DEFAULT_PRODUCTS = [
         "price":  283,
         "badge":  "",
         "inStock":  true,
-        "description":  "PLACA GIGABYTE H610M K DRR4",
-        "fullDescription":  "PLACA GIGABYTE H610M K DRR4",
+        "description":  "PLACA GIGABYTE  H610M K DRR4",
+        "fullDescription":  "PLACA GIGABYTE  H610M K DRR4",
         "orderCount":  59,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745728376-prod-121-placa-gigabyte-h610m-.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745728376-prod-121-placa-gigabyte-h610m-.jpg"
                    ],
-        "sortOrder":  120
+        "sortOrder":  115
     },
     {
         "id":  "prod-122",
@@ -1995,7 +1915,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745729280-prod-122-placa-asus-a520m-k.jpg"
                    ],
-        "sortOrder":  121
+        "sortOrder":  116
     },
     {
         "id":  "prod-123",
@@ -2004,21 +1924,21 @@ const DEFAULT_PRODUCTS = [
         "price":  268,
         "badge":  "Oferta",
         "inStock":  true,
-        "description":  "Asus H610 DDR5 LGA 1700 PARA 12VA,13VA,14VA GEN",
-        "fullDescription":  "Asus H610 DDR5 LGA 1700 PARA 12VA,13VA,14VA GEN",
+        "description":  "Asus H610 DDR5  LGA 1700 PARA 12VA,13VA,14VA GEN",
+        "fullDescription":  "Asus H610 DDR5  LGA 1700 PARA 12VA,13VA,14VA GEN",
         "orderCount":  57,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745730034-prod-123-asus-h610-ddr5-lga-17.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745730034-prod-123-asus-h610-ddr5-lga-17.jpg"
                    ],
-        "sortOrder":  122
+        "sortOrder":  117
     },
     {
         "id":  "prod-124",
         "name":  "PLACA MADRE H110 WINNFOX DDR4 PARA 6TA A 9NA GEN",
         "category":  "Placas Madres",
-        "price":  225,
-        "badge":  "Nuevo Ingreso",
+        "price":  235,
+        "badge":  "Precio Actualizado",
         "inStock":  true,
         "description":  "PLACA WINNFOX H110 DDR4 LGA 1151 PARA 6TA \u0026 9NA GENERACION",
         "fullDescription":  "PLACA WINNFOX H110 DDR4 LGA 1151 PARA 6TA \u0026 9NA GENERACION",
@@ -2027,7 +1947,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745731169-prod-124-placa-madre-h110-winn.jpg"
                    ],
-        "sortOrder":  123
+        "sortOrder":  118
     },
     {
         "id":  "prod-125",
@@ -2036,14 +1956,14 @@ const DEFAULT_PRODUCTS = [
         "price":  190,
         "badge":  "Oferta",
         "inStock":  true,
-        "description":  "Procesador B450 -2 DE MICRONICS Socke AMD AM4 Compatible Procesadores: Ryzen 1000 al 5000 DDR4 2 Ranuras Frecuencias 2133 - 2400 - 2666 - 2933 - 3200 MHz Capacidad máxima 64 GB, Puertos 1 HDMI - 1 VGA - 1 RJ-45 - 2 USB 2.0 - 4 USB 3.0. Conectores de Audio: 3 Line IN - Line OUT - MIC IN",
-        "fullDescription":  "Procesador B450 -2 DE MICRONICS Socke AMD AM4 Compatible Procesadores: Ryzen 1000 al 5000 DDR4 2 Ranuras Frecuencias 2133 - 2400 - 2666 - 2933 - 3200 MHz Capacidad máxima 64 GB, Puertos 1 HDMI - 1 VGA - 1 RJ-45 - 2 USB 2.0 - 4 USB 3.0. Conectores de Audio: 3 Line IN - Line OUT - MIC IN",
+        "description":  "Procesador B450 -2 DE MICRONICS \nSocke  AMD AM4\nCompatible Procesadores: Ryzen 1000 al 5000 DDR4  2 Ranuras\nFrecuencias   2133 - 2400 - 2666 - 2933 - 3200 MHz\nCapacidad máxima  64 GB, Puertos 1 HDMI - 1 VGA - 1 RJ-45 - 2 USB 2.0 - 4 USB 3.0.\nConectores de Audio: 3 Line IN - Line OUT - MIC IN",
+        "fullDescription":  "Procesador B450 -2 DE MICRONICS \nSocke  AMD AM4\nCompatible Procesadores: Ryzen 1000 al 5000 DDR4  2 Ranuras\nFrecuencias   2133 - 2400 - 2666 - 2933 - 3200 MHz\nCapacidad máxima  64 GB, Puertos 1 HDMI - 1 VGA - 1 RJ-45 - 2 USB 2.0 - 4 USB 3.0.\nConectores de Audio: 3 Line IN - Line OUT - MIC IN",
         "orderCount":  55,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745732335-prod-125-placa-astrom-ast-b450.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745732335-prod-125-placa-astrom-ast-b450.jpg"
                    ],
-        "sortOrder":  124
+        "sortOrder":  119
     },
     {
         "id":  "prod-126",
@@ -2059,7 +1979,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745733501-prod-126-placa-winnfox-a320---.jpg"
                    ],
-        "sortOrder":  125
+        "sortOrder":  120
     },
     {
         "id":  "prod-127",
@@ -2068,14 +1988,14 @@ const DEFAULT_PRODUCTS = [
         "price":  150,
         "badge":  "",
         "inStock":  true,
-        "description":  "PLACA ESONIC H81DA DDR3 LGAN 1150 4TA GENERACION SATA /NV ME M.2 SSD",
-        "fullDescription":  "PLACA ESONIC H81DA DDR3 LGAN 1150 4TA GENERACION SATA /NV ME M.2 SSD",
+        "description":  "PLACA  ESONIC H81DA DDR3  LGAN 1150 4TA GENERACION SATA /NV ME M.2 SSD",
+        "fullDescription":  "PLACA  ESONIC H81DA DDR3  LGAN 1150 4TA GENERACION SATA /NV ME M.2 SSD",
         "orderCount":  53,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745734692-prod-127-placa-esonic-h81da-dd.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745734692-prod-127-placa-esonic-h81da-dd.jpg"
                    ],
-        "sortOrder":  126
+        "sortOrder":  121
     },
     {
         "id":  "prod-128",
@@ -2091,14 +2011,14 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745736133-prod-128-placa-esonic-h61da-dd.jpg"
                    ],
-        "sortOrder":  127
+        "sortOrder":  122
     },
     {
         "id":  "prod-129",
         "name":  "PLACA HA310DA ESONIC DDR4",
         "category":  "Placas Madres",
-        "price":  225,
-        "badge":  "Nuevo Ingreso",
+        "price":  235,
+        "badge":  "Precio Actualizado",
         "inStock":  true,
         "description":  "H310 Placa base de escritorio Esonic LGA1151 Placa base Matx para Intel 6TA - 7MA- 8VA- 9NA Generación",
         "fullDescription":  "H310 Placa base de escritorio Esonic LGA1151 Placa base Matx para Intel 6TA - 7MA- 8VA- 9NA Generación",
@@ -2107,7 +2027,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745737785-prod-129-placa-ha310da-esonic-.jpg"
                    ],
-        "sortOrder":  128
+        "sortOrder":  123
     },
     {
         "id":  "prod-130",
@@ -2123,7 +2043,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745738562-prod-130-ups-sat-ur1000--1000v.jpg"
                    ],
-        "sortOrder":  129
+        "sortOrder":  124
     },
     {
         "id":  "prod-131",
@@ -2132,14 +2052,14 @@ const DEFAULT_PRODUCTS = [
         "price":  524,
         "badge":  "Nuevo Ingreso",
         "inStock":  true,
-        "description":  "FUENTE DE PODER SEASONIC FOCUS GX-1000W 80PLUS GOLD FULL MODULAR SSR-102-A5A32SF Totalmente compatible con ATX 3.1 y PCIe Normas 5.1. Modularidad total para las mejores opciones de gestión de cables. Se agregó un cable 12V-2×6 para cumplir con las nuevas tarjetas gráficas. Cojinete dinámico de fluidos de 135 mm ( FDB ) Ventilador para un funcionamiento silencioso.",
-        "fullDescription":  "FUENTE DE PODER SEASONIC FOCUS GX-1000W 80PLUS GOLD FULL MODULAR SSR-102-A5A32SF Totalmente compatible con ATX 3.1 y PCIe Normas 5.1. Modularidad total para las mejores opciones de gestión de cables. Se agregó un cable 12V-2×6 para cumplir con las nuevas tarjetas gráficas. Cojinete dinámico de fluidos de 135 mm ( FDB ) Ventilador para un funcionamiento silencioso.",
+        "description":  "FUENTE DE PODER SEASONIC FOCUS GX-1000W 80PLUS GOLD FULL MODULAR SSR-102-A5A32SF Totalmente compatible con ATX 3.1 y PCIe Normas 5.1.\r\nModularidad total para las mejores opciones de gestión de cables.\r\nSe agregó un cable 12V-2×6 para cumplir con las nuevas tarjetas gráficas.\r\nCojinete dinámico de fluidos de 135 mm ( FDB ) Ventilador para un funcionamiento silencioso.",
+        "fullDescription":  "FUENTE DE PODER SEASONIC FOCUS GX-1000W 80PLUS GOLD FULL MODULAR SSR-102-A5A32SF Totalmente compatible con ATX 3.1 y PCIe Normas 5.1.\r\nModularidad total para las mejores opciones de gestión de cables.\r\nSe agregó un cable 12V-2×6 para cumplir con las nuevas tarjetas gráficas.\r\nCojinete dinámico de fluidos de 135 mm ( FDB ) Ventilador para un funcionamiento silencioso.",
         "orderCount":  49,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745739183-prod-131-fuente-de-poder-seaso.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745739183-prod-131-fuente-de-poder-seaso.jpg"
                    ],
-        "sortOrder":  130
+        "sortOrder":  125
     },
     {
         "id":  "prod-132",
@@ -2155,7 +2075,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745740119-prod-132-fuente-de-poder-evga-.jpg"
                    ],
-        "sortOrder":  131
+        "sortOrder":  126
     },
     {
         "id":  "prod-133",
@@ -2171,7 +2091,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745741053-prod-133-fuente-de-poder-couga.jpg"
                    ],
-        "sortOrder":  132
+        "sortOrder":  127
     },
     {
         "id":  "prod-134",
@@ -2180,14 +2100,14 @@ const DEFAULT_PRODUCTS = [
         "price":  110,
         "badge":  "Nuevo Ingreso",
         "inStock":  true,
-        "description":  "Fuente De Poder Corsair Cv450 450w 80 Plus Bronze",
-        "fullDescription":  "Fuente De Poder Corsair Cv450 450w 80 Plus Bronze",
+        "description":  "FUENTE DE PODER COUGAR XTC450 ARGB 80P WHITE (31XG045.0002P)",
+        "fullDescription":  "FUENTE DE PODER COUGAR XTC450 ARGB 80P WHITE (31XG045.0002P)",
         "orderCount":  46,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745741810-prod-134-fuente-de-poder-corsa.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745741810-prod-134-fuente-de-poder-corsa.jpg"
                    ],
-        "sortOrder":  133
+        "sortOrder":  128
     },
     {
         "id":  "prod-135",
@@ -2203,7 +2123,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745742748-prod-135-fuente-teros-7160-600.jpg"
                    ],
-        "sortOrder":  134
+        "sortOrder":  129
     },
     {
         "id":  "prod-136",
@@ -2212,14 +2132,14 @@ const DEFAULT_PRODUCTS = [
         "price":  224,
         "badge":  "",
         "inStock":  true,
-        "description":  "FUENTE XPG PYLON 650W 80PLUS BRONCE PYLON",
-        "fullDescription":  "FUENTE XPG PYLON 650W 80PLUS BRONCE PYLON",
+        "description":  "FUENTE XPG PYLON 650W 80PLUS BRONCE  PYLON",
+        "fullDescription":  "FUENTE XPG PYLON 650W 80PLUS BRONCE  PYLON",
         "orderCount":  44,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745743398-prod-136-fuente-xpg-pylon-650w.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745743398-prod-136-fuente-xpg-pylon-650w.jpg"
                    ],
-        "sortOrder":  135
+        "sortOrder":  130
     },
     {
         "id":  "prod-137",
@@ -2235,7 +2155,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745744163-prod-137-fuente-de-poder-rog-g.jpg"
                    ],
-        "sortOrder":  136
+        "sortOrder":  131
     },
     {
         "id":  "prod-138",
@@ -2251,23 +2171,23 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745744952-prod-138-fuente-cybertel-350w-.jpg"
                    ],
-        "sortOrder":  137
+        "sortOrder":  132
     },
     {
         "id":  "prod-139",
         "name":  "FUENTE MICRONICS GAMER MACHINE 80 PLUS BRONZE 650w",
         "category":  "Fuente de Poder",
         "price":  150,
-        "badge":  "",
+        "badge":  "Precio Actualizado",
         "inStock":  true,
-        "description":  "FUENTE MICRONICS GAMER MACHINE 80 PLUS BRONZE Fuente de poder de 650w. APFC (Active Power Factor Controller). Cable de alimentación incluido. Conectores con cables planos 1 Ventilador de 12 cm 1 Conector ATX 20 + 4 pines / Cable plano de 680 mm 2 Conector P8 (4 + 4) pines / Longitudes: 830 mm - 690 mm",
-        "fullDescription":  "FUENTE MICRONICS GAMER MACHINE 80 PLUS BRONZE Fuente de poder de 650w. APFC (Active Power Factor Controller). Cable de alimentación incluido. Conectores con cables planos 1 Ventilador de 12 cm 1 Conector ATX 20 + 4 pines / Cable plano de 680 mm 2 Conector P8 (4 + 4) pines / Longitudes: 830 mm - 690 mm",
+        "description":  "FUENTE MICRONICS GAMER MACHINE 80 PLUS  BRONZE Fuente de poder de 650w.\nAPFC (Active Power Factor Controller).\nCable de alimentación incluido.\nConectores con cables planos\n1 Ventilador de 12 cm\n1 Conector ATX 20 + 4 pines / Cable plano de 680 mm\n2 Conector P8 (4 + 4) pines / Longitudes: 830 mm - 690 mm",
+        "fullDescription":  "FUENTE MICRONICS GAMER MACHINE 80 PLUS  BRONZE Fuente de poder de 650w.\nAPFC (Active Power Factor Controller).\nCable de alimentación incluido.\nConectores con cables planos\n1 Ventilador de 12 cm\n1 Conector ATX 20 + 4 pines / Cable plano de 680 mm\n2 Conector P8 (4 + 4) pines / Longitudes: 830 mm - 690 mm",
         "orderCount":  41,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745745870-prod-139-fuente-micronics-game.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745745870-prod-139-fuente-micronics-game.jpg"
                    ],
-        "sortOrder":  138
+        "sortOrder":  133
     },
     {
         "id":  "prod-140",
@@ -2283,7 +2203,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745747099-prod-140-funte-de-poder-atx-50.jpg"
                    ],
-        "sortOrder":  139
+        "sortOrder":  134
     },
     {
         "id":  "prod-141",
@@ -2299,14 +2219,14 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745748313-prod-141-fuente-de-poder-micro.jpg"
                    ],
-        "sortOrder":  140
+        "sortOrder":  135
     },
     {
         "id":  "prod-142",
         "name":  "FUENTE MSI MAG 650W 80 PLUS BROZE",
         "category":  "Fuente de Poder",
-        "price":  171,
-        "badge":  "",
+        "price":  181,
+        "badge":  "Precio Actualizado",
         "inStock":  true,
         "description":  "FUENTE DE PODER MSI MAG A650W 80 PLUS BRONZE CERTIFICADA",
         "fullDescription":  "FUENTE DE PODER MSI MAG A650W 80 PLUS BRONZE CERTIFICADA",
@@ -2315,7 +2235,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745749342-prod-142-fuente-msi-mag-650w-8.jpg"
                    ],
-        "sortOrder":  141
+        "sortOrder":  136
     },
     {
         "id":  "prod-143",
@@ -2331,7 +2251,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745750156-prod-143-fuente-gigabyte-850-w.jpg"
                    ],
-        "sortOrder":  142
+        "sortOrder":  137
     },
     {
         "id":  "prod-144",
@@ -2347,7 +2267,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745751664-prod-144-fuente-gigabyte-p750w.jpg"
                    ],
-        "sortOrder":  143
+        "sortOrder":  138
     },
     {
         "id":  "prod-145",
@@ -2363,7 +2283,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745752440-prod-145-fuente-de-poder-antri.jpg"
                    ],
-        "sortOrder":  144
+        "sortOrder":  139
     },
     {
         "id":  "prod-146",
@@ -2379,7 +2299,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745753202-prod-146-fuente-de-poder-evga-.jpg"
                    ],
-        "sortOrder":  145
+        "sortOrder":  140
     },
     {
         "id":  "prod-147",
@@ -2388,14 +2308,14 @@ const DEFAULT_PRODUCTS = [
         "price":  211,
         "badge":  "",
         "inStock":  true,
-        "description":  "FUENTE DE PODER ROG GAMING X GX850 80+ BRONZE CON CONECTOR PCI E GEN5",
-        "fullDescription":  "FUENTE DE PODER ROG GAMING X GX850 80+ BRONZE CON CONECTOR PCI E GEN5",
+        "description":  "FUENTE DE PODER ROG GAMING X GX850 80+ BRONZE CON CONECTOR  PCI E GEN5",
+        "fullDescription":  "FUENTE DE PODER ROG GAMING X GX850 80+ BRONZE CON CONECTOR  PCI E GEN5",
         "orderCount":  33,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745754336-prod-147-fuente-rog-gaming-x-g.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745754336-prod-147-fuente-rog-gaming-x-g.jpg"
                    ],
-        "sortOrder":  146
+        "sortOrder":  141
     },
     {
         "id":  "prod-148",
@@ -2411,23 +2331,23 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745755429-prod-148-fuente-real-avatec-35.jpg"
                    ],
-        "sortOrder":  147
+        "sortOrder":  142
     },
     {
         "id":  "prod-149",
         "name":  "FUENTE REAL AVATEC 550W NEGRO",
         "category":  "Fuente de Poder",
-        "price":  106,
+        "price":  76,
         "badge":  "",
         "inStock":  true,
-        "description":  "FUENTE AVATEC 550W ENERMAX ATX, NO MODULAR, COLOR NEGRO (PSA-PRP550)",
-        "fullDescription":  "FUENTE AVATEC 550W ENERMAX ATX, NO MODULAR, COLOR NEGRO (PSA-PRP550)",
+        "description":  "FUENTE DE PODER AVATEC 350W PFH350W (AV-PSA-PFH350W) ATX | NO MODULAR | NEGRO",
+        "fullDescription":  "FUENTE DE PODER AVATEC 350W PFH350W (AV-PSA-PFH350W) ATX | NO MODULAR | NEGRO",
         "orderCount":  31,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745756524-prod-149-fuente-real-avatec-55.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745756524-prod-149-fuente-real-avatec-55.jpg"
                    ],
-        "sortOrder":  148
+        "sortOrder":  143
     },
     {
         "id":  "prod-150",
@@ -2436,14 +2356,14 @@ const DEFAULT_PRODUCTS = [
         "price":  69,
         "badge":  "",
         "inStock":  true,
-        "description":  "FUENTE DE PODER MICRONINC 250W 1 Ventilador de 12 cm 1 Conector ATX 20 + 4 pines / Cable LARGO PLANO de 580 mm 1 Conector P8 (4 + 4) pines / Longitudes: 610 mm 1 conectores ATA / IDE (535 mm) 3 conectores SATA (805 mm - 72 mm - 580mm) Disipador grande",
-        "fullDescription":  "FUENTE DE PODER MICRONINC 250W 1 Ventilador de 12 cm 1 Conector ATX 20 + 4 pines / Cable LARGO PLANO de 580 mm 1 Conector P8 (4 + 4) pines / Longitudes: 610 mm 1 conectores ATA / IDE (535 mm) 3 conectores SATA (805 mm - 72 mm - 580mm) Disipador grande",
+        "description":  "FUENTE DE PODER MICRONINC 250W\n1 Ventilador de 12 cm\n1 Conector ATX 20 + 4 pines / Cable LARGO PLANO de 580 mm \n1 Conector P8 (4 + 4) pines / Longitudes: 610 mm\n1 conectores ATA / IDE (535 mm)\n3 conectores SATA (805 mm - 72 mm - 580mm)\nDisipador grande",
+        "fullDescription":  "FUENTE DE PODER MICRONINC 250W\n1 Ventilador de 12 cm\n1 Conector ATX 20 + 4 pines / Cable LARGO PLANO de 580 mm \n1 Conector P8 (4 + 4) pines / Longitudes: 610 mm\n1 conectores ATA / IDE (535 mm)\n3 conectores SATA (805 mm - 72 mm - 580mm)\nDisipador grande",
         "orderCount":  30,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745757760-prod-150-fuente-poder-atx-250w.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745757760-prod-150-fuente-poder-atx-250w.jpg"
                    ],
-        "sortOrder":  149
+        "sortOrder":  144
     },
     {
         "id":  "prod-151",
@@ -2459,7 +2379,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745758815-prod-151-fuente-de-poder--cybe.jpg"
                    ],
-        "sortOrder":  150
+        "sortOrder":  145
     },
     {
         "id":  "prod-152",
@@ -2475,7 +2395,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745759966-prod-152-fuente-basica-avatec-.jpg"
                    ],
-        "sortOrder":  151
+        "sortOrder":  146
     },
     {
         "id":  "prod-153",
@@ -2491,7 +2411,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745761254-prod-153-funte-de-poder-micro-.jpg"
                    ],
-        "sortOrder":  152
+        "sortOrder":  147
     },
     {
         "id":  "prod-154",
@@ -2507,7 +2427,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745762265-prod-154-fuente-avatec-enermax.jpg"
                    ],
-        "sortOrder":  153
+        "sortOrder":  148
     },
     {
         "id":  "prod-155",
@@ -2523,7 +2443,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745762918-prod-155-fuente-ruix-5oo-80--w.jpg"
                    ],
-        "sortOrder":  154
+        "sortOrder":  149
     },
     {
         "id":  "prod-156",
@@ -2539,14 +2459,14 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745764065-prod-156-fuete-de-poder-rog-ga.jpg"
                    ],
-        "sortOrder":  155
+        "sortOrder":  150
     },
     {
         "id":  "prod-157",
         "name":  "FUENTE DE PODER ABKO COREMAX CM-700B BLACK 700W BRONZE",
         "category":  "Fuente de Poder",
-        "price":  134,
-        "badge":  "Nuevo Ingreso",
+        "price":  154,
+        "badge":  "Precio Actualizado",
         "inStock":  true,
         "description":  "FUENTE DE PODER ABKO COREMAX CM-700B BLACK 700W CYBENETICS 230EU BRONZE (PN:CM-700B)",
         "fullDescription":  "FUENTE DE PODER ABKO COREMAX CM-700B BLACK 700W CYBENETICS 230EU BRONZE (PN:CM-700B)",
@@ -2555,14 +2475,14 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745765165-prod-157-fuente-de-poder-abko-.jpg"
                    ],
-        "sortOrder":  156
+        "sortOrder":  151
     },
     {
         "id":  "prod-158",
         "name":  "FUENTE 800W ABKO SETTLER HYBRID PCIE5.1 BRONZE 800W",
         "category":  "Fuente de Poder",
-        "price":  164,
-        "badge":  "Nuevo Ingreso",
+        "price":  174,
+        "badge":  "Precio Actualizado",
         "inStock":  true,
         "description":  "FUENTE 800W ABKO SETTLER HYBRID PCIE5.1 BRONZE 800W WHITE PCIE5.1 STH-800B",
         "fullDescription":  "FUENTE 800W ABKO SETTLER HYBRID PCIE5.1 BRONZE 800W WHITE PCIE5.1 STH-800B",
@@ -2571,7 +2491,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745766450-prod-158-fuente-800w-abko-sett.jpg"
                    ],
-        "sortOrder":  157
+        "sortOrder":  152
     },
     {
         "id":  "prod-159",
@@ -2580,14 +2500,14 @@ const DEFAULT_PRODUCTS = [
         "price":  179,
         "badge":  "",
         "inStock":  true,
-        "description":  "PARLANTE INALAMBRICO TEROS 6045N LUCES LED, RESISTENTE AL AGUA 60W",
-        "fullDescription":  "PARLANTE INALAMBRICO TEROS 6045N LUCES LED, RESISTENTE AL AGUA 60W",
+        "description":  "PARLANTE INALAMBRICO TEROS 6045N LUCES LED, RESISTENTE AL AGUA  60W",
+        "fullDescription":  "PARLANTE INALAMBRICO TEROS 6045N LUCES LED, RESISTENTE AL AGUA  60W",
         "orderCount":  21,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745767124-prod-159-parlante-inalambrico-.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745767124-prod-159-parlante-inalambrico-.jpg"
                    ],
-        "sortOrder":  158
+        "sortOrder":  153
     },
     {
         "id":  "prod-160",
@@ -2603,7 +2523,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745768172-prod-160-parlante-inalambrico-.jpg"
                    ],
-        "sortOrder":  159
+        "sortOrder":  154
     },
     {
         "id":  "prod-161",
@@ -2619,7 +2539,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745769257-prod-161-audifonos-antryx-chro.jpg"
                    ],
-        "sortOrder":  160
+        "sortOrder":  155
     },
     {
         "id":  "prod-162",
@@ -2635,7 +2555,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745770495-prod-162-audifono-gamer-enkore.jpg"
                    ],
-        "sortOrder":  161
+        "sortOrder":  156
     },
     {
         "id":  "prod-163",
@@ -2651,7 +2571,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745771586-prod-163-audifono-klip-xtreme-.jpg"
                    ],
-        "sortOrder":  162
+        "sortOrder":  157
     },
     {
         "id":  "prod-164",
@@ -2667,7 +2587,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745772696-prod-164-audifonos-rgb-io-espo.jpg"
                    ],
-        "sortOrder":  163
+        "sortOrder":  158
     },
     {
         "id":  "prod-165",
@@ -2683,7 +2603,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745773905-prod-165-audifonos-rgb-io-espo.jpg"
                    ],
-        "sortOrder":  164
+        "sortOrder":  159
     },
     {
         "id":  "prod-166",
@@ -2699,7 +2619,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745774903-prod-166-audifonos-iblue-screa.jpg"
                    ],
-        "sortOrder":  165
+        "sortOrder":  160
     },
     {
         "id":  "prod-167",
@@ -2715,7 +2635,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745775880-prod-167-audifono-msi-ds501-ga.jpg"
                    ],
-        "sortOrder":  166
+        "sortOrder":  161
     },
     {
         "id":  "prod-168",
@@ -2724,14 +2644,14 @@ const DEFAULT_PRODUCTS = [
         "price":  164,
         "badge":  "",
         "inStock":  true,
-        "description":  "COMBO GAMER 4 EN 1 MICRONICS GAMER MACHINE MIRAGE BLACK RGB ( AUDIFONO, TECLADO, MOUSE, PAD MOUSE)",
-        "fullDescription":  "COMBO GAMER 4 EN 1 MICRONICS GAMER MACHINE MIRAGE BLACK RGB ( AUDIFONO, TECLADO, MOUSE, PAD MOUSE)",
+        "description":  "COMBO GAMER 4 EN 1  MICRONICS GAMER MACHINE MIRAGE   BLACK  RGB ( AUDIFONO, TECLADO, MOUSE, PAD MOUSE)",
+        "fullDescription":  "COMBO GAMER 4 EN 1  MICRONICS GAMER MACHINE MIRAGE   BLACK  RGB ( AUDIFONO, TECLADO, MOUSE, PAD MOUSE)",
         "orderCount":  12,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745776980-prod-168-combo-gamer-3-en-1-mi.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745776980-prod-168-combo-gamer-3-en-1-mi.jpg"
                    ],
-        "sortOrder":  167
+        "sortOrder":  162
     },
     {
         "id":  "prod-169",
@@ -2740,14 +2660,14 @@ const DEFAULT_PRODUCTS = [
         "price":  170,
         "badge":  "",
         "inStock":  true,
-        "description":  "COMBO GAMER 4 EN 1 MICRONICS GAMER MACHINE MIRAGE WHITE RGB ( AUDIFONO, TECLADO, MOUSE, PAD MOUSE)",
-        "fullDescription":  "COMBO GAMER 4 EN 1 MICRONICS GAMER MACHINE MIRAGE WHITE RGB ( AUDIFONO, TECLADO, MOUSE, PAD MOUSE)",
+        "description":  "COMBO GAMER 4 EN 1  MICRONICS GAMER MACHINE MIRAGE   WHITE  RGB ( AUDIFONO, TECLADO, MOUSE, PAD MOUSE)",
+        "fullDescription":  "COMBO GAMER 4 EN 1  MICRONICS GAMER MACHINE MIRAGE   WHITE  RGB ( AUDIFONO, TECLADO, MOUSE, PAD MOUSE)",
         "orderCount":  11,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745778200-prod-169-combo-gamer-4-en-1-mi.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745778200-prod-169-combo-gamer-4-en-1-mi.jpg"
                    ],
-        "sortOrder":  168
+        "sortOrder":  163
     },
     {
         "id":  "prod-170",
@@ -2756,14 +2676,14 @@ const DEFAULT_PRODUCTS = [
         "price":  84,
         "badge":  "",
         "inStock":  true,
-        "description":  "KIT 4 EN 1 TEROS TE-5014S RGB ( AUDIFONO, MOUSE, PAD MOUSE, TECLADO )",
-        "fullDescription":  "KIT 4 EN 1 TEROS TE-5014S RGB ( AUDIFONO, MOUSE, PAD MOUSE, TECLADO )",
+        "description":  "KIT 4 EN 1 TEROS TE-5014S  RGB ( AUDIFONO, MOUSE, PAD MOUSE, TECLADO )",
+        "fullDescription":  "KIT 4 EN 1 TEROS TE-5014S  RGB ( AUDIFONO, MOUSE, PAD MOUSE, TECLADO )",
         "orderCount":  10,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745779619-prod-170-kit-4-en-1-teros-te-5.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745779619-prod-170-kit-4-en-1-teros-te-5.jpg"
                    ],
-        "sortOrder":  169
+        "sortOrder":  164
     },
     {
         "id":  "prod-171",
@@ -2779,7 +2699,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745780866-prod-171-cable-controlador-de-.jpg"
                    ],
-        "sortOrder":  170
+        "sortOrder":  165
     },
     {
         "id":  "prod-172",
@@ -2795,7 +2715,7 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745782110-prod-172-mesa-portatil-noteboo.jpg"
                    ],
-        "sortOrder":  171
+        "sortOrder":  166
     },
     {
         "id":  "prod-173",
@@ -2804,14 +2724,14 @@ const DEFAULT_PRODUCTS = [
         "price":  55,
         "badge":  "",
         "inStock":  true,
-        "description":  "PASTA TERMICA Z10 DEEPCOOL El valor térmico principal de la pasta térmica DeepCool Z10 es una conductividad de 6,5 W/m·K y una impedancia de 0,08 °C·cm²/W",
-        "fullDescription":  "PASTA TERMICA Z10 DEEPCOOL El valor térmico principal de la pasta térmica DeepCool Z10 es una conductividad de 6,5 W/m·K y una impedancia de 0,08 °C·cm²/W",
+        "description":  "PASTA TERMICA Z10 DEEPCOOL  El valor térmico principal de la pasta térmica DeepCool Z10 es una conductividad de 6,5 W/m·K y una impedancia de 0,08 °C·cm²/W",
+        "fullDescription":  "PASTA TERMICA Z10 DEEPCOOL  El valor térmico principal de la pasta térmica DeepCool Z10 es una conductividad de 6,5 W/m·K y una impedancia de 0,08 °C·cm²/W",
         "orderCount":  7,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745782910-prod-173-pasta-termica-z10-dee.jpg",
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745782910-prod-173-pasta-termica-z10-dee.jpg"
                    ],
-        "sortOrder":  172
+        "sortOrder":  167
     },
     {
         "id":  "prod-174",
@@ -2827,7 +2747,119 @@ const DEFAULT_PRODUCTS = [
         "images":  [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745783660-prod-174-mouse-pad-te-3018s.jpg"
                    ],
+        "sortOrder":  168
+    },
+    {
+        "id":  "prod-175",
+        "name":  "MONITOR LG 24 U4 DE 144HZ",
+        "category":  "Monitores",
+        "price":  322,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "Monitor Lg U4 24u411b-b, 24 Ips, Fhd, 144hz, 1ms, Freesync PLANO IPS (Tecnología de pantalla de alta calidad)",
+        "fullDescription":  "Monitor Lg U4 24u411b-b, 24 Ips, Fhd, 144hz, 1ms, Freesync PLANO IPS (Tecnología de pantalla de alta calidad)",
+        "orderCount":  50,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608082243-prod-monitor-lg-24-u4-144hz.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608082243-prod-monitor-lg-24-u4-144hz.jpg"
+                   ],
+        "sortOrder":  169
+    },
+    {
+        "id":  "prod-176",
+        "name":  "PROCESADOR RYZEN 7 5700X - OEM NUEVO",
+        "category":  "Procesadores",
+        "price":  785,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "PROCESADOR RYZEN 7 5700X - OEM - NUEVO AM4 8 Núcleos 16 Hilos 3.4GHz / 4.6GHz Turbo",
+        "fullDescription":  "PROCESADOR RYZEN 7 5700X - OEM - NUEVO AM4 8 Núcleos 16 Hilos 3.4GHz / 4.6GHz Turbo",
+        "orderCount":  50,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608083536-prod-procesador-ryzen-7-5700x-.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608083536-prod-procesador-ryzen-7-5700x-.jpg"
+                   ],
+        "sortOrder":  170
+    },
+    {
+        "id":  "prod-177",
+        "name":  "MEMORIA PARA LAPTOP 8GB HYNIX DRR4 2400MHZ",
+        "category":  "Memoria Ram",
+        "price":  160,
+        "badge":  "",
+        "inStock":  true,
+        "description":  "MEMORIA PARA LAPTOP 8GB HYNIX DRR4 2400MHZ SODIMM ALTO RENDIMIENTO",
+        "fullDescription":  "MEMORIA PARA LAPTOP 8GB HYNIX DRR4 2400MHZ SODIMM ALTO RENDIMIENTO",
+        "orderCount":  50,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608084421-prod-memoria-laptop-8gb-hynix-.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608084421-prod-memoria-laptop-8gb-hynix-.jpg"
+                   ],
+        "sortOrder":  171
+    },
+    {
+        "id":  "prod-178",
+        "name":  "SSD HIKSEMI DE 256GB M.2 PCLe 3.0 WAVE NVMe",
+        "category":  "Almacenamiento",
+        "price":  210,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "SSD 256GB HIKSEMI WAVE (P) M.2 2280 NVMe PCIe GEN3x4 (PN:HS-SSD-WAVE(P) 256G)",
+        "fullDescription":  "SSD 256GB HIKSEMI WAVE (P) M.2 2280 NVMe PCIe GEN3x4 (PN:HS-SSD-WAVE(P) 256G)",
+        "orderCount":  50,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608085810-prod-ssd-hiksemi-256gb-nvme.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608085810-prod-ssd-hiksemi-256gb-nvme.jpg"
+                   ],
+        "sortOrder":  172
+    },
+    {
+        "id":  "prod-179",
+        "name":  "PLACA ESONIC H110 ESONIC DDR4",
+        "category":  "Placas Madres",
+        "price":  235,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "PLACA MADRE ESONIC H110DA LGA 1151 I6 /I7 - 6TH/7TH/8TH/9TH M.2 NVM DDR4",
+        "fullDescription":  "PLACA MADRE ESONIC H110DA LGA 1151 I6 /I7 - 6TH/7TH/8TH/9TH M.2 NVM DDR4",
+        "orderCount":  50,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608087214-prod-placa-esonic-h110-ddr4.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608087214-prod-placa-esonic-h110-ddr4.jpg"
+                   ],
         "sortOrder":  173
+    },
+    {
+        "id":  "prod-180",
+        "name":  "PARLANTE TEROS MERRY CHRISTMAS TE-6018R, INALAMBRICO",
+        "category":  "Periféricos",
+        "price":  35,
+        "badge":  "Remate",
+        "inStock":  true,
+        "description":  "PARLANTE TEROS MERRY CHRISTMAS TE-6018R, INALAMBRICO/BT, TIPO USB-C, COLOR ROJO",
+        "fullDescription":  "PARLANTE TEROS MERRY CHRISTMAS TE-6018R, INALAMBRICO/BT, TIPO USB-C, COLOR ROJO",
+        "orderCount":  50,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608089159-prod-parlante-teros-te-6018r.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608089159-prod-parlante-teros-te-6018r.jpg"
+                   ],
+        "sortOrder":  174
+    },
+    {
+        "id":  "prod-181",
+        "name":  "ESTABILIZADOR TEROS TE-7056N GIMBAL CON IA RASTREADOR",
+        "category":  "Periféricos",
+        "price":  175,
+        "badge":  "",
+        "inStock":  true,
+        "description":  "ESTABILIZADOR TEROS TE-7056N GIMBAL DE 3 EJES 360 CON RASTREADOR IA ENFOQUE Y MOVIMIENTO AUTOMATICO PRO",
+        "fullDescription":  "ESTABILIZADOR TEROS TE-7056N GIMBAL DE 3 EJES 360 CON RASTREADOR IA ENFOQUE Y MOVIMIENTO AUTOMATICO PRO",
+        "orderCount":  50,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608090557-prod-estabilizador-teros-te-70.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608090557-prod-estabilizador-teros-te-70.jpg"
+                   ],
+        "sortOrder":  175
     }
 ];
 
