@@ -43,7 +43,7 @@ const DEFAULT_CONFIG = {
     totalOrdersCount: 38
 };
 
-// Catálogo de productos oficial de Tecnosistemas MDOS (176 productos alojados en Cloudflare R2)
+// Catálogo de productos oficial de Tecnosistemas MDOS (228 productos alojados en Cloudflare R2)
 const DEFAULT_PRODUCTS = [
     {
         "id":  "prod-2",
@@ -2860,6 +2860,838 @@ const DEFAULT_PRODUCTS = [
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608090557-prod-estabilizador-teros-te-70.jpg"
                    ],
         "sortOrder":  175
+    },
+    {
+        "id":  "prod-182",
+        "name":  "TECLADO OFICINA HALION HA-K390 USB",
+        "category":  "Periféricos",
+        "price":  40,
+        "badge":  "Oferta",
+        "inStock":  true,
+        "description":  "TECLADO OFICINA HALION HA-K390 USB - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "TECLADO OFICINA HALION HA-K390 USB - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  30,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608918160-prod-teclado-oficina-halion-ha.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608918160-prod-teclado-oficina-halion-ha.jpg"
+                   ],
+        "sortOrder":  176
+    },
+    {
+        "id":  "prod-183",
+        "name":  "AUDIFONO GAMER HALION HA-S8 LED ROJO",
+        "category":  "Periféricos",
+        "price":  47,
+        "badge":  "Oferta",
+        "inStock":  true,
+        "description":  "AUDIFONO GAMER HALION HA-S8 LED ROJO - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "AUDIFONO GAMER HALION HA-S8 LED ROJO - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  20,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608919861-prod-audifono-gamer-halion-ha-.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608919861-prod-audifono-gamer-halion-ha-.jpg"
+                   ],
+        "sortOrder":  177
+    },
+    {
+        "id":  "prod-184",
+        "name":  "MOUSE GAMER HALION XTREME M607 BLACK/WHITE RGB 7200DPI",
+        "category":  "Periféricos",
+        "price":  48,
+        "badge":  "Oferta",
+        "inStock":  true,
+        "description":  "MOUSE GAMER HALION XTREME M607 BLACK/WHITE RGB 7200DPI - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "MOUSE GAMER HALION XTREME M607 BLACK/WHITE RGB 7200DPI - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  45,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608920679-prod-mouse-gamer-halion-xtreme.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608920679-prod-mouse-gamer-halion-xtreme.jpg"
+                   ],
+        "sortOrder":  178
+    },
+    {
+        "id":  "prod-185",
+        "name":  "MOUSE OFICINA HALION ZIGMA HA-M209D BLACK DUAL MODE",
+        "category":  "Periféricos",
+        "price":  52,
+        "badge":  "Oferta",
+        "inStock":  true,
+        "description":  "MOUSE OFICINA HALION ZIGMA HA-M209D BLACK DUAL MODE - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "MOUSE OFICINA HALION ZIGMA HA-M209D BLACK DUAL MODE - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  36,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608921245-prod-mouse-oficina-halion-zigm.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608921245-prod-mouse-oficina-halion-zigm.jpg"
+                   ],
+        "sortOrder":  179
+    },
+    {
+        "id":  "prod-186",
+        "name":  "TECLADO GAMER HALION K330 PANTRO RAINBOW MEMBRANA",
+        "category":  "Periféricos",
+        "price":  52,
+        "badge":  "Oferta",
+        "inStock":  true,
+        "description":  "TECLADO GAMER HALION K330 PANTRO RAINBOW MEMBRANA - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "TECLADO GAMER HALION K330 PANTRO RAINBOW MEMBRANA - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  40,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608921967-prod-teclado-gamer-halion-k330.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608921967-prod-teclado-gamer-halion-k330.jpg"
+                   ],
+        "sortOrder":  180
+    },
+    {
+        "id":  "prod-187",
+        "name":  "AUDIFONO GAMER HALION USB TRRS JAGUAR HA-H857 RGB JACK",
+        "category":  "Periféricos",
+        "price":  52,
+        "badge":  "Oferta",
+        "inStock":  true,
+        "description":  "AUDIFONO GAMER HALION USB TRRS JAGUAR HA-H857 RGB JACK - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "AUDIFONO GAMER HALION USB TRRS JAGUAR HA-H857 RGB JACK - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  43,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608922866-prod-audifono-gamer-halion-usb.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608922866-prod-audifono-gamer-halion-usb.jpg"
+                   ],
+        "sortOrder":  181
+    },
+    {
+        "id":  "prod-188",
+        "name":  "MOUSE GAMER HALION ASSASIN M602 7200DPI 7B RGB NEGRO",
+        "category":  "Periféricos",
+        "price":  54,
+        "badge":  "Oferta",
+        "inStock":  true,
+        "description":  "MOUSE GAMER HALION ASSASIN M602 7200DPI 7B RGB NEGRO - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "MOUSE GAMER HALION ASSASIN M602 7200DPI 7B RGB NEGRO - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  30,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608923574-prod-mouse-gamer-halion-assasi.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608923574-prod-mouse-gamer-halion-assasi.jpg"
+                   ],
+        "sortOrder":  182
+    },
+    {
+        "id":  "prod-189",
+        "name":  "KIT TECLADO Y MOUSE GAMER HALION SPARTAN HA-808C LED",
+        "category":  "Periféricos",
+        "price":  60,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "KIT TECLADO Y MOUSE GAMER HALION SPARTAN HA-808C LED - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "KIT TECLADO Y MOUSE GAMER HALION SPARTAN HA-808C LED - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  46,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608925051-prod-kit-teclado-y-mouse-gamer.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608925051-prod-kit-teclado-y-mouse-gamer.jpg"
+                   ],
+        "sortOrder":  183
+    },
+    {
+        "id":  "prod-190",
+        "name":  "MOUSE GAMER TRIMODE HALION MANTIS M705 10000DPI RGB BLACK",
+        "category":  "Periféricos",
+        "price":  68,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "MOUSE GAMER TRIMODE HALION MANTIS M705 10000DPI RGB BLACK - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "MOUSE GAMER TRIMODE HALION MANTIS M705 10000DPI RGB BLACK - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  39,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608925665-prod-mouse-gamer-trimode-halio.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608925665-prod-mouse-gamer-trimode-halio.jpg"
+                   ],
+        "sortOrder":  184
+    },
+    {
+        "id":  "prod-191",
+        "name":  "PARLANTE GAMER 2.0 HALION S257 RGB",
+        "category":  "Periféricos",
+        "price":  70,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "PARLANTE GAMER 2.0 HALION S257 RGB - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "PARLANTE GAMER 2.0 HALION S257 RGB - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  22,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608926231-prod-parlante-gamer-2-0-halion.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608926231-prod-parlante-gamer-2-0-halion.jpg"
+                   ],
+        "sortOrder":  185
+    },
+    {
+        "id":  "prod-192",
+        "name":  "KIT 2 EN 1 HALION TECLADO Y MOUSE HA-K662C INALAMBRICO",
+        "category":  "Periféricos",
+        "price":  70,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "KIT 2 EN 1 HALION TECLADO Y MOUSE HA-K662C INALAMBRICO - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "KIT 2 EN 1 HALION TECLADO Y MOUSE HA-K662C INALAMBRICO - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  23,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608927356-prod-kit-2-en-1-halion-teclado.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608927356-prod-kit-2-en-1-halion-teclado.jpg"
+                   ],
+        "sortOrder":  186
+    },
+    {
+        "id":  "prod-193",
+        "name":  "KIT 2 EN 1 HALION TECLADO Y MOUSE HA-K652C WHITE INALAMBRICO",
+        "category":  "Periféricos",
+        "price":  70,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "KIT 2 EN 1 HALION TECLADO Y MOUSE HA-K652C WHITE INALAMBRICO - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "KIT 2 EN 1 HALION TECLADO Y MOUSE HA-K652C WHITE INALAMBRICO - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  40,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608927937-prod-kit-2-en-1-halion-teclado.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608927937-prod-kit-2-en-1-halion-teclado.jpg"
+                   ],
+        "sortOrder":  187
+    },
+    {
+        "id":  "prod-194",
+        "name":  "KIT GAMER 2 EN 1 HALION COBRA K426C TRICOLOR TECLADO Y MOUSE RGB 7200 DPI",
+        "category":  "Periféricos",
+        "price":  70,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "KIT GAMER 2 EN 1 HALION COBRA K426C TRICOLOR TECLADO Y MOUSE RGB 7200 DPI - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "KIT GAMER 2 EN 1 HALION COBRA K426C TRICOLOR TECLADO Y MOUSE RGB 7200 DPI - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  22,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608928659-prod-kit-gamer-2-en-1-halion-c.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608928659-prod-kit-gamer-2-en-1-halion-c.jpg"
+                   ],
+        "sortOrder":  188
+    },
+    {
+        "id":  "prod-195",
+        "name":  "KIT GAMER 2 EN 1 HALION COBRA K425C TRICOLOR TECLADO Y MOUSE RAINBOW 7200 DPI",
+        "category":  "Periféricos",
+        "price":  70,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "KIT GAMER 2 EN 1 HALION COBRA K425C TRICOLOR TECLADO Y MOUSE RAINBOW 7200 DPI - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "KIT GAMER 2 EN 1 HALION COBRA K425C TRICOLOR TECLADO Y MOUSE RAINBOW 7200 DPI - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  27,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608930049-prod-kit-gamer-2-en-1-halion-c.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608930049-prod-kit-gamer-2-en-1-halion-c.jpg"
+                   ],
+        "sortOrder":  189
+    },
+    {
+        "id":  "prod-196",
+        "name":  "AUDIFONO GAMER HALION USB 2.0 HA-H553 HADES LILA",
+        "category":  "Periféricos",
+        "price":  70,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "AUDIFONO GAMER HALION USB 2.0 HA-H553 HADES LILA - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "AUDIFONO GAMER HALION USB 2.0 HA-H553 HADES LILA - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  35,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608930844-prod-audifono-gamer-halion-usb.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608930844-prod-audifono-gamer-halion-usb.jpg"
+                   ],
+        "sortOrder":  190
+    },
+    {
+        "id":  "prod-197",
+        "name":  "AUDIFONO GAMER HALION USB 2.0 HA-H553 HADES ROSADO",
+        "category":  "Periféricos",
+        "price":  70,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "AUDIFONO GAMER HALION USB 2.0 HA-H553 HADES ROSADO - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "AUDIFONO GAMER HALION USB 2.0 HA-H553 HADES ROSADO - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  44,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608931445-prod-audifono-gamer-halion-usb.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608931445-prod-audifono-gamer-halion-usb.jpg"
+                   ],
+        "sortOrder":  191
+    },
+    {
+        "id":  "prod-198",
+        "name":  "MOUSE GAMER TRIMODE HALION LASER M703 12800DPI RGB WHITE",
+        "category":  "Periféricos",
+        "price":  72,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "MOUSE GAMER TRIMODE HALION LASER M703 12800DPI RGB WHITE - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "MOUSE GAMER TRIMODE HALION LASER M703 12800DPI RGB WHITE - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  28,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608932071-prod-mouse-gamer-trimode-halio.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608932071-prod-mouse-gamer-trimode-halio.jpg"
+                   ],
+        "sortOrder":  192
+    },
+    {
+        "id":  "prod-199",
+        "name":  "AUDIFONO GAMER HALION USB 2.0 HA-H553 HADES NEGRO",
+        "category":  "Periféricos",
+        "price":  72,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "AUDIFONO GAMER HALION USB 2.0 HA-H553 HADES NEGRO - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "AUDIFONO GAMER HALION USB 2.0 HA-H553 HADES NEGRO - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  42,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608932742-prod-audifono-gamer-halion-usb.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608932742-prod-audifono-gamer-halion-usb.jpg"
+                   ],
+        "sortOrder":  193
+    },
+    {
+        "id":  "prod-200",
+        "name":  "TECLADO MECANICO HALION COMANCHE 62 KM201 RAINBOW SWITCH ROJO",
+        "category":  "Periféricos",
+        "price":  73,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "TECLADO MECANICO HALION COMANCHE 62 KM201 RAINBOW SWITCH ROJO - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "TECLADO MECANICO HALION COMANCHE 62 KM201 RAINBOW SWITCH ROJO - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  34,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608934084-prod-teclado-mecanico-halion-c.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608934084-prod-teclado-mecanico-halion-c.jpg"
+                   ],
+        "sortOrder":  194
+    },
+    {
+        "id":  "prod-201",
+        "name":  "AUDIFONO GAMER HALION GORDON H559 RGB",
+        "category":  "Periféricos",
+        "price":  76,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "AUDIFONO GAMER HALION GORDON H559 RGB - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "AUDIFONO GAMER HALION GORDON H559 RGB - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  22,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608934775-prod-audifono-gamer-halion-gor.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608934775-prod-audifono-gamer-halion-gor.jpg"
+                   ],
+        "sortOrder":  195
+    },
+    {
+        "id":  "prod-202",
+        "name":  "AUDIFONO GAMER HALION AVALON H557 RGB",
+        "category":  "Periféricos",
+        "price":  76,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "AUDIFONO GAMER HALION AVALON H557 RGB - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "AUDIFONO GAMER HALION AVALON H557 RGB - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  29,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608935349-prod-audifono-gamer-halion-ava.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608935349-prod-audifono-gamer-halion-ava.jpg"
+                   ],
+        "sortOrder":  196
+    },
+    {
+        "id":  "prod-203",
+        "name":  "TECLADO MECANICO HALION COMANCHE 88 KM202 RAINBOW SWITCH ROJO",
+        "category":  "Periféricos",
+        "price":  78,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "TECLADO MECANICO HALION COMANCHE 88 KM202 RAINBOW SWITCH ROJO - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "TECLADO MECANICO HALION COMANCHE 88 KM202 RAINBOW SWITCH ROJO - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  26,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608936759-prod-teclado-mecanico-halion-c.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608936759-prod-teclado-mecanico-halion-c.jpg"
+                   ],
+        "sortOrder":  197
+    },
+    {
+        "id":  "prod-204",
+        "name":  "TECLADO OFICINA HALION HA-K819 ROSADO RECARGABLE",
+        "category":  "Periféricos",
+        "price":  80,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "TECLADO OFICINA HALION HA-K819 ROSADO RECARGABLE - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "TECLADO OFICINA HALION HA-K819 ROSADO RECARGABLE - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  32,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608937614-prod-teclado-oficina-halion-ha.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608937614-prod-teclado-oficina-halion-ha.jpg"
+                   ],
+        "sortOrder":  198
+    },
+    {
+        "id":  "prod-205",
+        "name":  "PARLANTE GAMER 2.0 HALION HA-S272 RGB BLUETOOTH",
+        "category":  "Periféricos",
+        "price":  82,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "PARLANTE GAMER 2.0 HALION HA-S272 RGB BLUETOOTH - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "PARLANTE GAMER 2.0 HALION HA-S272 RGB BLUETOOTH - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  26,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608938397-prod-parlante-gamer-2-0-halion.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608938397-prod-parlante-gamer-2-0-halion.jpg"
+                   ],
+        "sortOrder":  199
+    },
+    {
+        "id":  "prod-206",
+        "name":  "TECLADO MECANICO HALION COMANCHE 105 KM203 RAINBOW SWITCH ROJO",
+        "category":  "Periféricos",
+        "price":  82,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "TECLADO MECANICO HALION COMANCHE 105 KM203 RAINBOW SWITCH ROJO - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "TECLADO MECANICO HALION COMANCHE 105 KM203 RAINBOW SWITCH ROJO - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  33,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608939103-prod-teclado-mecanico-halion-c.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608939103-prod-teclado-mecanico-halion-c.jpg"
+                   ],
+        "sortOrder":  200
+    },
+    {
+        "id":  "prod-207",
+        "name":  "CASE OFICINA HALION 6519 WH 600W USB 3.0",
+        "category":  "Case",
+        "price":  84,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "CASE OFICINA HALION 6519 WH 600W USB 3.0 - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "CASE OFICINA HALION 6519 WH 600W USB 3.0 - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  25,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608939888-prod-case-oficina-halion-6519-.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608939888-prod-case-oficina-halion-6519-.jpg"
+                   ],
+        "sortOrder":  201
+    },
+    {
+        "id":  "prod-208",
+        "name":  "AUDIFONOS GAMER HALION SHADOW H908 TRIMODE BLACK",
+        "category":  "Periféricos",
+        "price":  91,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "AUDIFONOS GAMER HALION SHADOW H908 TRIMODE BLACK - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "AUDIFONOS GAMER HALION SHADOW H908 TRIMODE BLACK - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  29,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608940505-prod-audifonos-gamer-halion-sh.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608940505-prod-audifonos-gamer-halion-sh.jpg"
+                   ],
+        "sortOrder":  202
+    },
+    {
+        "id":  "prod-209",
+        "name":  "TECLADO MECANICO HALION STELLAR HA-KG916 RAINBOW",
+        "category":  "Periféricos",
+        "price":  95,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "TECLADO MECANICO HALION STELLAR HA-KG916 RAINBOW - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "TECLADO MECANICO HALION STELLAR HA-KG916 RAINBOW - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  36,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608941360-prod-teclado-mecanico-halion-s.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608941360-prod-teclado-mecanico-halion-s.jpg"
+                   ],
+        "sortOrder":  203
+    },
+    {
+        "id":  "prod-210",
+        "name":  "KIT TECLADO Y MOUSE MECANICO HALION MECANO K203C 88 TECLAS RAINBOW MOUSE RGB 7200DPI",
+        "category":  "Periféricos",
+        "price":  97,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "KIT TECLADO Y MOUSE MECANICO HALION MECANO K203C 88 TECLAS RAINBOW MOUSE RGB 7200DPI - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "KIT TECLADO Y MOUSE MECANICO HALION MECANO K203C 88 TECLAS RAINBOW MOUSE RGB 7200DPI - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  31,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608942085-prod-kit-teclado-y-mouse-mecan.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608942085-prod-kit-teclado-y-mouse-mecan.jpg"
+                   ],
+        "sortOrder":  204
+    },
+    {
+        "id":  "prod-211",
+        "name":  "CASE GAMER DATAONE ZIGMA G03 MALLA 4FAN ARGB S/F",
+        "category":  "Case",
+        "price":  99,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "CASE GAMER DATAONE ZIGMA G03 MALLA 4FAN ARGB S/F - Marca DATAONE. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "CASE GAMER DATAONE ZIGMA G03 MALLA 4FAN ARGB S/F - Marca DATAONE. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  35,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608942649-prod-case-gamer-dataone-zigma-.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608942649-prod-case-gamer-dataone-zigma-.jpg"
+                   ],
+        "sortOrder":  205
+    },
+    {
+        "id":  "prod-212",
+        "name":  "TECLADO MECANICO HALION ENIGMA HA-KG912 RGB",
+        "category":  "Periféricos",
+        "price":  101,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "TECLADO MECANICO HALION ENIGMA HA-KG912 RGB - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "TECLADO MECANICO HALION ENIGMA HA-KG912 RGB - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  24,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608943406-prod-teclado-mecanico-halion-e.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608943406-prod-teclado-mecanico-halion-e.jpg"
+                   ],
+        "sortOrder":  206
+    },
+    {
+        "id":  "prod-213",
+        "name":  "CASE GAMER DATAONE NOVA T29 MESH 3FAN C/F 600W REALES",
+        "category":  "Case",
+        "price":  110,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "CASE GAMER DATAONE NOVA T29 MESH 3FAN C/F 600W REALES - Marca DATAONE. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "CASE GAMER DATAONE NOVA T29 MESH 3FAN C/F 600W REALES - Marca DATAONE. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  34,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608944138-prod-case-gamer-dataone-nova-t.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608944138-prod-case-gamer-dataone-nova-t.jpg"
+                   ],
+        "sortOrder":  207
+    },
+    {
+        "id":  "prod-214",
+        "name":  "KIT GAMER 2 EN 1 MECANICO HALION HARRIER K201C TECLADO Y MOUSE RGB",
+        "category":  "Periféricos",
+        "price":  110,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "KIT GAMER 2 EN 1 MECANICO HALION HARRIER K201C TECLADO Y MOUSE RGB - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "KIT GAMER 2 EN 1 MECANICO HALION HARRIER K201C TECLADO Y MOUSE RGB - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  44,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608945028-prod-kit-gamer-2-en-1-mecanico.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608945028-prod-kit-gamer-2-en-1-mecanico.jpg"
+                   ],
+        "sortOrder":  208
+    },
+    {
+        "id":  "prod-215",
+        "name":  "CASE GAMER HALION TITAN 107 MALLA 4 FANS ARGB S/F",
+        "category":  "Case",
+        "price":  118,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "CASE GAMER HALION TITAN 107 MALLA 4 FANS ARGB S/F - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "CASE GAMER HALION TITAN 107 MALLA 4 FANS ARGB S/F - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  27,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608945807-prod-case-gamer-halion-titan-1.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608945807-prod-case-gamer-halion-titan-1.jpg"
+                   ],
+        "sortOrder":  209
+    },
+    {
+        "id":  "prod-216",
+        "name":  "CASE GAMER HALION TITAN 109 VIDRIO WHITE 4 FANS ARGB S/F",
+        "category":  "Case",
+        "price":  128,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "CASE GAMER HALION TITAN 109 VIDRIO WHITE 4 FANS ARGB S/F - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "CASE GAMER HALION TITAN 109 VIDRIO WHITE 4 FANS ARGB S/F - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  22,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608946301-prod-case-gamer-halion-titan-1.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608946301-prod-case-gamer-halion-titan-1.jpg"
+                   ],
+        "sortOrder":  210
+    },
+    {
+        "id":  "prod-217",
+        "name":  "KIT 3 EN 1 GAMER ICECOOL K431C MECANICO WHITE 7200DPI",
+        "category":  "Periféricos",
+        "price":  138,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "KIT 3 EN 1 GAMER ICECOOL K431C MECANICO WHITE 7200DPI - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "KIT 3 EN 1 GAMER ICECOOL K431C MECANICO WHITE 7200DPI - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  25,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608946964-prod-kit-3-en-1-gamer-icecool-.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608946964-prod-kit-3-en-1-gamer-icecool-.jpg"
+                   ],
+        "sortOrder":  211
+    },
+    {
+        "id":  "prod-218",
+        "name":  "CASE GAMER DATAONE LUNA BP15D DIGITAL 3FAN ARGB S/F",
+        "category":  "Case",
+        "price":  140,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "CASE GAMER DATAONE LUNA BP15D DIGITAL 3FAN ARGB S/F - Marca DATAONE. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "CASE GAMER DATAONE LUNA BP15D DIGITAL 3FAN ARGB S/F - Marca DATAONE. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  28,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608947583-prod-case-gamer-dataone-luna-b.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608947583-prod-case-gamer-dataone-luna-b.jpg"
+                   ],
+        "sortOrder":  212
+    },
+    {
+        "id":  "prod-219",
+        "name":  "CASE GAMER DATAONE LUNA C14M MALLA 550W 4 FANS RGB",
+        "category":  "Case",
+        "price":  150,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "CASE GAMER DATAONE LUNA C14M MALLA 550W 4 FANS RGB - Marca DATAONE. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "CASE GAMER DATAONE LUNA C14M MALLA 550W 4 FANS RGB - Marca DATAONE. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  43,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608948298-prod-case-gamer-dataone-luna-c.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608948298-prod-case-gamer-dataone-luna-c.jpg"
+                   ],
+        "sortOrder":  213
+    },
+    {
+        "id":  "prod-220",
+        "name":  "CASE GAMER HALION RAGNAROK 321 550W 4 FANS RGB",
+        "category":  "Case",
+        "price":  170,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "CASE GAMER HALION RAGNAROK 321 550W 4 FANS RGB - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "CASE GAMER HALION RAGNAROK 321 550W 4 FANS RGB - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  31,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608948976-prod-case-gamer-halion-ragnaro.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608948976-prod-case-gamer-halion-ragnaro.jpg"
+                   ],
+        "sortOrder":  214
+    },
+    {
+        "id":  "prod-221",
+        "name":  "CASE GAMER HALION STUKA WHITE CR11 C/F 500W REALES",
+        "category":  "Case",
+        "price":  184,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "CASE GAMER HALION STUKA WHITE CR11 C/F 500W REALES - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "CASE GAMER HALION STUKA WHITE CR11 C/F 500W REALES - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  43,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608949647-prod-case-gamer-halion-stuka-w.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608949647-prod-case-gamer-halion-stuka-w.jpg"
+                   ],
+        "sortOrder":  215
+    },
+    {
+        "id":  "prod-222",
+        "name":  "CASE GAMER HALION DRAGON CR15 C/F 500W REALES",
+        "category":  "Case",
+        "price":  190,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "CASE GAMER HALION DRAGON CR15 C/F 500W REALES - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "CASE GAMER HALION DRAGON CR15 C/F 500W REALES - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  20,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608950412-prod-case-gamer-halion-dragon-.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608950412-prod-case-gamer-halion-dragon-.jpg"
+                   ],
+        "sortOrder":  216
+    },
+    {
+        "id":  "prod-223",
+        "name":  "CASE GAMER HALION DRAGON CR15 WHITE C/F 500W REALES",
+        "category":  "Case",
+        "price":  197,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "CASE GAMER HALION DRAGON CR15 WHITE C/F 500W REALES - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "CASE GAMER HALION DRAGON CR15 WHITE C/F 500W REALES - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  21,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608951227-prod-case-gamer-halion-dragon-.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608951227-prod-case-gamer-halion-dragon-.jpg"
+                   ],
+        "sortOrder":  217
+    },
+    {
+        "id":  "prod-224",
+        "name":  "CASE GAMER HALION HPRO-700 BLACK TYPE-C S/F",
+        "category":  "Case",
+        "price":  204,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "CASE GAMER HALION HPRO-700 BLACK TYPE-C S/F - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "CASE GAMER HALION HPRO-700 BLACK TYPE-C S/F - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  26,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608951981-prod-case-gamer-halion-hpro-70.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608951981-prod-case-gamer-halion-hpro-70.jpg"
+                   ],
+        "sortOrder":  218
+    },
+    {
+        "id":  "prod-225",
+        "name":  "CASE GAMER HALION HPRO-700W WHITE TYPE-C S/F",
+        "category":  "Case",
+        "price":  214,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "CASE GAMER HALION HPRO-700W WHITE TYPE-C S/F - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "CASE GAMER HALION HPRO-700W WHITE TYPE-C S/F - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  37,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608952701-prod-case-gamer-halion-hpro-70.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608952701-prod-case-gamer-halion-hpro-70.jpg"
+                   ],
+        "sortOrder":  219
+    },
+    {
+        "id":  "prod-226",
+        "name":  "CASE GAMER HALION FISH TANK C708 VIDRIO TEMPLADO 6 FANS ARGB",
+        "category":  "Case",
+        "price":  214,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "CASE GAMER HALION FISH TANK C708 VIDRIO TEMPLADO 6 FANS ARGB - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "CASE GAMER HALION FISH TANK C708 VIDRIO TEMPLADO 6 FANS ARGB - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  25,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608953368-prod-case-gamer-halion-fish-ta.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608953368-prod-case-gamer-halion-fish-ta.jpg"
+                   ],
+        "sortOrder":  220
+    },
+    {
+        "id":  "prod-227",
+        "name":  "CASE GAMER HALION FISH TANK C708 VIDRIO TEMPLADO 6 FANS ARGB WHITE",
+        "category":  "Case",
+        "price":  223,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "CASE GAMER HALION FISH TANK C708 VIDRIO TEMPLADO 6 FANS ARGB WHITE - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "CASE GAMER HALION FISH TANK C708 VIDRIO TEMPLADO 6 FANS ARGB WHITE - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  26,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608954152-prod-case-gamer-halion-fish-ta.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608954152-prod-case-gamer-halion-fish-ta.jpg"
+                   ],
+        "sortOrder":  221
+    },
+    {
+        "id":  "prod-228",
+        "name":  "CASE GAMER HALION INFINITY 415 VIDRIO + FILTRO 600W 4 FANS ARGB",
+        "category":  "Case",
+        "price":  225,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "CASE GAMER HALION INFINITY 415 VIDRIO + FILTRO 600W 4 FANS ARGB - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "CASE GAMER HALION INFINITY 415 VIDRIO + FILTRO 600W 4 FANS ARGB - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  30,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608954767-prod-case-gamer-halion-infinit.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608954767-prod-case-gamer-halion-infinit.jpg"
+                   ],
+        "sortOrder":  222
+    },
+    {
+        "id":  "prod-229",
+        "name":  "MONITOR GAMER HALION 24\" HG2406FC CURVO VA180HZ 1MS FHD",
+        "category":  "Monitores",
+        "price":  260,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "MONITOR GAMER HALION 24\" HG2406FC CURVO VA180HZ 1MS FHD - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "MONITOR GAMER HALION 24\" HG2406FC CURVO VA180HZ 1MS FHD - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  34,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608955436-prod-monitor-gamer-halion-24-h.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608955436-prod-monitor-gamer-halion-24-h.jpg"
+                   ],
+        "sortOrder":  223
+    },
+    {
+        "id":  "prod-230",
+        "name":  "MONITOR GAMER HALION 27\" HS2714FF PLANO IPS 144HZ 1MS FHD",
+        "category":  "Monitores",
+        "price":  309,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "MONITOR GAMER HALION 27\" HS2714FF PLANO IPS 144HZ 1MS FHD - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "MONITOR GAMER HALION 27\" HS2714FF PLANO IPS 144HZ 1MS FHD - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  45,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608956241-prod-monitor-gamer-halion-27-h.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608956241-prod-monitor-gamer-halion-27-h.jpg"
+                   ],
+        "sortOrder":  224
+    },
+    {
+        "id":  "prod-231",
+        "name":  "MONITOR GAMER HALION 27\" HS2703FC CURVO VA 144HZ 1MS FHD",
+        "category":  "Monitores",
+        "price":  320,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "MONITOR GAMER HALION 27\" HS2703FC CURVO VA 144HZ 1MS FHD - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "MONITOR GAMER HALION 27\" HS2703FC CURVO VA 144HZ 1MS FHD - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  32,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608956916-prod-monitor-gamer-halion-27-h.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608956916-prod-monitor-gamer-halion-27-h.jpg"
+                   ],
+        "sortOrder":  225
+    },
+    {
+        "id":  "prod-232",
+        "name":  "MONITOR GAMER HALION 27\" HG2730QF 2K QHD PLANO IPS 200HZ 1MS RGB PIVOT",
+        "category":  "Monitores",
+        "price":  507,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "MONITOR GAMER HALION 27\" HG2730QF 2K QHD PLANO IPS 200HZ 1MS RGB PIVOT - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "MONITOR GAMER HALION 27\" HG2730QF 2K QHD PLANO IPS 200HZ 1MS RGB PIVOT - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  39,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608957556-prod-monitor-gamer-halion-27-h.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608957556-prod-monitor-gamer-halion-27-h.jpg"
+                   ],
+        "sortOrder":  226
+    },
+    {
+        "id":  "prod-233",
+        "name":  "MONITOR GAMER HALION 27\" HG2732QC 2K QHD CURVO VA 180HZ 1MS RGB PIVOT",
+        "category":  "Monitores",
+        "price":  547,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "MONITOR GAMER HALION 27\" HG2732QC 2K QHD CURVO VA 180HZ 1MS RGB PIVOT - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "fullDescription":  "MONITOR GAMER HALION 27\" HG2732QC 2K QHD CURVO VA 180HZ 1MS RGB PIVOT - Marca HALION. Alta durabilidad y rendimiento garantizado por Tecnosistemas MDOS.",
+        "orderCount":  41,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608958178-prod-monitor-gamer-halion-27-h.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608958178-prod-monitor-gamer-halion-27-h.jpg"
+                   ],
+        "sortOrder":  227
     }
 ];
 
