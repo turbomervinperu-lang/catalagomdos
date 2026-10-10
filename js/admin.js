@@ -38,15 +38,37 @@
             localStorage.setItem(STORAGE_KEYS.CONFIG, JSON.stringify(config));
         }
 
-        const CATALOG_CACHE_VERSION = '2026.10.10_v247';
+        const CATALOG_CACHE_VERSION = '2026.10.10_v248';
         const lastVersion = localStorage.getItem('mdos_catalog_cache_version');
         const savedProducts = localStorage.getItem(STORAGE_KEYS.PRODUCTS);
-        if (lastVersion !== CATALOG_CACHE_VERSION || !savedProducts || (savedProducts.includes('"Componentes"') || savedProducts.includes('"Servicios"'))) {
-            products = window.STORE_DATA?.DEFAULT_PRODUCTS || [];
-            localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(products));
-            localStorage.setItem('mdos_catalog_cache_version', CATALOG_CACHE_VERSION);
+        const defaultProducts = window.STORE_DATA?.DEFAULT_PRODUCTS || window.INITIAL_PRODUCTS || window.initialProducts || [];
+
+        let parsedSaved = null;
+        try {
+            if (savedProducts) parsedSaved = JSON.parse(savedProducts);
+        } catch (e) {
+            parsedSaved = null;
+        }
+
+        const needsRefresh = lastVersion !== CATALOG_CACHE_VERSION ||
+            !parsedSaved ||
+            !Array.isArray(parsedSaved) ||
+            parsedSaved.length === 0 ||
+            (typeof savedProducts === 'string' && (savedProducts.includes('"Componentes"') || savedProducts.includes('"Servicios"')));
+
+        if (needsRefresh) {
+            products = (defaultProducts && defaultProducts.length > 0) ? defaultProducts : (parsedSaved || []);
+            if (products.length > 0) {
+                localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(products));
+                localStorage.setItem('mdos_catalog_cache_version', CATALOG_CACHE_VERSION);
+            }
         } else {
-            products = JSON.parse(savedProducts);
+            products = (Array.isArray(parsedSaved) && parsedSaved.length > 0) ? parsedSaved : defaultProducts;
+        }
+
+        if (!products || products.length === 0) {
+            products = defaultProducts;
+        }
             let updated = false;
             products.forEach(p => {
                 if (!p.images || !Array.isArray(p.images) || p.images.length === 0) {

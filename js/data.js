@@ -1,8 +1,50 @@
-﻿/**
- * Base de datos inicial de productos (fallback offline / carga rpida)
- * Generado automticamente - Chirimoya + PC Master Store Sync
+/**
+ * Datos iniciales y configuración estándar para Tecnosistemas MDOS (Perú)
+ * Sincronizado automáticamente con Cloudflare R2 y Neon PostgreSQL
  */
-const initialProducts = [
+
+// Categorías oficiales de Tecnosistemas MDOS
+const OFFICIAL_CATEGORIES = [
+    "Almacenamiento",
+    "Case",
+    "Estabilizadores / UPS",
+    "Fuente de Poder",
+    "Laptop",
+    "Memoria Ram",
+    "Monitores",
+    "Periféricos",
+    "Placas Madres",
+    "Procesadores",
+    "Procesadores OEM",
+    "Refrigeración",
+    "Sillas Gamer",
+    "Tarjetas de Video"
+];
+
+// Medios de pago oficiales de Perú
+const PAYMENT_METHODS = [
+    { id: "Yape", name: "🟣 Yape" },
+    { id: "Plin", name: "🔵 Plin" },
+    { id: "BCP", name: "🟠 BCP (Banco de Crédito del Perú)" },
+    { id: "Interbank", name: "🟢 Interbank" }
+];
+
+// Configuración de la tienda
+const DEFAULT_CONFIG = {
+    storeName: "Tecnosistemas MDOS",
+    storeSlogan: "Venta de Computadoras • Reparación, Mantenimiento y Programación de Computadoras",
+    logoUrl: "assets/images/logo.jpg",
+    headerBannerUrl: "assets/images/header-banner.jpg",
+    whatsappNumber: "51929198813",
+    currencySymbol: "S/",
+    currencyCode: "PEN",
+    bannerMessage: "🚀 ¡Envíos a todo el Perú y recojo en tienda! Pagos por Yape, Plin, BCP e Interbank.",
+    adminPin: "1234",
+    totalOrdersCount: 38
+};
+
+// Catálogo de productos oficial de Tecnosistemas MDOS (246 productos alojados en Cloudflare R2)
+const DEFAULT_PRODUCTS = [
     {
         "id":  "prod-2",
         "name":  "MONITOR HP E24 G4 FHD 23.8 VGA - HDMI 60HZ 5MS",
@@ -3941,6 +3983,30 @@ const initialProducts = [
     }
 ];
 
+const initialProducts = DEFAULT_PRODUCTS;
+
+// Exportar datos a window para su uso en la app
+if (typeof window !== 'undefined') {
+    window.OFFICIAL_CATEGORIES = OFFICIAL_CATEGORIES;
+    window.PAYMENT_METHODS = PAYMENT_METHODS;
+    window.DEFAULT_CONFIG = DEFAULT_CONFIG;
+    window.DEFAULT_PRODUCTS = DEFAULT_PRODUCTS;
+    window.INITIAL_PRODUCTS = DEFAULT_PRODUCTS;
+    window.initialProducts = DEFAULT_PRODUCTS;
+    window.STORE_DATA = {
+        OFFICIAL_CATEGORIES,
+        PAYMENT_METHODS,
+        DEFAULT_CONFIG,
+        DEFAULT_PRODUCTS
+    };
+}
+
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { initialProducts };
+    module.exports = {
+        initialProducts,
+        DEFAULT_PRODUCTS,
+        OFFICIAL_CATEGORIES,
+        PAYMENT_METHODS,
+        DEFAULT_CONFIG
+    };
 }

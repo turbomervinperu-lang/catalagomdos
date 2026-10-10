@@ -61,7 +61,15 @@
 
         // Fallback a localStorage o datos por defecto
         const saved = localStorage.getItem(STORAGE_KEYS.PRODUCTS);
-        let products = saved ? JSON.parse(saved) : (window.STORE_DATA?.DEFAULT_PRODUCTS || []);
+        let products = [];
+        try {
+            products = saved ? JSON.parse(saved) : [];
+        } catch (e) {
+            products = [];
+        }
+        if (!Array.isArray(products) || products.length === 0) {
+            products = window.STORE_DATA?.DEFAULT_PRODUCTS || window.INITIAL_PRODUCTS || window.initialProducts || [];
+        }
         return { products, source: 'local' };
     }
 
