@@ -38,10 +38,13 @@
             localStorage.setItem(STORAGE_KEYS.CONFIG, JSON.stringify(config));
         }
 
+        const CATALOG_CACHE_VERSION = '2026.10.10_v247';
+        const lastVersion = localStorage.getItem('mdos_catalog_cache_version');
         const savedProducts = localStorage.getItem(STORAGE_KEYS.PRODUCTS);
-        if (!savedProducts || (savedProducts.includes('"Componentes"') || savedProducts.includes('"Servicios"'))) {
+        if (lastVersion !== CATALOG_CACHE_VERSION || !savedProducts || (savedProducts.includes('"Componentes"') || savedProducts.includes('"Servicios"'))) {
             products = window.STORE_DATA?.DEFAULT_PRODUCTS || [];
             localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(products));
+            localStorage.setItem('mdos_catalog_cache_version', CATALOG_CACHE_VERSION);
         } else {
             products = JSON.parse(savedProducts);
             let updated = false;

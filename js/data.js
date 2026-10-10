@@ -1,50 +1,8 @@
 ﻿/**
- * Datos iniciales y configuración estándar para Tecnosistemas MDOS (Perú)
- * Sincronizado automáticamente con Cloudflare R2 y Neon PostgreSQL
+ * Base de datos inicial de productos (fallback offline / carga rpida)
+ * Generado automticamente - Chirimoya + PC Master Store Sync
  */
-
-// Categorías oficiales de Tecnosistemas MDOS
-const OFFICIAL_CATEGORIES = [
-    "Almacenamiento",
-    "Case",
-    "Estabilizadores / UPS",
-    "Fuente de Poder",
-    "Laptop",
-    "Memoria Ram",
-    "Monitores",
-    "Periféricos",
-    "Placas Madres",
-    "Procesadores",
-    "Procesadores OEM",
-    "Refrigeración",
-    "Sillas Gamer",
-    "Tarjetas de Video"
-];
-
-// Medios de pago oficiales de Perú
-const PAYMENT_METHODS = [
-    { id: "Yape", name: "🟣 Yape" },
-    { id: "Plin", name: "🔵 Plin" },
-    { id: "BCP", name: "🟠 BCP (Banco de Crédito del Perú)" },
-    { id: "Interbank", name: "🟢 Interbank" }
-];
-
-// Configuración de la tienda
-const DEFAULT_CONFIG = {
-    storeName: "Tecnosistemas MDOS",
-    storeSlogan: "Venta de Computadoras • Reparación, Mantenimiento y Programación de Computadoras",
-    logoUrl: "assets/images/logo.jpg",
-    headerBannerUrl: "assets/images/header-banner.jpg",
-    whatsappNumber: "51929198813",
-    currencySymbol: "S/",
-    currencyCode: "PEN",
-    bannerMessage: "🚀 ¡Envíos a todo el Perú y recojo en tienda! Pagos por Yape, Plin, BCP e Interbank.",
-    adminPin: "1234",
-    totalOrdersCount: 38
-};
-
-// Catálogo de productos oficial de Tecnosistemas MDOS (246 productos alojados en Cloudflare R2)
-const DEFAULT_PRODUCTS = [
+const initialProducts = [
     {
         "id":  "prod-2",
         "name":  "MONITOR HP E24 G4 FHD 23.8 VGA - HDMI 60HZ 5MS",
@@ -401,11 +359,11 @@ const DEFAULT_PRODUCTS = [
         "id":  "prod-26",
         "name":  "REFRIGERACION ROG GAMING 240PRO BLANCO RELOJ",
         "category":  "Refrigeración",
-        "price":  201,
+        "price":  211,
         "badge":  "",
         "inStock":  true,
-        "description":  "REFRIGERACION ROG GAMING  240PRO NEGRO CON RELOJ  DE TEMPERATURA",
-        "fullDescription":  "REFRIGERACION ROG GAMING  240PRO NEGRO CON RELOJ  DE TEMPERATURA",
+        "description":  "REFRIGERACION ROG GAMING 240PRO BLANCO CON RELOJ DE TEMPERATURA",
+        "fullDescription":  "REFRIGERACION ROG GAMING 240PRO BLANCO CON RELOJ DE TEMPERATURA",
         "orderCount":  154,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745630676-prod-26-refrigeracion-rog-gami.jpg",
         "images":  [
@@ -417,11 +375,11 @@ const DEFAULT_PRODUCTS = [
         "id":  "prod-27",
         "name":  "REFRIGERACION ROG GAMING 240PRO BLANCO RELOJ",
         "category":  "Refrigeración",
-        "price":  201,
+        "price":  211,
         "badge":  "",
         "inStock":  true,
-        "description":  "REFRIGERACION ROG GAMING  240PRO NEGRO CON RELOJ  DE TEMPERATURA",
-        "fullDescription":  "REFRIGERACION ROG GAMING  240PRO NEGRO CON RELOJ  DE TEMPERATURA",
+        "description":  "REFRIGERACION ROG GAMING 240PRO BLANCO CON RELOJ DE TEMPERATURA",
+        "fullDescription":  "REFRIGERACION ROG GAMING 240PRO BLANCO CON RELOJ DE TEMPERATURA",
         "orderCount":  153,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745631805-prod-27-refrigeracion-rog-gami.jpg",
         "images":  [
@@ -2337,11 +2295,11 @@ const DEFAULT_PRODUCTS = [
         "id":  "prod-149",
         "name":  "FUENTE REAL AVATEC 550W NEGRO",
         "category":  "Fuente de Poder",
-        "price":  76,
+        "price":  106,
         "badge":  "",
         "inStock":  true,
-        "description":  "FUENTE DE PODER AVATEC 350W PFH350W (AV-PSA-PFH350W) ATX | NO MODULAR | NEGRO",
-        "fullDescription":  "FUENTE DE PODER AVATEC 350W PFH350W (AV-PSA-PFH350W) ATX | NO MODULAR | NEGRO",
+        "description":  "FUENTE AVATEC 550W ENERMAX ATX, NO MODULAR, COLOR NEGRO (PSA-PRP550)",
+        "fullDescription":  "FUENTE AVATEC 550W ENERMAX ATX, NO MODULAR, COLOR NEGRO (PSA-PRP550)",
         "orderCount":  31,
         "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1790745756524-prod-149-fuente-real-avatec-55.jpg",
         "images":  [
@@ -3983,12 +3941,6 @@ const DEFAULT_PRODUCTS = [
     }
 ];
 
-// Exportar datos a window para su uso en la app
-window.STORE_DATA = {
-    OFFICIAL_CATEGORIES,
-    PAYMENT_METHODS,
-    DEFAULT_CONFIG,
-    DEFAULT_PRODUCTS
-};
-
-window.INITIAL_PRODUCTS = DEFAULT_PRODUCTS;
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { initialProducts };
+}

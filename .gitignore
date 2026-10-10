@@ -21,3 +21,8 @@ Thumbs.db
 
 # Nested clones
 catalagomdos/
+
+# Large binaries & temp scripts
+*.pdf
+*.ps1
+

@@ -6,7 +6,9 @@
 (function () {
     'use strict';
 
-    const API_BASE = '/api';
+    const API_BASE = (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+        ? 'https://catalagomdos.vercel.app/api'
+        : '/api';
 
     const STORAGE_KEYS = {
         PRODUCTS: 'mdos_catalog_products',

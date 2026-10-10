@@ -114,15 +114,18 @@
             localStorage.setItem(STORAGE_KEYS.CONFIG, JSON.stringify(state.config));
         }
 
+        const CATALOG_CACHE_VERSION = '2026.10.10_v247';
+        const lastVersion = localStorage.getItem('mdos_catalog_cache_version');
         const savedProducts = localStorage.getItem(STORAGE_KEYS.PRODUCTS);
         const defaultList = (window.STORE_DATA && Array.isArray(window.STORE_DATA.DEFAULT_PRODUCTS) && window.STORE_DATA.DEFAULT_PRODUCTS.length > 0)
             ? window.STORE_DATA.DEFAULT_PRODUCTS
             : (window.INITIAL_PRODUCTS || []);
 
-        if (!savedProducts || savedProducts === '[]' || savedProducts.includes('"Componentes"') || savedProducts.includes('"Servicios"')) {
+        if (lastVersion !== CATALOG_CACHE_VERSION || !savedProducts || savedProducts === '[]' || savedProducts.includes('"Componentes"') || savedProducts.includes('"Servicios"')) {
             state.products = defaultList;
             if (state.products.length > 0) {
                 localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(state.products));
+                localStorage.setItem('mdos_catalog_cache_version', CATALOG_CACHE_VERSION);
             }
         } else {
             try {
