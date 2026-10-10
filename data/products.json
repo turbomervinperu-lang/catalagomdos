@@ -3646,5 +3646,293 @@
                        "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791608958178-prod-monitor-gamer-halion-27-h.jpg"
                    ],
         "sortOrder":  227
+    },
+    {
+        "id":  "prod-234",
+        "name":  "MOUSE MSI VERSA 300 WIRELESS 8000DPI BLACK",
+        "category":  "Periféricos",
+        "price":  87,
+        "badge":  "Oferta",
+        "inStock":  true,
+        "description":  "MOUSE MSI VERSA 300 WIRELESS 8000DPI BLACK - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "fullDescription":  "MOUSE MSI VERSA 300 WIRELESS 8000DPI BLACK - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "orderCount":  46,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609394499-prod-mouse-msi-versa-300-wirel.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609394499-prod-mouse-msi-versa-300-wirel.jpg"
+                   ],
+        "sortOrder":  228
+    },
+    {
+        "id":  "prod-235",
+        "name":  "DISIPADOR TORRE MSI MAG COREFROZR AA13 ARGB",
+        "category":  "Refrigeración",
+        "price":  89,
+        "badge":  "Oferta",
+        "inStock":  true,
+        "description":  "DISIPADOR TORRE MSI MAG COREFROZR AA13 ARGB - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "fullDescription":  "DISIPADOR TORRE MSI MAG COREFROZR AA13 ARGB - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "orderCount":  37,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609395447-prod-disipador-torre-msi-mag-c.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609395447-prod-disipador-torre-msi-mag-c.jpg"
+                   ],
+        "sortOrder":  229
+    },
+    {
+        "id":  "prod-236",
+        "name":  "MOUSEPAD GAMER MSI AGILITY GD70",
+        "category":  "Periféricos",
+        "price":  125,
+        "badge":  "Oferta",
+        "inStock":  true,
+        "description":  "MOUSEPAD GAMER MSI AGILITY GD70 - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "fullDescription":  "MOUSEPAD GAMER MSI AGILITY GD70 - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "orderCount":  37,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609396442-prod-mousepad-gamer-msi-agilit.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609396442-prod-mousepad-gamer-msi-agilit.jpg"
+                   ],
+        "sortOrder":  230
+    },
+    {
+        "id":  "prod-237",
+        "name":  "MOUSEPAD GAMER MSI AGILITY GD72",
+        "category":  "Periféricos",
+        "price":  125,
+        "badge":  "Oferta",
+        "inStock":  true,
+        "description":  "MOUSEPAD GAMER MSI AGILITY GD72 - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "fullDescription":  "MOUSEPAD GAMER MSI AGILITY GD72 - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "orderCount":  40,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609397317-prod-mousepad-gamer-msi-agilit.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609397317-prod-mousepad-gamer-msi-agilit.jpg"
+                   ],
+        "sortOrder":  231
+    },
+    {
+        "id":  "prod-238",
+        "name":  "PLACA MADRE MSI A520M - A PRO (AM4) (DDR4)",
+        "category":  "Placas Madres",
+        "price":  200,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "PLACA MADRE MSI A520M - A PRO (AM4) (DDR4) - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "fullDescription":  "PLACA MADRE MSI A520M - A PRO (AM4) (DDR4) - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "orderCount":  35,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609398011-prod-placa-madre-msi-a520m-a-p.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609398011-prod-placa-madre-msi-a520m-a-p.jpg"
+                   ],
+        "sortOrder":  232
+    },
+    {
+        "id":  "prod-239",
+        "name":  "REFRIGERACION LIQUIDA MSI MAG CORELIQUID A13 ARGB 240MM",
+        "category":  "Refrigeración",
+        "price":  210,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "REFRIGERACION LIQUIDA MSI MAG CORELIQUID A13 ARGB 240MM - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "fullDescription":  "REFRIGERACION LIQUIDA MSI MAG CORELIQUID A13 ARGB 240MM - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "orderCount":  52,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609398531-prod-refrigeracion-liquida-msi.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609398531-prod-refrigeracion-liquida-msi.jpg"
+                   ],
+        "sortOrder":  233
+    },
+    {
+        "id":  "prod-240",
+        "name":  "MOUSE GAMER MSI VERSA PRO WIRELESS 26000DPI BLACK",
+        "category":  "Periféricos",
+        "price":  268,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "MOUSE GAMER MSI VERSA PRO WIRELESS 26000DPI BLACK - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "fullDescription":  "MOUSE GAMER MSI VERSA PRO WIRELESS 26000DPI BLACK - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "orderCount":  32,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609400089-prod-mouse-gamer-msi-versa-pro.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609400089-prod-mouse-gamer-msi-versa-pro.jpg"
+                   ],
+        "sortOrder":  234
+    },
+    {
+        "id":  "prod-241",
+        "name":  "PLACA MADRE MSI PRO A620M-B EVO SVL (AM5) (DDR5)",
+        "category":  "Placas Madres",
+        "price":  290,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "PLACA MADRE MSI PRO A620M-B EVO SVL (AM5) (DDR5) - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "fullDescription":  "PLACA MADRE MSI PRO A620M-B EVO SVL (AM5) (DDR5) - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "orderCount":  51,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609401072-prod-placa-madre-msi-pro-a620m.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609401072-prod-placa-madre-msi-pro-a620m.jpg"
+                   ],
+        "sortOrder":  235
+    },
+    {
+        "id":  "prod-242",
+        "name":  "PLACA MADRE MSI PRO B650M-B SVL (AM5) (DDR5)",
+        "category":  "Placas Madres",
+        "price":  304,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "PLACA MADRE MSI PRO B650M-B SVL (AM5) (DDR5) - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "fullDescription":  "PLACA MADRE MSI PRO B650M-B SVL (AM5) (DDR5) - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "orderCount":  26,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609401887-prod-placa-madre-msi-pro-b650m.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609401887-prod-placa-madre-msi-pro-b650m.jpg"
+                   ],
+        "sortOrder":  236
+    },
+    {
+        "id":  "prod-243",
+        "name":  "REFRIGERACION LIQUIDA MSI MAG CORELIQUID C360 V2 BLACK ARGB",
+        "category":  "Refrigeración",
+        "price":  409,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "REFRIGERACION LIQUIDA MSI MAG CORELIQUID C360 V2 BLACK ARGB - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "fullDescription":  "REFRIGERACION LIQUIDA MSI MAG CORELIQUID C360 V2 BLACK ARGB - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "orderCount":  41,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609402878-prod-refrigeracion-liquida-msi.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609402878-prod-refrigeracion-liquida-msi.jpg"
+                   ],
+        "sortOrder":  237
+    },
+    {
+        "id":  "prod-244",
+        "name":  "PLACA MADRE MSI B760 GAMING PLUS WIFI (LGA1700) (DDR5)",
+        "category":  "Placas Madres",
+        "price":  624,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "PLACA MADRE MSI B760 GAMING PLUS WIFI (LGA1700) (DDR5) - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "fullDescription":  "PLACA MADRE MSI B760 GAMING PLUS WIFI (LGA1700) (DDR5) - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "orderCount":  41,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609403587-prod-placa-madre-msi-b760-gami.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609403587-prod-placa-madre-msi-b760-gami.jpg"
+                   ],
+        "sortOrder":  238
+    },
+    {
+        "id":  "prod-245",
+        "name":  "MONITOR GAMER MSI MAG 275CQF-E18 27\" RAPID VA 2K QHD 180HZ 0.5MS HDMI",
+        "category":  "Monitores",
+        "price":  640,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "MONITOR GAMER MSI MAG 275CQF-E18 27\" RAPID VA 2K QHD 180HZ 0.5MS HDMI - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "fullDescription":  "MONITOR GAMER MSI MAG 275CQF-E18 27\" RAPID VA 2K QHD 180HZ 0.5MS HDMI - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "orderCount":  20,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609404977-prod-monitor-gamer-msi-mag-275.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609404977-prod-monitor-gamer-msi-mag-275.jpg"
+                   ],
+        "sortOrder":  239
+    },
+    {
+        "id":  "prod-246",
+        "name":  "PLACA MADRE MSI Z890 GAMING PLUS WIFI6E (LAG1851) (DDR5)",
+        "category":  "Placas Madres",
+        "price":  825,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "PLACA MADRE MSI Z890 GAMING PLUS WIFI6E (LAG1851) (DDR5) - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "fullDescription":  "PLACA MADRE MSI Z890 GAMING PLUS WIFI6E (LAG1851) (DDR5) - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "orderCount":  28,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609405651-prod-placa-madre-msi-z890-gami.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609405651-prod-placa-madre-msi-z890-gami.jpg"
+                   ],
+        "sortOrder":  240
+    },
+    {
+        "id":  "prod-247",
+        "name":  "MONITOR GAMER MSI MAG 321CQF-E18 32\" RAPID VA 2K 180HZ 0.5MS",
+        "category":  "Monitores",
+        "price":  911,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "MONITOR GAMER MSI MAG 321CQF-E18 32\" RAPID VA 2K 180HZ 0.5MS - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "fullDescription":  "MONITOR GAMER MSI MAG 321CQF-E18 32\" RAPID VA 2K 180HZ 0.5MS - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "orderCount":  38,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609406932-prod-monitor-gamer-msi-mag-321.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609406932-prod-monitor-gamer-msi-mag-321.jpg"
+                   ],
+        "sortOrder":  241
+    },
+    {
+        "id":  "prod-248",
+        "name":  "MONITOR GAMER MSI MAG 274QRFW-X32 27’ 2K QHD 320HZ 0.5MS HDMI DP WHITE",
+        "category":  "Monitores",
+        "price":  984,
+        "badge":  "Nuevo Ingreso",
+        "inStock":  true,
+        "description":  "MONITOR GAMER MSI MAG 274QRFW-X32 27’ 2K QHD 320HZ 0.5MS HDMI DP WHITE - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "fullDescription":  "MONITOR GAMER MSI MAG 274QRFW-X32 27’ 2K QHD 320HZ 0.5MS HDMI DP WHITE - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "orderCount":  29,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609407785-prod-monitor-gamer-msi-mag-274.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609407785-prod-monitor-gamer-msi-mag-274.jpg"
+                   ],
+        "sortOrder":  242
+    },
+    {
+        "id":  "prod-249",
+        "name":  "MONITOR GAMER MSI MAG 272QPW-QD-OLED X28 WHITE 27\" 2K 280HZ 0.03MS USB TYPE-C",
+        "category":  "Monitores",
+        "price":  2294,
+        "badge":  "Premium",
+        "inStock":  true,
+        "description":  "MONITOR GAMER MSI MAG 272QPW-QD-OLED X28 WHITE 27\" 2K 280HZ 0.03MS USB TYPE-C - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "fullDescription":  "MONITOR GAMER MSI MAG 272QPW-QD-OLED X28 WHITE 27\" 2K 280HZ 0.03MS USB TYPE-C - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "orderCount":  54,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609408523-prod-monitor-gamer-msi-mag-272.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609408523-prod-monitor-gamer-msi-mag-272.jpg"
+                   ],
+        "sortOrder":  243
+    },
+    {
+        "id":  "prod-250",
+        "name":  "MONITOR GAMER MSI MAG 272QP-QD-OLED X50 27\" 2K 500HZ 0.03MS",
+        "category":  "Monitores",
+        "price":  3324,
+        "badge":  "Premium",
+        "inStock":  true,
+        "description":  "MONITOR GAMER MSI MAG 272QP-QD-OLED X50 27\" 2K 500HZ 0.03MS - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "fullDescription":  "MONITOR GAMER MSI MAG 272QP-QD-OLED X50 27\" 2K 500HZ 0.03MS - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "orderCount":  44,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609409370-prod-monitor-gamer-msi-mag-272.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609409370-prod-monitor-gamer-msi-mag-272.jpg"
+                   ],
+        "sortOrder":  244
+    },
+    {
+        "id":  "prod-251",
+        "name":  "TARJETA DE VIDEO MSI FRIEREN EDITION RTX 5070 TI 16GB GDDR7 OC",
+        "category":  "Tarjetas de Video",
+        "price":  4874,
+        "badge":  "Premium",
+        "inStock":  true,
+        "description":  "TARJETA DE VIDEO MSI FRIEREN EDITION RTX 5070 TI 16GB GDDR7 OC - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "fullDescription":  "TARJETA DE VIDEO MSI FRIEREN EDITION RTX 5070 TI 16GB GDDR7 OC - Calidad MSI Gaming. Componentes de alta gama con garantía oficial en Tecnosistemas MDOS.",
+        "orderCount":  29,
+        "image":  "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609410055-prod-tarjeta-de-video-msi-frie.jpg",
+        "images":  [
+                       "https://pub-03357662772540c68740c6e96697d46b.r2.dev/products/1791609410055-prod-tarjeta-de-video-msi-frie.jpg"
+                   ],
+        "sortOrder":  245
     }
 ]
