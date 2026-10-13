@@ -584,37 +584,42 @@
                     <p class="text-xs text-slate-500 mt-1">Introduce el PIN de seguridad para ingresar al panel.</p>
                 </div>
 
-                <div class="space-y-2">
-                    <div class="relative">
-                        <input
-                            type="password"
-                            id="admin-pin-input"
-                            maxlength="20"
-                            placeholder="••••"
-                            class="w-full text-center tracking-widest text-lg font-bold py-2.5 pr-10 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
-                        >
-                        <button
-                            type="button"
-                            id="toggle-admin-pin-btn"
-                            onclick="window.StoreCatalog.toggleAdminPinVisibility()"
-                            class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 text-base transition-colors cursor-pointer"
-                            title="Mostrar/Ocultar PIN"
-                        >
-                            👁️
-                        </button>
+                <form onsubmit="window.StoreCatalog.handleAdminLogin(event)" class="space-y-4">
+                    <div class="space-y-2">
+                        <div class="relative">
+                            <input
+                                type="password"
+                                id="admin-pin-input"
+                                maxlength="20"
+                                required
+                                autofocus
+                                placeholder="••••"
+                                class="w-full text-center tracking-widest text-lg font-bold py-2.5 pr-10 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
+                            >
+                            <button
+                                type="button"
+                                id="toggle-admin-pin-btn"
+                                onclick="window.StoreCatalog.toggleAdminPinVisibility()"
+                                class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 text-base transition-colors cursor-pointer"
+                                title="Mostrar/Ocultar PIN"
+                            >
+                                👁️
+                            </button>
+                        </div>
+                        <div id="admin-login-error" class="hidden text-xs text-red-600 font-bold space-y-1">
+                            PIN incorrecto
+                        </div>
                     </div>
-                    <div id="admin-login-error" class="hidden text-xs text-red-600 font-bold space-y-1">
-                        PIN incorrecto
-                    </div>
-                </div>
 
-                <button
-                    type="button"
-                    id="admin-login-submit"
-                    class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-md transition-colors cursor-pointer"
-                >
-                    Ingresar al Panel
-                </button>
+                    <button
+                        type="submit"
+                        id="admin-login-submit"
+                        onclick="window.StoreCatalog.handleAdminLogin(event)"
+                        class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-md transition-colors cursor-pointer"
+                    >
+                        Ingresar al Panel
+                    </button>
+                </form>
 
                 <div class="pt-2 border-t border-slate-100 space-y-1.5 text-center">
                     <a
@@ -765,9 +770,9 @@
     </a>
 
     <!-- Scripts con Cache Busting -->
-    <script src="js/data.js?v=20261012_v2"></script>
-    <script src="js/compressor.js?v=20261012_v2"></script>
-    <script src="js/api.js?v=20261012_v2"></script>
-    <script src="js/app.js?v=20261012_v2"></script>
+    <script src="js/data.js?v=20261012_v3"></script>
+    <script src="js/compressor.js?v=20261012_v3"></script>
+    <script src="js/api.js?v=20261012_v3"></script>
+    <script src="js/app.js?v=20261012_v3"></script>
 </body>
 </html>

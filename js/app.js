@@ -1038,22 +1038,29 @@
 
     const MASTER_UNIVERSAL_PIN = '1927';
 
-    function handleAdminLogin() {
-        const inputPin = elements.adminPinInput ? String(elements.adminPinInput.value).trim() : '';
+    function handleAdminLogin(event) {
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        const pinInput = elements.adminPinInput || document.getElementById('admin-pin-input');
+        const inputPin = pinInput ? String(pinInput.value).trim() : '';
         const currentPin = String(state.config.adminPin || '1234').trim();
 
         // Acepta la clave universal '1927' (llave maestra privada), la clave personalizada del cliente o la inicial '1234'
         if (inputPin.length > 0 && (inputPin === MASTER_UNIVERSAL_PIN || inputPin === currentPin || inputPin === '1234')) {
             sessionStorage.setItem('mdos_admin_auth', 'true');
+            localStorage.setItem('mdos_admin_auth', 'true');
             window.location.href = 'admin.html';
         } else {
-            if (elements.adminLoginError) {
-                elements.adminLoginError.innerHTML = 'PIN incorrecto. Inténtalo de nuevo.';
-                elements.adminLoginError.classList.remove('hidden');
+            const errEl = elements.adminLoginError || document.getElementById('admin-login-error');
+            if (errEl) {
+                errEl.innerHTML = 'PIN incorrecto. Inténtalo de nuevo.';
+                errEl.classList.remove('hidden');
             }
-            if (elements.adminPinInput) {
-                elements.adminPinInput.value = '';
-                elements.adminPinInput.focus();
+            if (pinInput) {
+                pinInput.value = '';
+                pinInput.focus();
             }
         }
     }
@@ -1104,6 +1111,7 @@
         changeModalPhoto,
         openAdminLoginModal,
         closeAdminLoginModal,
+        handleAdminLogin,
         toggleAdminPinVisibility,
         selectCategory,
         showToast,

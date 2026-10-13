@@ -144,7 +144,7 @@
      * Verificación de Seguridad y Autenticación con PIN
      */
     function checkAuthentication() {
-        const isAuth = sessionStorage.getItem('mdos_admin_auth') === 'true';
+        const isAuth = sessionStorage.getItem('mdos_admin_auth') === 'true' || localStorage.getItem('mdos_admin_auth') === 'true';
         const lockScreen = document.getElementById('admin-lock-screen');
         const mainContent = document.getElementById('admin-main-content');
 
@@ -175,6 +175,7 @@
 
         if (isValid) {
             sessionStorage.setItem('mdos_admin_auth', 'true');
+            localStorage.setItem('mdos_admin_auth', 'true');
             if (errorMsg) errorMsg.classList.add('hidden');
             checkAuthentication();
             renderMetrics();
@@ -352,6 +353,7 @@
 
     function logout() {
         sessionStorage.removeItem('mdos_admin_auth');
+        localStorage.removeItem('mdos_admin_auth');
         window.location.href = 'index.html';
     }
 
