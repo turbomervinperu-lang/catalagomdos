@@ -246,3 +246,9 @@ html, body, * {
   background-color: #eff6ff;
   transform: scale(1.01);
 }
+
+/* Regla crítica para garantizar que las pantallas de bloqueo y modales se oculten sin conflicto de flex */
+.hidden,
+#admin-lock-screen.hidden {
+  display: none !important;
+}

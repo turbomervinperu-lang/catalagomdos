@@ -149,18 +149,35 @@
         const mainContent = document.getElementById('admin-main-content');
 
         if (isAuth) {
-            if (lockScreen) lockScreen.classList.add('hidden');
-            if (mainContent) mainContent.classList.remove('hidden');
+            if (lockScreen) {
+                lockScreen.classList.add('hidden');
+                lockScreen.classList.remove('flex');
+                lockScreen.style.setProperty('display', 'none', 'important');
+            }
+            if (mainContent) {
+                mainContent.classList.remove('hidden');
+                mainContent.style.setProperty('display', 'flex', 'important');
+            }
         } else {
-            if (lockScreen) lockScreen.classList.remove('hidden');
-            if (mainContent) mainContent.classList.add('hidden');
+            if (lockScreen) {
+                lockScreen.classList.remove('hidden');
+                lockScreen.classList.add('flex');
+                lockScreen.style.setProperty('display', 'flex', 'important');
+            }
+            if (mainContent) {
+                mainContent.classList.add('hidden');
+                mainContent.style.setProperty('display', 'none', 'important');
+            }
         }
     }
 
     const MASTER_UNIVERSAL_PIN = '1927';
 
     function authenticateWithPin(event) {
-        if (event) event.preventDefault();
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
         const pinInput = document.getElementById('gate-pin-input');
         const errorMsg = document.getElementById('gate-pin-error');
         const inputVal = pinInput ? String(pinInput.value).trim() : '';
@@ -178,7 +195,13 @@
             localStorage.setItem('mdos_admin_auth', 'true');
             if (errorMsg) errorMsg.classList.add('hidden');
             checkAuthentication();
-            renderMetrics();
+            try {
+                renderProductsTable();
+                renderMetrics();
+                loadSettingsForm();
+            } catch (renderErr) {
+                console.warn('Error post-auth rendering:', renderErr);
+            }
         } else {
             if (errorMsg) {
                 errorMsg.innerHTML = '<p>PIN incorrecto.</p><p class="text-[11px] text-slate-300 font-normal mt-0.5">Verifica tu clave o utiliza el botón de abajo si deseas modificarla.</p>';
