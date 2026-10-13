@@ -69,22 +69,27 @@
         if (!products || products.length === 0) {
             products = defaultProducts;
         }
-            let updated = false;
-            products.forEach(p => {
-                if (!p.images || !Array.isArray(p.images) || p.images.length === 0) {
-                    if (p.id === 'prod-1') {
-                        p.images = ["assets/images/logo.jpg", "assets/images/header-banner.jpg", "assets/images/logo.jpg", "assets/images/header-banner.jpg"];
-                    } else if (p.id === 'prod-3') {
-                        p.images = ["assets/images/header-banner.jpg", "assets/images/logo.jpg", "assets/images/header-banner.jpg", "assets/images/logo.jpg"];
-                    } else {
-                        p.images = [p.image || 'assets/images/logo.jpg'];
-                    }
-                    updated = true;
+
+        let updated = false;
+        products.forEach(p => {
+            if (!p.images || !Array.isArray(p.images) || p.images.length === 0) {
+                if (p.id === 'prod-1') {
+                    p.images = ["assets/images/logo.jpg", "assets/images/header-banner.jpg", "assets/images/logo.jpg", "assets/images/header-banner.jpg"];
+                } else if (p.id === 'prod-3') {
+                    p.images = ["assets/images/header-banner.jpg", "assets/images/logo.jpg", "assets/images/header-banner.jpg", "assets/images/logo.jpg"];
+                } else {
+                    p.images = [p.image || 'assets/images/logo.jpg'];
                 }
-            });
-            if (updated) {
-                localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(products));
+                updated = true;
             }
+        });
+        if (updated) {
+            localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(products));
+        }
+
+        if (!config.adminPin || config.adminPin === '1234') {
+            config.adminPin = '1927';
+            localStorage.setItem(STORAGE_KEYS.CONFIG, JSON.stringify(config));
         }
 
         // Cargar datos en vivo desde Neon Postgres

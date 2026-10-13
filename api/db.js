@@ -136,7 +136,7 @@ async function ensureTables() {
             currencySymbol: "S/",
             currencyCode: "PEN",
             bannerMessage: "🚀 ¡Envíos a todo el Perú y recojo en tienda! Pagos por Yape, Plin, BCP e Interbank.",
-            adminPin: "1234",
+            adminPin: "1927",
             totalOrdersCount: 38
         };
 

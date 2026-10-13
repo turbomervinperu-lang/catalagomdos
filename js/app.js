@@ -114,6 +114,11 @@
             localStorage.setItem(STORAGE_KEYS.CONFIG, JSON.stringify(state.config));
         }
 
+        if (!state.config.adminPin || state.config.adminPin === '1234') {
+            state.config.adminPin = '1927';
+            localStorage.setItem(STORAGE_KEYS.CONFIG, JSON.stringify(state.config));
+        }
+
         const CATALOG_CACHE_VERSION = '2026.10.10_v248';
         const lastVersion = localStorage.getItem('mdos_catalog_cache_version');
         const savedProducts = localStorage.getItem(STORAGE_KEYS.PRODUCTS);
