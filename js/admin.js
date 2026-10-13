@@ -92,42 +92,11 @@
             localStorage.setItem(STORAGE_KEYS.CONFIG, JSON.stringify(config));
         }
 
+        // Verificar estado de servicios (Neon y R2)
+        checkSystemServices();
+
         // Cargar datos en vivo desde Neon Postgres
         if (window.StoreApi) {
-            window.StoreApi.checkDatabaseStatus().then(status => {
-                const badge = document.getElementById('neon-status-badge');
-                const bannerBadge = document.getElementById('neon-banner-badge');
-                if (status && status.connected) {
-                    const dbName = status.database || 'En línea';
-                    if (badge) {
-                        badge.className = 'inline-flex items-center gap-1.5 text-[11px] font-bold bg-emerald-950/80 text-emerald-400 border border-emerald-500/30 px-2.5 py-1.5 rounded-lg shadow-xs';
-                        badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span class="hidden md:inline">Neon:</span><span class="text-white font-mono">${dbName} (En línea)</span>`;
-                    }
-                    if (bannerBadge) {
-                        bannerBadge.textContent = dbName;
-                    }
-                } else if (badge) {
-                    badge.className = 'inline-flex items-center gap-1.5 text-[11px] font-bold bg-amber-950/80 text-amber-300 border border-amber-500/30 px-2.5 py-1.5 rounded-lg shadow-xs';
-                    badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-400"></span><span class="hidden md:inline">Neon:</span><span class="text-white font-mono">Modo Local (Sin Vercel/Neon)</span>`;
-                }
-            }).catch(() => {});
-
-            // Diagnóstico de Cloudflare R2
-            if (window.StoreApi.checkR2Status) {
-                window.StoreApi.checkR2Status().then(r2 => {
-                    const r2Badge = document.getElementById('r2-status-badge');
-                    if (r2Badge) {
-                        if (r2 && r2.enabled) {
-                            r2Badge.className = 'inline-flex items-center gap-1.5 text-[11px] font-bold bg-cyan-950/80 text-cyan-400 border border-cyan-500/30 px-2.5 py-1.5 rounded-lg shadow-xs';
-                            r2Badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span><span class="hidden lg:inline">Fotos:</span><span class="text-white font-mono">Cloudflare R2</span>`;
-                        } else {
-                            r2Badge.className = 'inline-flex items-center gap-1.5 text-[11px] font-bold bg-slate-800 text-slate-400 border border-slate-700/60 px-2.5 py-1.5 rounded-lg shadow-xs';
-                            r2Badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-slate-500"></span><span class="hidden lg:inline">Fotos:</span><span class="text-slate-300 font-mono">R2 (Pendiente)</span>`;
-                        }
-                    }
-                }).catch(() => {});
-            }
-
             window.StoreApi.getProducts().then(res => {
                 if (res && res.products && res.products.length > 0) {
                     products = res.products;
@@ -140,6 +109,51 @@
                 if (res && res.config) {
                     config = res.config;
                     loadSettingsForm();
+                }
+            }).catch(() => {});
+        }
+    }
+
+    function checkSystemServices(retryCount = 0) {
+        const badge = document.getElementById('neon-status-badge');
+        const bannerBadge = document.getElementById('neon-banner-badge');
+        const r2Badge = document.getElementById('r2-status-badge');
+
+        if (!window.StoreApi) {
+            if (retryCount < 10) {
+                setTimeout(() => checkSystemServices(retryCount + 1), 600);
+            }
+            return;
+        }
+
+        if (window.StoreApi.checkDatabaseStatus) {
+            window.StoreApi.checkDatabaseStatus().then(status => {
+                if (status && status.connected) {
+                    const dbName = status.database || 'En línea';
+                    if (badge) {
+                        badge.className = 'inline-flex items-center gap-1.5 text-[11px] font-bold bg-emerald-950/80 text-emerald-400 border border-emerald-500/30 px-2.5 py-1.5 rounded-lg shadow-xs';
+                        badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span class="hidden md:inline">Neon Postgres:</span><span class="text-white font-mono">En línea</span>`;
+                    }
+                    if (bannerBadge) {
+                        bannerBadge.textContent = dbName;
+                    }
+                } else if (badge) {
+                    badge.className = 'inline-flex items-center gap-1.5 text-[11px] font-bold bg-amber-950/80 text-amber-300 border border-amber-500/30 px-2.5 py-1.5 rounded-lg shadow-xs';
+                    badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-400"></span><span class="hidden md:inline">Neon:</span><span class="text-white font-mono">Modo Local</span>`;
+                }
+            }).catch(() => {});
+        }
+
+        if (window.StoreApi.checkR2Status) {
+            window.StoreApi.checkR2Status().then(r2 => {
+                if (r2Badge) {
+                    if (r2 && r2.enabled) {
+                        r2Badge.className = 'inline-flex items-center gap-1.5 text-[11px] font-bold bg-emerald-950/80 text-emerald-400 border border-emerald-500/30 px-2.5 py-1.5 rounded-lg shadow-xs';
+                        r2Badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span class="hidden lg:inline">Fotos R2:</span><span class="text-white font-mono">En línea</span>`;
+                    } else {
+                        r2Badge.className = 'inline-flex items-center gap-1.5 text-[11px] font-bold bg-slate-800 text-slate-400 border border-slate-700/60 px-2.5 py-1.5 rounded-lg shadow-xs';
+                        r2Badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-slate-500"></span><span class="hidden lg:inline">Fotos:</span><span class="text-slate-300 font-mono">R2 (Pendiente)</span>`;
+                    }
                 }
             }).catch(() => {});
         }
@@ -319,19 +333,19 @@
     }
 
     async function resetPinToDefault() {
-        if (confirm('¿Deseas restaurar la clave de administrador a "1234" por defecto?')) {
-            await applyNewPin('1234');
+        if (confirm('¿Deseas restablecer la clave de acceso?')) {
+            await applyNewPin('1927');
             const notify = document.getElementById('modal-pin-notification');
             if (notify) {
                 notify.className = 'p-3 rounded-xl text-xs font-semibold bg-emerald-950/80 text-emerald-300 border border-emerald-500/30';
-                notify.innerHTML = '✅ Clave restaurada a <b>1234</b> por defecto.';
+                notify.innerHTML = '✅ Clave restablecida exitosamente.';
                 notify.classList.remove('hidden');
             }
             setTimeout(() => {
                 closeChangePinModal();
                 const gateInput = document.getElementById('gate-pin-input');
                 if (gateInput) {
-                    gateInput.value = '1234';
+                    gateInput.value = '';
                     gateInput.focus();
                 }
             }, 1200);
@@ -339,38 +353,16 @@
     }
 
     async function savePinOnly() {
-        const pinInput = document.getElementById('setting-store-pin');
-        const feedback = document.getElementById('setting-pin-feedback');
-        const newPin = pinInput ? pinInput.value.trim() : '';
-
-        if (!newPin || newPin.length < 4) {
-            if (feedback) {
-                feedback.className = 'text-xs font-bold py-1.5 px-2.5 rounded-lg bg-red-100 text-red-700';
-                feedback.textContent = 'El PIN debe tener al menos 4 caracteres.';
-                feedback.classList.remove('hidden');
-            }
-            return;
-        }
-
-        await applyNewPin(newPin);
-
-        if (feedback) {
-            feedback.className = 'text-xs font-bold py-1.5 px-2.5 rounded-lg bg-emerald-100 text-emerald-800';
-            feedback.textContent = `✅ PIN guardado exitosamente: "${newPin}".`;
-            feedback.classList.remove('hidden');
-            setTimeout(() => {
-                feedback.classList.add('hidden');
-            }, 4000);
-        }
+        return saveClientPassword();
     }
 
     async function resetPinFromSettings() {
-        if (confirm('¿Restaurar clave de acceso a 1234?')) {
-            await applyNewPin('1234');
+        if (confirm('¿Restablecer clave de acceso?')) {
+            await applyNewPin('1927');
             const feedback = document.getElementById('setting-pin-feedback');
             if (feedback) {
                 feedback.className = 'text-xs font-bold py-1.5 px-2.5 rounded-lg bg-emerald-100 text-emerald-800';
-                feedback.textContent = '✅ PIN restaurado a "1234" por defecto.';
+                feedback.textContent = '✅ Clave restablecida exitosamente.';
                 feedback.classList.remove('hidden');
                 setTimeout(() => {
                     feedback.classList.add('hidden');
@@ -1058,7 +1050,69 @@
             currentPhone = '51929198813';
         }
         document.getElementById('setting-store-whatsapp').value = currentPhone;
-        document.getElementById('setting-store-pin').value = config.adminPin || '1234';
+        document.getElementById('setting-store-pin').value = config.adminPin || '1927';
+        const confirmInput = document.getElementById('setting-confirm-pin');
+        if (confirmInput) confirmInput.value = config.adminPin || '1927';
+    }
+
+    function openClientChangePasswordModal() {
+        switchTab('settings');
+        const pinInput = document.getElementById('setting-store-pin');
+        if (pinInput) {
+            setTimeout(() => {
+                pinInput.focus();
+                pinInput.select();
+                pinInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+    }
+
+    async function saveClientPassword() {
+        const pinInput = document.getElementById('setting-store-pin');
+        const confirmInput = document.getElementById('setting-confirm-pin');
+        const feedback = document.getElementById('setting-pin-feedback');
+
+        const newPin = pinInput ? String(pinInput.value).trim() : '';
+        const confirmPin = confirmInput ? String(confirmInput.value).trim() : '';
+
+        if (!newPin || newPin.length < 4) {
+            if (feedback) {
+                feedback.className = 'text-xs font-bold py-2 px-3 rounded-xl bg-red-950/80 text-red-300 border border-red-500/30';
+                feedback.textContent = '❌ La contraseña debe tener al menos 4 caracteres.';
+                feedback.classList.remove('hidden');
+            }
+            return;
+        }
+
+        if (confirmPin && newPin !== confirmPin) {
+            if (feedback) {
+                feedback.className = 'text-xs font-bold py-2 px-3 rounded-xl bg-red-950/80 text-red-300 border border-red-500/30';
+                feedback.textContent = '❌ Las dos contraseñas no coinciden. Escribe la misma clave en ambos campos.';
+                feedback.classList.remove('hidden');
+            }
+            return;
+        }
+
+        config.adminPin = newPin;
+        localStorage.setItem(STORAGE_KEYS.CONFIG, JSON.stringify(config));
+
+        if (window.StoreApi && typeof window.StoreApi.saveConfig === 'function') {
+            try {
+                await window.StoreApi.saveConfig(config);
+            } catch (e) {
+                console.warn('Error sincronizando contraseña con Neon:', e);
+            }
+        }
+
+        if (feedback) {
+            feedback.className = 'text-xs font-bold py-2 px-3 rounded-xl bg-emerald-950/80 text-emerald-300 border border-emerald-500/30';
+            feedback.textContent = `✅ ¡Tu nueva contraseña ha sido guardada exitosamente! Ya está activa.`;
+            feedback.classList.remove('hidden');
+            setTimeout(() => {
+                feedback.classList.add('hidden');
+            }, 5000);
+        }
+        alert('¡Contraseña de administrador actualizada exitosamente!');
     }
 
     async function saveSettings(event) {
@@ -1083,7 +1137,7 @@
 
         config.whatsappNumber = cleanPhone;
         document.getElementById('setting-store-whatsapp').value = cleanPhone;
-        config.adminPin = document.getElementById('setting-store-pin').value.trim() || '1234';
+        config.adminPin = document.getElementById('setting-store-pin').value.trim() || '1927';
 
         localStorage.setItem(STORAGE_KEYS.CONFIG, JSON.stringify(config));
 
@@ -1091,7 +1145,7 @@
             await window.StoreApi.saveConfig(config);
         }
 
-        alert('¡Configuración (WhatsApp +51 ' + cleanPhone.replace(/^51/, '') + ') y PIN de seguridad guardados!');
+        alert('¡Configuración (WhatsApp +51 ' + cleanPhone.replace(/^51/, '') + ') y contraseña guardados!');
     }
 
     async function syncDatabaseNow() {
@@ -1161,8 +1215,11 @@
         closeChangePinModal,
         saveNewPinFromLock,
         resetPinToDefault,
+        openClientChangePasswordModal,
+        saveClientPassword,
         savePinOnly,
         resetPinFromSettings,
+        checkSystemServices,
         logout,
         switchTab,
         handleFormImageSelect,
@@ -1187,4 +1244,13 @@
         filterByAdminCategory
     };
 
+    window.addEventListener('load', () => {
+        checkSystemServices();
+    });
+
+    setInterval(() => {
+        checkSystemServices();
+    }, 25000);
+
 })();
+

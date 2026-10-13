@@ -215,6 +215,9 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ orderedProductIds })
             }).catch(() => {});
+        } catch (e) {}
+    }
+
     /**
      * Sube una imagen a Cloudflare R2 a través del endpoint serverless /api/upload
      */
