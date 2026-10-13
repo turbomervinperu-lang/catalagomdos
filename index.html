@@ -585,23 +585,48 @@
                 </div>
 
                 <div class="space-y-2">
-                    <input
-                        type="password"
-                        id="admin-pin-input"
-                        maxlength="10"
-                        placeholder="••••"
-                        class="w-full text-center tracking-widest text-lg font-bold py-2.5 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
-                    >
-                    <p id="admin-login-error" class="hidden text-xs text-red-600 font-bold">PIN incorrecto</p>
+                    <div class="relative">
+                        <input
+                            type="password"
+                            id="admin-pin-input"
+                            maxlength="20"
+                            placeholder="••••"
+                            class="w-full text-center tracking-widest text-lg font-bold py-2.5 pr-10 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500 focus:outline-hidden"
+                        >
+                        <button
+                            type="button"
+                            id="toggle-admin-pin-btn"
+                            onclick="window.StoreCatalog.toggleAdminPinVisibility()"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1 text-base transition-colors cursor-pointer"
+                            title="Mostrar/Ocultar PIN"
+                        >
+                            👁️
+                        </button>
+                    </div>
+                    <div id="admin-login-error" class="hidden text-xs text-red-600 font-bold space-y-1">
+                        PIN incorrecto
+                    </div>
                 </div>
 
                 <button
                     type="button"
                     id="admin-login-submit"
-                    class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-md transition-colors"
+                    class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-md transition-colors cursor-pointer"
                 >
                     Ingresar al Panel
                 </button>
+
+                <div class="pt-2 border-t border-slate-100 space-y-1.5 text-center">
+                    <a
+                        href="admin.html"
+                        class="text-xs text-blue-600 hover:text-blue-800 font-bold block"
+                    >
+                        🔑 ¿Deseas modificar o restablecer tu PIN? Haz clic aquí
+                    </a>
+                    <p class="text-[11px] text-slate-400">
+                        Clave inicial por defecto: <code class="text-blue-600 font-bold bg-slate-100 px-1 rounded">1234</code>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -739,10 +764,10 @@
         <span class="hidden sm:inline text-xs font-bold tracking-wide">WhatsApp</span>
     </a>
 
-    <!-- Scripts -->
-    <script src="js/data.js"></script>
-    <script src="js/compressor.js"></script>
-    <script src="js/api.js"></script>
-    <script src="js/app.js"></script>
+    <!-- Scripts con Cache Busting -->
+    <script src="js/data.js?v=20261012_v2"></script>
+    <script src="js/compressor.js?v=20261012_v2"></script>
+    <script src="js/api.js?v=20261012_v2"></script>
+    <script src="js/app.js?v=20261012_v2"></script>
 </body>
 </html>
