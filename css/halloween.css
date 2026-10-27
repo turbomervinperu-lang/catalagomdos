@@ -13,7 +13,22 @@
 }
 
 /* --------------------------------------------------------------------------
-   1. Barra de Anuncio Temática de Halloween
+   1. Fondo Ambiental con Resplandor Nocturno en Pantallas Anchas
+   -------------------------------------------------------------------------- */
+@media (min-width: 1280px) {
+  body.halloween-active {
+    background: radial-gradient(circle at 6% 15%, rgba(147, 51, 234, 0.12) 0%, transparent 35%),
+                radial-gradient(circle at 94% 20%, rgba(234, 88, 12, 0.14) 0%, transparent 35%),
+                radial-gradient(circle at 5% 55%, rgba(234, 88, 12, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 95% 65%, rgba(147, 51, 234, 0.12) 0%, transparent 35%),
+                radial-gradient(circle at 6% 88%, rgba(147, 51, 234, 0.14) 0%, transparent 30%),
+                radial-gradient(circle at 94% 90%, rgba(234, 88, 12, 0.12) 0%, transparent 35%),
+                #f1f5f9 !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. Barra de Anuncio Temática de Halloween
    -------------------------------------------------------------------------- */
 body.halloween-active #top-announcement-bar,
 body.halloween-active .bg-gradient-to-r.from-blue-700 {
@@ -24,7 +39,7 @@ body.halloween-active .bg-gradient-to-r.from-blue-700 {
 }
 
 /* --------------------------------------------------------------------------
-   2. Resplandor Temático en Tarjetas de Productos
+   3. Resplandor Temático en Tarjetas de Productos
    -------------------------------------------------------------------------- */
 body.halloween-active .product-card:hover {
   border-color: rgba(249, 115, 22, 0.5) !important;
@@ -34,7 +49,7 @@ body.halloween-active .product-card:hover {
 }
 
 /* --------------------------------------------------------------------------
-   3. Botón de Carrito con Acento Festivo
+   4. Botón de Carrito con Acento Festivo
    -------------------------------------------------------------------------- */
 body.halloween-active #cart-btn {
   background: linear-gradient(135deg, #ea580c 0%, #9333ea 100%) !important;
@@ -47,7 +62,7 @@ body.halloween-active #cart-btn:hover {
 }
 
 /* --------------------------------------------------------------------------
-   4. Sombrerito de Bruja en el Logo
+   5. Sombrerito de Bruja en el Logo
    -------------------------------------------------------------------------- */
 .hw-witch-hat-container {
   display: none;
@@ -83,7 +98,7 @@ body.halloween-active .hw-witch-hat-container {
 }
 
 /* --------------------------------------------------------------------------
-   5. Contenedor de Telarañas y Murciélagos
+   6. Contenedor de Telarañas y Murciélagos
    -------------------------------------------------------------------------- */
 #hw-decorations-container {
   display: none;
@@ -170,7 +185,7 @@ body.halloween-active #hw-decorations-container {
 }
 
 /* --------------------------------------------------------------------------
-   6. Murciélagos Flotantes Decorativos de Fondo
+   7. Murciélagos Flotantes de Fondo
    -------------------------------------------------------------------------- */
 .hw-bats-layer {
   position: fixed;
@@ -243,7 +258,7 @@ body.halloween-active #hw-decorations-container {
 }
 
 /* --------------------------------------------------------------------------
-   7. Badge Calabacita en WhatsApp Flotante
+   8. Badge Calabacita en WhatsApp Flotante
    -------------------------------------------------------------------------- */
 .hw-whatsapp-pumpkin {
   display: none;
@@ -266,7 +281,7 @@ body.halloween-active .hw-whatsapp-pumpkin {
 }
 
 /* --------------------------------------------------------------------------
-   8. Botón Switch para Alternar Modo Halloween
+   9. Botón Switch para Alternar Modo Halloween
    -------------------------------------------------------------------------- */
 .hw-toggle-btn {
   display: inline-flex;
@@ -290,4 +305,104 @@ body.halloween-active .hw-whatsapp-pumpkin {
   color: #ffffff;
   border-color: #f97316;
   transform: translateY(-1px);
+}
+
+/* --------------------------------------------------------------------------
+   10. BORDES LATERALES DECORADOS (FLANCOS IZQUIERDO Y DERECHO)
+   Visibles en pantallas medianas y anchas (>= 1300px)
+   -------------------------------------------------------------------------- */
+.hw-side-flank {
+  display: none;
+  position: fixed;
+  top: 70px;
+  bottom: 0;
+  z-index: 22;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (min-width: 1320px) {
+  body.halloween-active .hw-side-flank {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+}
+
+.hw-side-flank-left {
+  left: 10px;
+  width: calc((100vw - 1280px) / 2 - 20px);
+  max-width: 260px;
+  align-items: flex-start;
+}
+
+.hw-side-flank-right {
+  right: 10px;
+  width: calc((100vw - 1280px) / 2 - 20px);
+  max-width: 260px;
+  align-items: flex-end;
+}
+
+/* Elementos individuales de los flancos */
+.hw-flank-item {
+  position: relative;
+  width: 100%;
+  max-width: 150px;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
+  transition: opacity 0.3s ease;
+}
+
+@media (min-width: 1600px) {
+  .hw-flank-item {
+    max-width: 200px;
+  }
+}
+
+/* Farol de Calabaza Colgante */
+.hw-lantern-hanger {
+  transform-origin: top center;
+  animation: lanternSwing 5s ease-in-out infinite alternate;
+}
+
+@keyframes lanternSwing {
+  0% { transform: rotate(-5deg); }
+  50% { transform: rotate(4deg) translateY(2px); }
+  100% { transform: rotate(-7deg); }
+}
+
+/* Resplandor parpadeante de vela en calabazas */
+.hw-candle-glow {
+  animation: candleFlicker 2.5s infinite alternate ease-in-out;
+}
+
+@keyframes candleFlicker {
+  0% { opacity: 0.85; filter: drop-shadow(0 0 6px #f59e0b); }
+  25% { opacity: 1; filter: drop-shadow(0 0 14px #ea580c); }
+  50% { opacity: 0.75; filter: drop-shadow(0 0 4px #d97706); }
+  75% { opacity: 0.95; filter: drop-shadow(0 0 12px #f97316); }
+  100% { opacity: 0.9; filter: drop-shadow(0 0 8px #f59e0b); }
+}
+
+/* Fantasma Flotante Lateral */
+.hw-floating-ghost {
+  animation: ghostFloat 4s ease-in-out infinite alternate;
+}
+
+@keyframes ghostFloat {
+  0% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-16px) rotate(4deg); }
+  100% { transform: translateY(4px) rotate(-6deg); }
+}
+
+/* Caldero o poción burbujeante */
+.hw-cauldron-smoke {
+  transform-origin: bottom center;
+  animation: smokeRise 3s ease-in-out infinite;
+}
+
+@keyframes smokeRise {
+  0% { opacity: 0.3; transform: translateY(0) scale(0.9); }
+  50% { opacity: 0.8; transform: translateY(-8px) scale(1.05); }
+  100% { opacity: 0.2; transform: translateY(-18px) scale(1.15); }
 }

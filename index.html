@@ -44,7 +44,7 @@
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="css/styles.css">
     <!-- Tema Festivo de Halloween -->
-    <link rel="stylesheet" href="css/halloween.css?v=20261026_hw2">
+    <link rel="stylesheet" href="css/halloween.css?v=20261026_hw3">
 </head>
 <body class="halloween-active bg-slate-100/70 text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-blue-500 selection:text-white pb-16 sm:pb-0">
 
@@ -104,6 +104,139 @@
             <div class="hw-bat hw-bat-3">
                 <svg viewBox="0 0 64 36" fill="currentColor">
                     <path d="M32 14 C36 8, 48 2, 60 4 C58 12, 54 22, 46 26 C42 22, 38 20, 32 23 C26 20, 22 22, 18 26 C10 22, 6 12, 4 4 C16 2, 28 8, 32 14 Z" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- ==================================================================
+             BORDES LATERALES DECORADOS (FLANCO IZQUIERDO)
+             ================================================================== -->
+        <div class="hw-side-flank hw-side-flank-left">
+            <!-- 1. Farol de Calabaza Colgante -->
+            <div class="hw-flank-item hw-lantern-hanger">
+                <svg viewBox="0 0 120 180" fill="none">
+                    <!-- Cadena -->
+                    <line x1="60" y1="0" x2="60" y2="65" stroke="#64748b" stroke-width="2.5" stroke-dasharray="4,3"/>
+                    <circle cx="60" cy="68" r="4" stroke="#475569" stroke-width="2" fill="none"/>
+                    <!-- Tallo verde -->
+                    <path d="M57 70 Q60 62 67 60 Q63 68 62 72 Z" fill="#15803d"/>
+                    <!-- Cuerpo de la calabaza -->
+                    <ellipse cx="60" cy="115" rx="42" ry="36" fill="#ea580c"/>
+                    <ellipse cx="60" cy="115" rx="30" ry="36" fill="#f97316"/>
+                    <ellipse cx="60" cy="115" rx="16" ry="35" fill="#fb923c"/>
+                    <!-- Rostro tallado con resplandor -->
+                    <g class="hw-candle-glow">
+                        <!-- Ojos -->
+                        <polygon points="44,102 52,108 42,112" fill="#fef08a"/>
+                        <polygon points="76,102 68,108 78,112" fill="#fef08a"/>
+                        <!-- Nariz -->
+                        <polygon points="60,112 56,120 64,120" fill="#fef08a"/>
+                        <!-- Sonrisa -->
+                        <path d="M38 126 Q48 138 60 138 Q72 138 82 126 Q76 132 60 132 Q44 132 38 126 Z" fill="#fef08a"/>
+                        <!-- Dientes -->
+                        <rect x="52" y="129" width="4" height="4" fill="#ea580c"/>
+                        <rect x="64" y="129" width="4" height="4" fill="#ea580c"/>
+                    </g>
+                </svg>
+            </div>
+
+            <!-- 2. Fantasma Flotante Amigable -->
+            <div class="hw-flank-item hw-floating-ghost">
+                <svg viewBox="0 0 120 130" fill="none">
+                    <!-- Silueta del fantasma -->
+                    <path d="M60 20 C36 20, 26 40, 26 70 C26 95, 34 105, 38 98 C42 92, 48 94, 52 102 C56 110, 64 110, 68 102 C72 94, 78 92, 82 98 C86 105, 94 95, 94 70 C94 40, 84 20, 60 20 Z" 
+                          fill="rgba(255, 255, 255, 0.88)" stroke="rgba(192, 132, 252, 0.6)" stroke-width="2" />
+                    <!-- Ojos y boca asustada/divertida -->
+                    <ellipse cx="48" cy="48" rx="4.5" ry="7" fill="#1e1b4b"/>
+                    <ellipse cx="72" cy="48" rx="4.5" ry="7" fill="#1e1b4b"/>
+                    <ellipse cx="60" cy="64" rx="5" ry="7.5" fill="#1e1b4b"/>
+                    <!-- Resplandor en ojos -->
+                    <circle cx="50" cy="46" r="1.5" fill="#ffffff"/>
+                    <circle cx="74" cy="46" r="1.5" fill="#ffffff"/>
+                    <!-- Murciélago chiquito sobre el fantasma -->
+                    <path d="M96 24 C100 20 106 18 112 19 C110 23 108 27 104 29 C102 27 100 26 96 28 Z" fill="#312e81"/>
+                </svg>
+            </div>
+
+            <!-- 3. Calabaza Tallada en la Base -->
+            <div class="hw-flank-item hw-candle-glow">
+                <svg viewBox="0 0 140 120" fill="none">
+                    <!-- Calabaza secundaria detrás -->
+                    <ellipse cx="98" cy="75" rx="30" ry="26" fill="#c2410c"/>
+                    <ellipse cx="98" cy="75" rx="20" ry="26" fill="#ea580c"/>
+                    <!-- Calabaza principal -->
+                    <path d="M50 48 Q52 38 60 36 Q56 46 54 50 Z" fill="#15803d"/>
+                    <ellipse cx="56" cy="80" rx="44" ry="36" fill="#ea580c"/>
+                    <ellipse cx="56" cy="80" rx="32" ry="36" fill="#f97316"/>
+                    <ellipse cx="56" cy="80" rx="16" ry="35" fill="#fb923c"/>
+                    <!-- Rostro sonriente -->
+                    <polygon points="40,68 48,74 38,78" fill="#fef08a"/>
+                    <polygon points="72,68 64,74 74,78" fill="#fef08a"/>
+                    <polygon points="56,76 52,82 60,82" fill="#fef08a"/>
+                    <path d="M36 88 Q56 104 76 88 Q66 98 46 98 Z" fill="#fef08a"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- ==================================================================
+             BORDES LATERALES DECORADOS (FLANCO DERECHO)
+             ================================================================== -->
+        <div class="hw-side-flank hw-side-flank-right">
+            <!-- 1. Luna Creciente de Halloween con Murciélagos -->
+            <div class="hw-flank-item hw-floating-ghost">
+                <svg viewBox="0 0 120 140" fill="none">
+                    <!-- Luna Creciente Dorada -->
+                    <path d="M75 25 C50 25 35 48 35 75 C35 102 52 122 78 122 C64 114 55 98 55 75 C55 50 66 33 75 25 Z" 
+                          fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/>
+                    <!-- Murciélagos volando frente a la luna -->
+                    <path d="M30 46 C34 40 44 36 52 38 C50 44 46 50 40 52 C37 49 34 48 30 50 Z" fill="#1e1b4b"/>
+                    <path d="M60 88 C63 84 70 80 76 81 C74 86 72 90 67 92 C65 90 63 89 60 91 Z" fill="#1e1b4b"/>
+                    <!-- Estrellas mágicas -->
+                    <polygon points="25,28 27,33 32,35 27,37 25,42 23,37 18,35 23,33" fill="#fef08a"/>
+                    <polygon points="85,95 87,99 91,100 87,102 85,106 83,102 79,100 83,99" fill="#fef08a"/>
+                </svg>
+            </div>
+
+            <!-- 2. Caldero Mágico de Bruja con Humo Púrpura -->
+            <div class="hw-flank-item">
+                <svg viewBox="0 0 130 140" fill="none">
+                    <!-- Humo mágico ascendente -->
+                    <g class="hw-cauldron-smoke">
+                        <ellipse cx="65" cy="42" rx="18" ry="12" fill="rgba(192, 132, 252, 0.45)"/>
+                        <ellipse cx="78" cy="30" rx="14" ry="10" fill="rgba(216, 180, 254, 0.4)"/>
+                        <ellipse cx="54" cy="22" rx="10" ry="8" fill="rgba(233, 213, 255, 0.35)"/>
+                        <circle cx="68" cy="14" r="5" fill="rgba(168, 85, 247, 0.5)"/>
+                    </g>
+                    <!-- Boca del caldero y poción burbujeante -->
+                    <ellipse cx="65" cy="62" rx="42" ry="10" fill="#3b0764" stroke="#581c87" stroke-width="2"/>
+                    <ellipse cx="65" cy="61" rx="36" ry="7" fill="#a855f7"/>
+                    <!-- Burbujas de la poción -->
+                    <circle cx="55" cy="60" r="3" fill="#4ade80"/>
+                    <circle cx="72" cy="61" r="2.5" fill="#fef08a"/>
+                    <circle cx="82" cy="59" r="2" fill="#4ade80"/>
+                    <!-- Cuerpo del caldero de hierro -->
+                    <path d="M26 64 C24 95, 38 114, 65 114 C92 114, 106 95, 104 64 Z" fill="#18181b" stroke="#27272a" stroke-width="2"/>
+                    <!-- Patas del caldero -->
+                    <path d="M38 112 L30 126 M92 112 L100 126 M65 114 L65 128" stroke="#18181b" stroke-width="5" stroke-linecap="round"/>
+                </svg>
+            </div>
+
+            <!-- 3. Calabaza con Sombrerito de Bruja en la Esquina -->
+            <div class="hw-flank-item hw-candle-glow">
+                <svg viewBox="0 0 130 130" fill="none">
+                    <!-- Calabaza -->
+                    <ellipse cx="65" cy="85" rx="42" ry="34" fill="#ea580c"/>
+                    <ellipse cx="65" cy="85" rx="30" ry="34" fill="#f97316"/>
+                    <ellipse cx="65" cy="85" rx="16" ry="33" fill="#fb923c"/>
+                    <!-- Rostro sonriente -->
+                    <polygon points="50,75 58,80 48,84" fill="#fef08a"/>
+                    <polygon points="80,75 72,80 82,84" fill="#fef08a"/>
+                    <polygon points="65,82 61,88 69,88" fill="#fef08a"/>
+                    <path d="M46 94 Q65 106 84 94 Q75 102 55 102 Z" fill="#fef08a"/>
+                    <!-- Sombrerito de bruja sobre la calabaza -->
+                    <ellipse cx="65" cy="56" rx="38" ry="9" fill="#18181b" stroke="#3b0764" stroke-width="1.5"/>
+                    <path d="M42 55 Q56 28 62 14 Q70 2 82 0 Q74 16 75 34 Q76 46 88 55 Z" fill="#2e1065" stroke="#4c1d95" stroke-width="1.5"/>
+                    <path d="M45 53 Q65 47 85 53 L87 56 Q65 50 43 56 Z" fill="#f97316"/>
                 </svg>
             </div>
         </div>
