@@ -293,30 +293,6 @@
                     </div>
                 </a>
 
-                <!-- Buscador de Escritorio -->
-                <div class="flex-1 max-w-md hidden md:block">
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
-                        </div>
-                        <input
-                            type="text"
-                            id="search-input"
-                            placeholder="Buscar productos, marcas, servicios..."
-                            class="w-full pl-10 pr-9 py-2 bg-slate-100 hover:bg-slate-100/80 focus:bg-white border border-transparent focus:border-blue-500 rounded-xl text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-hidden focus:ring-3 focus:ring-blue-500/10 transition-all"
-                        >
-                        <button
-                            id="clear-search-btn"
-                            class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600"
-                            title="Limpiar búsqueda"
-                        >
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                        </button>
-                    </div>
-                </div>
-
                 <!-- Botón de Carrito del Header -->
                 <div class="flex items-center gap-2">
                     <button
@@ -333,23 +309,6 @@
                             0
                         </span>
                     </button>
-                </div>
-            </div>
-
-            <!-- Buscador en Teléfonos Móviles -->
-            <div class="pb-2.5 md:hidden">
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
-                    </div>
-                    <input
-                        type="text"
-                        oninput="document.getElementById('search-input').value = this.value; document.getElementById('search-input').dispatchEvent(new Event('input'))"
-                        placeholder="Buscar en el catálogo..."
-                        class="w-full pl-9 pr-4 py-2 bg-slate-100 rounded-xl text-xs border-0 focus:ring-2 focus:ring-blue-500 placeholder-slate-400"
-                    >
                 </div>
             </div>
         </div>
@@ -397,64 +356,89 @@
         </div>
     </section>
 
-    <!-- Barra de Filtros de Categorías (Selector Desplegable para el Usuario) -->
-    <div class="sticky top-16 sm:top-20 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-2xs py-2.5 sm:py-3">
-        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-            <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+    <!-- Barra de Filtros y Búsqueda Estilo PC Master (Sticky) -->
+    <div class="sticky top-16 sm:top-20 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs py-2.5 sm:py-3">
+        <div class="max-w-3xl mx-auto px-3 sm:px-6">
+            
+            <!-- Fila Principal: Selector de Categoría (Izquierda) + Recuadro de Búsqueda (Derecha) -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2 sm:gap-3 w-full">
                 
-                <!-- Selector Desplegable de Categorías -->
-                <div class="flex items-center gap-2 flex-1 max-w-lg">
-                    <label for="user-category-select" class="text-xs font-bold text-slate-700 whitespace-nowrap flex items-center gap-1.5 shrink-0">
-                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
-                        </svg>
-                        <span>Categoría:</span>
-                    </label>
-                    <div class="relative flex-1">
-                        <select
-                            id="user-category-select"
-                            onchange="window.StoreCatalog.selectCategory(this.value)"
-                            class="w-full appearance-none bg-slate-50 hover:bg-slate-100 border border-slate-300 focus:border-blue-500 rounded-xl px-3.5 py-2 pr-9 text-xs sm:text-sm font-bold text-slate-800 shadow-2xs focus:ring-2 focus:ring-blue-500/20 focus:outline-hidden transition-all cursor-pointer"
-                        >
-                            <option value="Mostrar todas">📂 Mostrar todas</option>
-                            <option value="🔥 Más Pedidos">🔥 Más Pedidos</option>
-                            <option value="Almacenamiento">Almacenamiento</option>
-                            <option value="Case">Case</option>
-                            <option value="Estabilizadores / UPS">Estabilizadores / UPS</option>
-                            <option value="Fuente de Poder">Fuente de Poder</option>
-                            <option value="Laptop">Laptop</option>
-                            <option value="Memoria Ram">Memoria Ram</option>
-                            <option value="Monitores">Monitores</option>
-                            <option value="Periféricos">Periféricos</option>
-                            <option value="Placas Madres">Placas Madres</option>
-                            <option value="Procesadores">Procesadores</option>
-                            <option value="Procesadores OEM">Procesadores OEM</option>
-                            <option value="Refrigeración">Refrigeración</option>
-                            <option value="Sillas Gamer">Sillas Gamer</option>
-                            <option value="Tarjetas de Video">Tarjetas de Video</option>
-                        </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-slate-500">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </div>
+                <!-- 1. Selector Desplegable de Categorías -->
+                <div class="relative w-full sm:w-60 sm:shrink-0">
+                    <select
+                        id="user-category-select"
+                        onchange="window.StoreCatalog.selectCategory(this.value)"
+                        class="w-full appearance-none bg-white hover:bg-slate-50 border border-slate-300 focus:border-blue-500 rounded-xl px-4 py-2.5 pr-9 text-xs sm:text-sm font-bold uppercase tracking-tight text-slate-800 shadow-xs focus:ring-2 focus:ring-blue-500/10 focus:outline-hidden transition-all cursor-pointer"
+                    >
+                        <option value="Mostrar todas">TODAS LAS CATEGORÍAS</option>
+                        <option value="🔥 Más Pedidos">🔥 MÁS PEDIDOS</option>
+                        <option value="Almacenamiento">ALMACENAMIENTO</option>
+                        <option value="Case">CASE</option>
+                        <option value="Estabilizadores / UPS">ESTABILIZADORES / UPS</option>
+                        <option value="Fuente de Poder">FUENTE DE PODER</option>
+                        <option value="Laptop">LAPTOP</option>
+                        <option value="Memoria Ram">MEMORIA RAM</option>
+                        <option value="Monitores">MONITORES</option>
+                        <option value="Periféricos">PERIFÉRICOS</option>
+                        <option value="Placas Madres">PLACAS MADRES</option>
+                        <option value="Procesadores">PROCESADORES</option>
+                        <option value="Procesadores OEM">PROCESADORES OEM</option>
+                        <option value="Refrigeración">REFRIGERACIÓN</option>
+                        <option value="Sillas Gamer">SILLAS GAMER</option>
+                        <option value="Tarjetas de Video">TARJETAS DE VIDEO</option>
+                    </select>
+                    <!-- Flechita Dropdown -->
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-500">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </div>
                 </div>
 
-                <!-- Indicador de Resultados Activos -->
-                <div class="flex items-center justify-between sm:justify-end gap-2 text-xs">
-                    <span id="active-category-indicator" class="font-bold text-slate-600 truncate">
-                        Mostrando: <strong class="text-blue-600">Todas las categorías</strong>
-                    </span>
-                    <button
-                        type="button"
-                        id="reset-filter-btn"
-                        onclick="window.StoreCatalog.selectCategory('Mostrar todas')"
-                        class="hidden text-[11px] text-blue-600 hover:text-blue-800 underline font-bold shrink-0"
+                <!-- 2. Recuadro de Búsqueda al Lado -->
+                <div class="relative w-full sm:flex-1">
+                    <input
+                        type="text"
+                        id="search-input"
+                        placeholder="Buscar en el catálogo o categoría... (ej: b550, i5, asus)"
+                        class="w-full bg-white hover:bg-slate-50/50 focus:bg-white border border-slate-300 focus:border-blue-500 rounded-xl pl-4 pr-16 py-2.5 text-xs sm:text-sm font-medium text-slate-800 placeholder-slate-400 shadow-xs focus:ring-2 focus:ring-blue-500/10 focus:outline-hidden transition-all"
                     >
-                        Ver todas
-                    </button>
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 gap-1.5">
+                        <!-- Botón Limpiar (✕) -->
+                        <button
+                            type="button"
+                            id="clear-search-btn"
+                            class="hidden p-1 text-slate-400 hover:text-slate-600 rounded-md transition-colors"
+                            title="Limpiar búsqueda"
+                        >
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                        <!-- Icono Lupa (🔍) con tono celeste idéntico a PC Master -->
+                        <span class="p-1 text-sky-500 pointer-events-none">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </span>
+                    </div>
                 </div>
 
             </div>
+
+            <!-- 3. Indicador de Conteo Estilo PC Master: "Mostrando 3 de 466 productos" -->
+            <div class="text-center mt-2 flex items-center justify-center gap-2">
+                <p id="products-count-text" class="text-xs font-semibold text-slate-500">
+                    Mostrando <span id="current-filtered-count" class="font-bold text-blue-600">246</span> de <span id="total-catalog-count" class="font-bold text-slate-700">246</span> productos
+                </p>
+                <button
+                    type="button"
+                    id="reset-filter-btn"
+                    onclick="window.StoreCatalog.selectCategory('Mostrar todas'); document.getElementById('search-input').value = ''; document.getElementById('search-input').dispatchEvent(new Event('input'));"
+                    class="hidden text-[11px] text-blue-600 hover:text-blue-800 underline font-bold shrink-0"
+                >
+                    • Ver todas
+                </button>
+            </div>
+
         </div>
     </div>
 
@@ -979,8 +963,8 @@
     <script src="js/data.js?v=20261012_v7"></script>
     <script src="js/compressor.js?v=20261012_v7"></script>
     <script src="js/api.js?v=20261012_v7"></script>
-    <script src="js/app.js?v=20261012_v7"></script>
+    <script src="js/app.js?v=20261026_pcm1"></script>
     <!-- Decoración Festiva de Halloween -->
-    <script src="js/halloween.js?v=20261026_hw2"></script>
+    <script src="js/halloween.js?v=20261026_hw3"></script>
 </body>
 </html>

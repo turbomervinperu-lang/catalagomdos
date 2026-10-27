@@ -270,6 +270,15 @@
         });
     }
 
+    function normalizeText(str) {
+        if (!str) return '';
+        return str.toString()
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .trim();
+    }
+
     function selectCategory(category) {
         state.activeCategory = category;
 
@@ -277,20 +286,13 @@
             elements.userCategorySelect.value = category;
         }
 
-        if (elements.activeCategoryIndicator) {
+        // Actualizar placeholder intuitivo
+        if (elements.searchInput) {
             if (category === 'Mostrar todas' || category === 'Todos') {
-                elements.activeCategoryIndicator.innerHTML = `Mostrando: <strong class="text-blue-600">Todas las categorías</strong> (${state.products.length})`;
-            } else if (category === '🔥 Más Pedidos') {
-                const count = state.products.filter(p => (p.orderCount || 0) > 0).length;
-                elements.activeCategoryIndicator.innerHTML = `Mostrando: <strong class="text-amber-600">🔥 Más Pedidos</strong> (${count})`;
+                elements.searchInput.placeholder = 'Buscar en todas las categorías... (ej: b550, i5, asus)';
             } else {
-                const count = state.products.filter(p => p.category === category).length;
-                elements.activeCategoryIndicator.innerHTML = `Mostrando: <strong class="text-blue-600">${category}</strong> (${count})`;
+                elements.searchInput.placeholder = `Buscar en ${category}... (ej: modelo, marca)`;
             }
-        }
-
-        if (elements.resetFilterBtn) {
-            elements.resetFilterBtn.classList.toggle('hidden', category === 'Mostrar todas' || category === 'Todos');
         }
 
         renderProducts();
@@ -300,13 +302,13 @@
         if (elements.userCategorySelect) {
             elements.userCategorySelect.value = state.activeCategory || 'Mostrar todas';
         }
-        if (elements.activeCategoryIndicator) {
-            elements.activeCategoryIndicator.innerHTML = `Mostrando: <strong class="text-blue-600">Todas las categorías</strong> (${state.products.length})`;
-        }
     }
 
     function renderProducts() {
         if (!elements.productsGrid) return;
+
+        const rawQuery = state.searchQuery || '';
+        const queryTokens = normalizeText(rawQuery).split(/\s+/).filter(Boolean);
 
         let filtered = state.products.filter(prod => {
             let matchCategory = true;
@@ -316,16 +318,30 @@
                 matchCategory = prod.category === state.activeCategory;
             }
 
-            const matchSearch = state.searchQuery === '' ||
-                prod.name.toLowerCase().includes(state.searchQuery) ||
-                (prod.description && prod.description.toLowerCase().includes(state.searchQuery)) ||
-                (prod.category && prod.category.toLowerCase().includes(state.searchQuery));
+            const searchableText = normalizeText(`${prod.name || ''} ${prod.category || ''} ${prod.description || ''} ${prod.fullDescription || ''} ${prod.badge || ''}`);
+            const matchSearch = queryTokens.length === 0 || queryTokens.every(token => searchableText.includes(token));
+
             return matchCategory && matchSearch;
         });
 
         // Ordenar por más pedidos si está en esa pestaña
         if (state.activeCategory === '🔥 Más Pedidos') {
             filtered.sort((a, b) => (b.orderCount || 0) - (a.orderCount || 0));
+        }
+
+        // Actualizar conteo exacto idéntico a PC Master: "Mostrando X de Y productos"
+        const countText = document.getElementById('products-count-text');
+        if (countText) {
+            countText.innerHTML = `Mostrando <span class="font-bold text-blue-600">${filtered.length}</span> de <span class="font-bold text-slate-700">${state.products.length}</span> productos`;
+        }
+        const currentCount = document.getElementById('current-filtered-count');
+        if (currentCount) currentCount.textContent = filtered.length;
+        const totalCount = document.getElementById('total-catalog-count');
+        if (totalCount) totalCount.textContent = state.products.length;
+
+        if (elements.resetFilterBtn) {
+            const isFiltered = (state.activeCategory !== 'Mostrar todas' && state.activeCategory !== 'Todos') || queryTokens.length > 0;
+            elements.resetFilterBtn.classList.toggle('hidden', !isFiltered);
         }
 
         if (filtered.length === 0) {
