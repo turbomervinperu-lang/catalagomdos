@@ -528,35 +528,75 @@
 
                 <!-- Tabla de Productos con Acciones de Editar y Eliminar -->
                 <div class="bg-white rounded-2xl shadow-xs border border-slate-200 overflow-hidden">
-                    <div class="p-4 border-b border-slate-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                    <div class="p-4 border-b border-slate-100 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
                         <div>
-                            <h3 class="font-bold text-slate-900 text-sm">Inventario de Productos</h3>
+                            <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                                <span>📦</span> Inventario de Productos
+                            </h3>
                             <p class="text-xs text-slate-500">Puedes editar o eliminar cualquier artículo del catálogo</p>
                         </div>
-                        <div class="flex items-center gap-2.5">
-                            <label class="text-[11px] font-bold text-slate-600 hidden sm:inline">Categoría:</label>
-                            <select
-                                id="admin-category-filter"
-                                onchange="window.AdminPanel.filterByAdminCategory(this.value)"
-                                class="text-xs bg-slate-100 border border-slate-300 rounded-xl px-2.5 py-1.5 font-bold text-slate-800 focus:ring-2 focus:ring-blue-500"
-                            >
-                                <option value="Mostrar todas">Mostrar todas</option>
-                                <option value="Almacenamiento">Almacenamiento</option>
-                                <option value="Case">Case</option>
-                                <option value="Estabilizadores / UPS">Estabilizadores / UPS</option>
-                                <option value="Fuente de Poder">Fuente de Poder</option>
-                                <option value="Laptop">Laptop</option>
-                                <option value="Memoria Ram">Memoria Ram</option>
-                                <option value="Monitores">Monitores</option>
-                                <option value="Periféricos">Periféricos</option>
-                                <option value="Placas Madres">Placas Madres</option>
-                                <option value="Procesadores">Procesadores</option>
-                                <option value="Procesadores OEM">Procesadores OEM</option>
-                                <option value="Refrigeración">Refrigeración</option>
-                                <option value="Sillas Gamer">Sillas Gamer</option>
-                                <option value="Tarjetas de Video">Tarjetas de Video</option>
-                            </select>
-                            <span id="product-count-badge" class="px-2.5 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-800 shrink-0">
+
+                        <!-- Barra de Búsqueda y Filtro Contiguos Estilo PC Master -->
+                        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-2.5 w-full md:w-auto">
+                            <!-- 1. Selector de Categoría -->
+                            <div class="relative min-w-[170px]">
+                                <select
+                                    id="admin-category-filter"
+                                    onchange="window.AdminPanel.filterByAdminCategory(this.value)"
+                                    class="w-full appearance-none text-xs bg-slate-50 hover:bg-white border border-slate-300 rounded-xl pl-3 pr-8 py-2 font-bold text-slate-800 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 focus:outline-hidden cursor-pointer shadow-2xs"
+                                >
+                                    <option value="Mostrar todas">Mostrar todas</option>
+                                    <option value="Almacenamiento">Almacenamiento</option>
+                                    <option value="Case">Case</option>
+                                    <option value="Estabilizadores / UPS">Estabilizadores / UPS</option>
+                                    <option value="Fuente de Poder">Fuente de Poder</option>
+                                    <option value="Laptop">Laptop</option>
+                                    <option value="Memoria Ram">Memoria Ram</option>
+                                    <option value="Monitores">Monitores</option>
+                                    <option value="Periféricos">Periféricos</option>
+                                    <option value="Placas Madres">Placas Madres</option>
+                                    <option value="Procesadores">Procesadores</option>
+                                    <option value="Procesadores OEM">Procesadores OEM</option>
+                                    <option value="Refrigeración">Refrigeración</option>
+                                    <option value="Sillas Gamer">Sillas Gamer</option>
+                                    <option value="Tarjetas de Video">Tarjetas de Video</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-slate-500">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </div>
+                            </div>
+
+                            <!-- 2. Recuadro de Búsqueda al Lado -->
+                            <div class="relative w-full sm:w-64">
+                                <input
+                                    type="text"
+                                    id="admin-search-input"
+                                    oninput="window.AdminPanel.handleAdminSearch(this.value)"
+                                    placeholder="Buscar producto a modificar... (ej: b550, i5)"
+                                    class="w-full text-xs bg-slate-50 hover:bg-white focus:bg-white border border-slate-300 rounded-xl pl-3 pr-14 py-2 font-medium text-slate-800 placeholder-slate-400 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 focus:outline-hidden transition-all shadow-2xs"
+                                >
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-2 gap-1">
+                                    <button
+                                        type="button"
+                                        id="admin-clear-search-btn"
+                                        onclick="window.AdminPanel.clearAdminSearch()"
+                                        class="hidden p-0.5 text-slate-400 hover:text-slate-600 rounded-md transition-colors"
+                                        title="Limpiar búsqueda"
+                                    >
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                    </button>
+                                    <span class="p-0.5 text-sky-500 pointer-events-none">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- 3. Contador de Productos Encontrados -->
+                            <span id="product-count-badge" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200 shrink-0 text-center shadow-2xs">
                                 0 Productos
                             </span>
                         </div>
@@ -903,6 +943,6 @@
     <script src="js/data.js?v=20261012_v7"></script>
     <script src="js/compressor.js?v=20261012_v7"></script>
     <script src="js/api.js?v=20261012_v7"></script>
-    <script src="js/admin.js?v=20261012_v7"></script>
+    <script src="js/admin.js?v=20261026_pcm1"></script>
 </body>
 </html>

@@ -862,9 +862,50 @@
     }
 
     let adminCategoryFilter = 'Mostrar todas';
+    let adminSearchQuery = '';
+
+    function normalizeText(str) {
+        if (!str) return '';
+        return str.toString()
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .trim();
+    }
 
     function filterByAdminCategory(category) {
         adminCategoryFilter = category;
+        const searchInput = document.getElementById('admin-search-input');
+        if (searchInput) {
+            if (category === 'Mostrar todas') {
+                searchInput.placeholder = 'Buscar producto a modificar... (ej: b550, i5, asus)';
+            } else {
+                searchInput.placeholder = `Buscar en ${category}... (ej: modelo, marca)`;
+            }
+        }
+        renderProductsTable();
+    }
+
+    function handleAdminSearch(query) {
+        adminSearchQuery = query ? query.trim() : '';
+        const clearBtn = document.getElementById('admin-clear-search-btn');
+        if (clearBtn) {
+            clearBtn.classList.toggle('hidden', adminSearchQuery === '');
+        }
+        renderProductsTable();
+    }
+
+    function clearAdminSearch() {
+        adminSearchQuery = '';
+        const searchInput = document.getElementById('admin-search-input');
+        if (searchInput) {
+            searchInput.value = '';
+            searchInput.focus();
+        }
+        const clearBtn = document.getElementById('admin-clear-search-btn');
+        if (clearBtn) {
+            clearBtn.classList.add('hidden');
+        }
         renderProductsTable();
     }
 
@@ -873,14 +914,42 @@
         const countBadge = document.getElementById('product-count-badge');
         if (!tbody) return;
 
-        const filtered = adminCategoryFilter === 'Mostrar todas'
-            ? products
-            : products.filter(p => p.category === adminCategoryFilter);
+        const queryTokens = normalizeText(adminSearchQuery).split(/\s+/).filter(Boolean);
 
-        if (countBadge) countBadge.textContent = `${filtered.length} Productos`;
+        const filtered = products.filter(prod => {
+            const matchCategory = adminCategoryFilter === 'Mostrar todas' || prod.category === adminCategoryFilter;
+
+            const searchableText = normalizeText(`${prod.name || ''} ${prod.category || ''} ${prod.description || ''} ${prod.fullDescription || ''} ${prod.id || ''} ${prod.badge || ''}`);
+            const matchSearch = queryTokens.length === 0 || queryTokens.every(token => searchableText.includes(token));
+
+            return matchCategory && matchSearch;
+        });
+
+        if (countBadge) {
+            if (adminCategoryFilter === 'Mostrar todas' && queryTokens.length === 0) {
+                countBadge.textContent = `${products.length} Productos`;
+            } else {
+                countBadge.textContent = `Mostrando ${filtered.length} de ${products.length}`;
+            }
+        }
 
         if (filtered.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-slate-400 font-semibold">No hay productos registrados en "${adminCategoryFilter}".</td></tr>`;
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="6" class="p-8 text-center text-slate-400">
+                        <div class="text-3xl mb-1.5">🔍</div>
+                        <p class="font-bold text-slate-700 text-sm">No se encontraron productos coincidentes</p>
+                        <p class="text-xs text-slate-400 mt-1">Prueba con otra palabra clave o selecciona otra categoría.</p>
+                        <button
+                            type="button"
+                            onclick="window.AdminPanel.clearAdminSearch(); window.AdminPanel.filterByAdminCategory('Mostrar todas'); document.getElementById('admin-category-filter').value = 'Mostrar todas';"
+                            class="mt-3 px-3.5 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-lg font-bold text-xs transition-colors cursor-pointer"
+                        >
+                            Ver todos los productos
+                        </button>
+                    </td>
+                </tr>
+            `;
             return;
         }
 
@@ -896,8 +965,8 @@
                         ${photoCount > 1 ? `<span class="absolute -bottom-1 -right-1 bg-slate-900 text-white text-[9px] font-bold px-1 rounded-sm shadow-xs" title="${photoCount} fotos cargadas">📷${photoCount}</span>` : ''}
                     </div>
                 </td>
-                <td class="p-3 font-bold text-slate-900 max-w-[180px] truncate">
-                    ${prod.name}
+                <td class="p-3 font-bold text-slate-900 max-w-[200px]">
+                    <div class="truncate font-bold">${prod.name}</div>
                     <span class="block text-[10px] text-slate-400 font-normal truncate">${prod.description || ''}</span>
                 </td>
                 <td class="p-3 font-semibold text-slate-700">${prod.category || 'General'}</td>
@@ -906,11 +975,11 @@
                 <td class="p-3 text-right space-x-1 whitespace-nowrap">
                     <button
                         onclick="window.AdminPanel.editProduct('${prod.id}')"
-                        class="px-2 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-md font-semibold text-xs"
+                        class="px-2.5 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-lg font-bold text-xs transition-colors cursor-pointer"
                     >Editar</button>
                     <button
                         onclick="window.AdminPanel.deleteProduct('${prod.id}')"
-                        class="px-2 py-1 bg-red-50 hover:bg-red-100 text-red-600 rounded-md font-semibold text-xs"
+                        class="px-2.5 py-1 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg font-bold text-xs transition-colors cursor-pointer"
                     >Eliminar</button>
                 </td>
             </tr>
@@ -1241,7 +1310,9 @@
         syncDatabaseNow,
         exportCatalogJson,
         importCatalogJson,
-        filterByAdminCategory
+        filterByAdminCategory,
+        handleAdminSearch,
+        clearAdminSearch
     };
 
     window.addEventListener('load', () => {
