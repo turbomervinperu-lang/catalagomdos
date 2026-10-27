@@ -1,0 +1,293 @@
+/* ==========================================================================
+   Halloween Edition - Tecnosistemas MDOS
+   Capa estética aislada para época festiva.
+   No interfiere con clics, compras ni funciones del catálogo.
+   ========================================================================== */
+
+:root {
+  --hw-orange: #ea580c;
+  --hw-orange-glow: #f97316;
+  --hw-purple: #7e22ce;
+  --hw-purple-dark: #3b0764;
+  --hw-dark: #09090b;
+}
+
+/* --------------------------------------------------------------------------
+   1. Barra de Anuncio Temática de Halloween
+   -------------------------------------------------------------------------- */
+body.halloween-active #top-announcement-bar,
+body.halloween-active .bg-gradient-to-r.from-blue-700 {
+  background-image: linear-gradient(90deg, #180528 0%, #ea580c 45%, #7e22ce 75%, #0f172a 100%) !important;
+  background-color: #180528 !important;
+  border-bottom: 1px solid rgba(249, 115, 22, 0.4) !important;
+  box-shadow: 0 2px 12px rgba(234, 88, 12, 0.25) !important;
+}
+
+/* --------------------------------------------------------------------------
+   2. Resplandor Temático en Tarjetas de Productos
+   -------------------------------------------------------------------------- */
+body.halloween-active .product-card:hover {
+  border-color: rgba(249, 115, 22, 0.5) !important;
+  box-shadow: 0 14px 28px -6px rgba(234, 88, 12, 0.25),
+              0 0 18px -2px rgba(168, 85, 247, 0.25),
+              0 4px 8px -2px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* --------------------------------------------------------------------------
+   3. Botón de Carrito con Acento Festivo
+   -------------------------------------------------------------------------- */
+body.halloween-active #cart-btn {
+  background: linear-gradient(135deg, #ea580c 0%, #9333ea 100%) !important;
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.4) !important;
+}
+
+body.halloween-active #cart-btn:hover {
+  filter: brightness(1.1);
+  transform: scale(1.02);
+}
+
+/* --------------------------------------------------------------------------
+   4. Sombrerito de Bruja en el Logo
+   -------------------------------------------------------------------------- */
+.hw-witch-hat-container {
+  display: none;
+  position: absolute;
+  top: -14px;
+  left: -12px;
+  width: 32px;
+  height: 32px;
+  z-index: 25;
+  pointer-events: none;
+  transform: rotate(-18deg);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
+  animation: hatWiggle 6s ease-in-out infinite alternate;
+}
+
+body.halloween-active .hw-witch-hat-container {
+  display: block !important;
+}
+
+@media (min-width: 640px) {
+  .hw-witch-hat-container {
+    top: -17px;
+    left: -14px;
+    width: 38px;
+    height: 38px;
+  }
+}
+
+@keyframes hatWiggle {
+  0% { transform: rotate(-18deg); }
+  50% { transform: rotate(-12deg) translateY(-1px); }
+  100% { transform: rotate(-22deg) translateY(1px); }
+}
+
+/* --------------------------------------------------------------------------
+   5. Contenedor de Telarañas y Murciélagos
+   -------------------------------------------------------------------------- */
+#hw-decorations-container {
+  display: none;
+}
+
+body.halloween-active #hw-decorations-container {
+  display: block !important;
+}
+
+.hw-cobweb {
+  position: fixed;
+  z-index: 38;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.72;
+  transition: opacity 0.3s ease;
+}
+
+.hw-cobweb-left {
+  top: 0;
+  left: 0;
+  width: 115px;
+  height: 115px;
+}
+
+.hw-cobweb-right {
+  top: 0;
+  right: 0;
+  width: 130px;
+  height: 130px;
+}
+
+@media (min-width: 640px) {
+  .hw-cobweb-left {
+    width: 160px;
+    height: 160px;
+  }
+  .hw-cobweb-right {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+/* Arañita colgante pendular en la esquina derecha */
+.hw-spider-hanger {
+  position: fixed;
+  top: 0;
+  right: 52px;
+  z-index: 39;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform-origin: top center;
+  animation: spiderSwing 4.5s ease-in-out infinite alternate;
+}
+
+.hw-spider-thread {
+  width: 1.5px;
+  height: 65px;
+  background: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.4);
+}
+
+.hw-spider-body {
+  width: 24px;
+  height: 24px;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
+}
+
+@media (max-width: 640px) {
+  .hw-spider-hanger {
+    right: 20px;
+  }
+  .hw-spider-thread {
+    height: 44px;
+  }
+}
+
+@keyframes spiderSwing {
+  0% { transform: rotate(8deg); }
+  50% { transform: rotate(-6deg) translateY(3px); }
+  100% { transform: rotate(-9deg); }
+}
+
+/* --------------------------------------------------------------------------
+   6. Murciélagos Flotantes Decorativos de Fondo
+   -------------------------------------------------------------------------- */
+.hw-bats-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 25;
+  overflow: hidden;
+}
+
+.hw-bat {
+  position: absolute;
+  width: 28px;
+  height: 20px;
+  opacity: 0.32;
+  fill: #1e1b4b;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+  animation: batGlide 18s linear infinite;
+}
+
+.hw-bat-1 {
+  top: 18%;
+  left: -60px;
+  animation-duration: 22s;
+  animation-delay: 0.5s;
+}
+
+.hw-bat-2 {
+  top: 42%;
+  left: -60px;
+  transform: scale(0.75);
+  animation-duration: 26s;
+  animation-delay: 8s;
+}
+
+.hw-bat-3 {
+  top: 68%;
+  left: -60px;
+  transform: scale(0.85);
+  animation-duration: 20s;
+  animation-delay: 15s;
+}
+
+@keyframes batGlide {
+  0% {
+    left: -60px;
+    transform: translateY(0) scaleX(1);
+  }
+  25% {
+    transform: translateY(-20px) scaleX(1);
+  }
+  50% {
+    transform: translateY(15px) scaleX(1);
+  }
+  75% {
+    transform: translateY(-12px) scaleX(1);
+  }
+  100% {
+    left: 105vw;
+    transform: translateY(0) scaleX(1);
+  }
+}
+
+.hw-bat svg {
+  animation: batFlap 0.4s ease-in-out infinite alternate;
+}
+
+@keyframes batFlap {
+  0% { transform: scaleY(1); }
+  100% { transform: scaleY(0.7); }
+}
+
+/* --------------------------------------------------------------------------
+   7. Badge Calabacita en WhatsApp Flotante
+   -------------------------------------------------------------------------- */
+.hw-whatsapp-pumpkin {
+  display: none;
+  position: absolute;
+  top: -10px;
+  left: -8px;
+  font-size: 20px;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  animation: pumpkinBounce 2.5s ease-in-out infinite alternate;
+}
+
+body.halloween-active .hw-whatsapp-pumpkin {
+  display: inline-block !important;
+}
+
+@keyframes pumpkinBounce {
+  0% { transform: translateY(0) rotate(-8deg); }
+  100% { transform: translateY(-5px) rotate(10deg); }
+}
+
+/* --------------------------------------------------------------------------
+   8. Botón Switch para Alternar Modo Halloween
+   -------------------------------------------------------------------------- */
+.hw-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(249, 115, 22, 0.6);
+  color: #ffedd5;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+  user-select: none;
+}
+
+.hw-toggle-btn:hover {
+  background: rgba(249, 115, 22, 0.35);
+  color: #ffffff;
+  border-color: #f97316;
+  transform: translateY(-1px);
+}

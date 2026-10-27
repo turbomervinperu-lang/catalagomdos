@@ -43,15 +43,78 @@
     
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="css/styles.css">
+    <!-- Tema Festivo de Halloween -->
+    <link rel="stylesheet" href="css/halloween.css?v=20261026_hw2">
 </head>
-<body class="bg-slate-100/70 text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-blue-500 selection:text-white pb-16 sm:pb-0">
+<body class="halloween-active bg-slate-100/70 text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-blue-500 selection:text-white pb-16 sm:pb-0">
+
+    <!-- Capa de Decoración de Halloween (No bloquea clics) -->
+    <div id="hw-decorations-container" aria-hidden="true">
+        <!-- Telaraña Izquierda -->
+        <div class="hw-cobweb hw-cobweb-left">
+            <svg viewBox="0 0 100 100" fill="none" stroke="rgba(226, 232, 240, 0.75)" stroke-width="1.2">
+                <path d="M0,0 L100,0 M0,0 L85,45 M0,0 L60,80 M0,0 L0,100" />
+                <path d="M25,0 Q20,12 0,25" />
+                <path d="M50,0 Q40,24 0,50" />
+                <path d="M75,0 Q60,36 0,75" />
+                <path d="M100,0 Q80,48 0,100" />
+                <path d="M42,22 Q30,40 22,42" />
+                <path d="M68,36 Q50,60 36,68" />
+            </svg>
+        </div>
+        <!-- Telaraña Derecha -->
+        <div class="hw-cobweb hw-cobweb-right">
+            <svg viewBox="0 0 100 100" fill="none" stroke="rgba(226, 232, 240, 0.75)" stroke-width="1.2">
+                <path d="M100,0 L0,0 M100,0 L15,45 M100,0 L40,80 M100,0 L100,100" />
+                <path d="M75,0 Q80,12 100,25" />
+                <path d="M50,0 Q60,24 100,50" />
+                <path d="M25,0 Q40,36 100,75" />
+                <path d="M0,0 Q20,48 100,100" />
+                <path d="M58,22 Q70,40 78,42" />
+                <path d="M32,36 Q50,60 64,68" />
+            </svg>
+        </div>
+        <!-- Arañita Colgante -->
+        <div class="hw-spider-hanger">
+            <div class="hw-spider-thread"></div>
+            <div class="hw-spider-body">
+                <svg viewBox="0 0 40 40" fill="#18181b">
+                    <path d="M16 18 Q8 10 2 14 M16 20 Q6 19 2 22 M16 22 Q7 26 4 30 M16 24 Q9 32 6 36" stroke="#27272a" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <path d="M24 18 Q32 10 38 14 M24 20 Q34 19 38 22 M24 22 Q33 26 36 30 M24 24 Q31 32 34 36" stroke="#27272a" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <ellipse cx="20" cy="16" rx="4.5" ry="4" fill="#09090b" />
+                    <ellipse cx="20" cy="24" rx="6.5" ry="6" fill="#18181b" />
+                    <circle cx="20" cy="24" r="2.5" fill="#f97316" />
+                    <circle cx="18" cy="14" r="0.9" fill="#ef4444" />
+                    <circle cx="22" cy="14" r="0.9" fill="#ef4444" />
+                </svg>
+            </div>
+        </div>
+        <!-- Murciélagos de fondo -->
+        <div class="hw-bats-layer">
+            <div class="hw-bat hw-bat-1">
+                <svg viewBox="0 0 64 36" fill="currentColor">
+                    <path d="M32 14 C36 8, 48 2, 60 4 C58 12, 54 22, 46 26 C42 22, 38 20, 32 23 C26 20, 22 22, 18 26 C10 22, 6 12, 4 4 C16 2, 28 8, 32 14 Z" />
+                </svg>
+            </div>
+            <div class="hw-bat hw-bat-2">
+                <svg viewBox="0 0 64 36" fill="currentColor">
+                    <path d="M32 14 C36 8, 48 2, 60 4 C58 12, 54 22, 46 26 C42 22, 38 20, 32 23 C26 20, 22 22, 18 26 C10 22, 6 12, 4 4 C16 2, 28 8, 32 14 Z" />
+                </svg>
+            </div>
+            <div class="hw-bat hw-bat-3">
+                <svg viewBox="0 0 64 36" fill="currentColor">
+                    <path d="M32 14 C36 8, 48 2, 60 4 C58 12, 54 22, 46 26 C42 22, 38 20, 32 23 C26 20, 22 22, 18 26 C10 22, 6 12, 4 4 C16 2, 28 8, 32 14 Z" />
+                </svg>
+            </div>
+        </div>
+    </div>
 
     <!-- Barra de Anuncio Superior -->
-    <div class="bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-900 text-white text-xs py-2 px-3 sm:px-4 shadow-xs">
+    <div id="top-announcement-bar" class="bg-gradient-to-r from-blue-700 via-indigo-700 to-blue-900 text-white text-xs py-2 px-3 sm:px-4 shadow-xs">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <p id="banner-text" class="truncate font-medium flex items-center gap-1.5 text-[11px] sm:text-xs">
-                <span>🚀</span>
-                <span>¡Envíos a todo el Perú y recojo en tienda! Pagos por Yape, Plin, BCP e Interbank.</span>
+                <span>🎃</span>
+                <span>¡Especial de Halloween en Tecnosistemas MDOS! 👻 Precios que dan miedo • Envíos a todo el Perú</span>
             </p>
             <div class="hidden sm:flex items-center gap-3 text-xs font-semibold shrink-0">
                 <span class="flex items-center gap-1.5 opacity-95">
@@ -69,12 +132,24 @@
                 
                 <!-- Logotipo Oficial Tecnosistemas MDOS -->
                 <a href="index.html" class="flex items-center gap-2.5 sm:gap-3.5 group focus:outline-hidden">
-                    <img
-                        id="store-logo-img"
-                        src="assets/images/logo.jpg"
-                        alt="Logo Tecnosistemas MDOS"
-                        class="w-10 h-10 sm:w-13 sm:h-13 rounded-xl object-contain shadow-xs border border-slate-200 group-hover:scale-105 transition-transform"
-                    >
+                    <div class="relative shrink-0">
+                        <img
+                            id="store-logo-img"
+                            src="assets/images/logo.jpg"
+                            alt="Logo Tecnosistemas MDOS"
+                            class="w-10 h-10 sm:w-13 sm:h-13 rounded-xl object-contain shadow-xs border border-slate-200 group-hover:scale-105 transition-transform"
+                        >
+                        <!-- Sombrerito de Bruja en Logo -->
+                        <div class="hw-witch-hat-container">
+                            <svg viewBox="0 0 100 100" fill="none">
+                                <ellipse cx="50" cy="80" rx="46" ry="12" fill="#18181b" stroke="#3b0764" stroke-width="2"/>
+                                <path d="M18 78 Q38 45 42 28 Q46 12 65 6 Q52 24 56 46 Q60 62 82 78 Z" fill="#2e1065" stroke="#4c1d95" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M23 75 Q50 68 77 75 L79 79 Q50 72 21 79 Z" fill="#f97316"/>
+                                <rect x="44" y="70" width="12" height="9" rx="2" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
+                                <rect x="47" y="72" width="6" height="5" fill="#f97316"/>
+                            </svg>
+                        </div>
+                    </div>
                     <div>
                         <span id="store-name" class="text-base sm:text-xl lg:text-2xl font-black tracking-tight bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent block leading-tight">
                             Tecnosistemas MDOS
@@ -759,6 +834,7 @@
         class="fixed bottom-5 right-5 z-40 flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white px-4 py-3 rounded-full shadow-2xl shadow-emerald-600/40 hover:scale-105 active:scale-95 transition-all duration-300 font-bold group"
         title="Chatear con Tecnosistemas MDOS por WhatsApp (+51 929 198 813)"
     >
+        <span class="hw-whatsapp-pumpkin">🎃</span>
         <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
             <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.861.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.043.073.043.419-.101.824z"/>
             <path d="M12 2C6.477 2 2 6.477 2 12c0 1.891.528 3.66 1.448 5.174L2 22l4.981-1.307A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18.2c-1.636 0-3.15-.494-4.417-1.341l-.316-.213-2.97.778.793-2.898-.235-.373A8.163 8.163 0 013.8 12c0-4.521 3.679-8.2 8.2-8.2 4.522 0 8.2 3.679 8.2 8.2 0 4.522-3.678 8.2-8.2 8.2z"/>
@@ -771,5 +847,7 @@
     <script src="js/compressor.js?v=20261012_v7"></script>
     <script src="js/api.js?v=20261012_v7"></script>
     <script src="js/app.js?v=20261012_v7"></script>
+    <!-- Decoración Festiva de Halloween -->
+    <script src="js/halloween.js?v=20261026_hw2"></script>
 </body>
 </html>
