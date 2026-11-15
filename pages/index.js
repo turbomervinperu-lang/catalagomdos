@@ -31,7 +31,7 @@ export default function Home() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1rem' }}>
           {products.map((p) => (
             <div key={p.id} style={{ border: '1px solid #ddd', padding: '1rem' }}>
-              <img src={p.image} alt={p.name} style={{ width: '100%', height: 'auto' }} />
+              {(p.imageUrl || p.image) && <img src={p.imageUrl || p.image} alt={p.name} style={{ width: '100%', height: 'auto' }} />}
               <h3>{p.name}</h3>
               <p>{p.price}</p>
             </div>
@@ -41,3 +41,5 @@ export default function Home() {
     </>
   );
 }
+
+
