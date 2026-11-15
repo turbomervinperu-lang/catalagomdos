@@ -1,9 +1,8 @@
-// pages/_app.tsx
+// pages/_app.js
 import '../styles/globals.css';
-import type { AppProps } from 'next/app';
 import { CartProvider } from '../components/CartContext';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }) {
   return (
     <CartProvider>
       <Component {...pageProps} />
@@ -12,4 +11,3 @@ function MyApp({ Component, pageProps }: AppProps) {
 }
 
 export default MyApp;
-
