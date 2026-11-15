@@ -101,15 +101,15 @@ export default function AdminPage() {
   return (
     <>
       <Head>
-        <title>Panel de Administración | Catálogo MDoS</title>
+        <title>Panel de Administración | TECNOSISTEMAS MDOS</title>
       </Head>
       <Header />
 
       <main style={{ maxWidth: '1100px', margin: '2rem auto', padding: '0 1.5rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
           <div>
-            <h1 style={{ fontSize: '1.75rem', fontWeight: 800, margin: 0 }}>⚙️ Panel de Administración</h1>
-            <p style={{ color: '#666', marginTop: '0.25rem' }}>Gestión completa de productos del catálogo</p>
+            <h1 style={{ fontSize: '1.75rem', fontWeight: 800, margin: 0 }}>⚙️ Panel de Administración - TECNOSISTEMAS MDOS</h1>
+            <p style={{ color: '#666', marginTop: '0.25rem' }}>Gestión completa de productos y servicios del catálogo</p>
           </div>
         </div>
 
@@ -323,3 +323,4 @@ export default function AdminPage() {
     </>
   );
 }
+

@@ -37,7 +37,7 @@ export default function CartPage() {
       if (!res.ok) throw new Error(data.error || 'Error al procesar el pedido');
 
       // Crear mensaje para enviar directo a WhatsApp Web / App
-      let message = `🛒 *Nuevo Pedido Catálogo MDoS*\n`;
+      let message = `🛒 *Nuevo Pedido - TECNOSISTEMAS MDOS*\n`;
       message += `*Orden #:* ${data.orderId}\n`;
       if (customer.name) message += `*Cliente:* ${customer.name}\n`;
       if (customer.phone) message += `*Teléfono:* ${customer.phone}\n`;
@@ -72,13 +72,13 @@ export default function CartPage() {
   return (
     <>
       <Head>
-        <title>Mi Carrito | Catálogo MDoS</title>
+        <title>Mi Carrito | TECNOSISTEMAS MDOS</title>
       </Head>
       <Header />
 
       <main style={{ maxWidth: '850px', margin: '2rem auto', padding: '0 1.5rem' }}>
         <h1 style={{ fontSize: '1.75rem', fontWeight: 800, margin: '0 0 1.5rem 0' }}>
-          🛒 Tu Carrito de Compras
+          🛒 Tu Carrito - TECNOSISTEMAS MDOS
         </h1>
 
         {orderCompleted ? (
