@@ -10,40 +10,72 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { items, total } = req.body;
-  if (!items || typeof total !== 'number') {
-    return res.status(400).json({ error: 'Missing order data' });
+  const { items, total, customerName, customerPhone, customerNotes } = req.body;
+  if (!items || !Array.isArray(items) || items.length === 0 || typeof total !== 'number') {
+    return res.status(400).json({ error: 'Datos de pedido inválidos o carrito vacío' });
   }
 
-  const pgClient = new Client({
+  const client = new Client({
     connectionString: process.env.POSTGRES_URL,
     ssl: { rejectUnauthorized: false },
   });
 
   try {
-    await pgClient.connect();
+    await client.connect();
+    
+    // Guardar en la base de datos
+    const orderPayload = {
+      items,
+      customer: {
+        name: customerName || 'Anónimo',
+        phone: customerPhone || '',
+        notes: customerNotes || ''
+      }
+    };
+
     const query = `INSERT INTO "Order" (items, total) VALUES ($1, $2) RETURNING id, created_at;`;
-    const result = await pgClient.query(query, [JSON.stringify(items), total]);
+    const result = await client.query(query, [JSON.stringify(orderPayload), total]);
     const order = result.rows[0];
 
-    // Send WhatsApp message via Twilio
-    const twilio = Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
-    const messageBody = `🛒 *Nuevo pedido*\nID: ${order.id}\nTotal: $${total.toFixed(2)}\nItems:\n${items
-      .map((i) => `- ${i.name} x${i.quantity} = $${(i.price * i.quantity).toFixed(2)}`)
-      .join('\n')}`;
+    // Intentar enviar WhatsApp por Twilio si las credenciales existen
+    let twilioSent = false;
+    if (
+      process.env.TWILIO_ACCOUNT_SID &&
+      process.env.TWILIO_AUTH_TOKEN &&
+      process.env.TWILIO_WHATSAPP_FROM &&
+      process.env.TWILIO_WHATSAPP_TO
+    ) {
+      try {
+        const twilio = Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+        const messageBody = `🛒 *Nuevo Pedido en Catálogo MDoS*\n` +
+          `*Orden #:* ${order.id}\n` +
+          (customerName ? `*Cliente:* ${customerName}\n` : '') +
+          (customerPhone ? `*Teléfono:* ${customerPhone}\n` : '') +
+          `*Total:* $${total.toFixed(2)}\n\n` +
+          `*Productos:*\n${items.map((i) => `• ${i.name} (x${i.quantity}) - $${((parseFloat(i.price) || 0) * i.quantity).toFixed(2)}`).join('\n')}` +
+          (customerNotes ? `\n\n*Notas:* ${customerNotes}` : '');
 
-    await twilio.messages.create({
-      from: process.env.TWILIO_WHATSAPP_FROM,
-      to: process.env.TWILIO_WHATSAPP_TO,
-      body: messageBody,
+        await twilio.messages.create({
+          from: process.env.TWILIO_WHATSAPP_FROM,
+          to: process.env.TWILIO_WHATSAPP_TO,
+          body: messageBody,
+        });
+        twilioSent = true;
+      } catch (twErr) {
+        console.warn('Twilio WhatsApp error (la orden fue guardada en BD igualmente):', twErr.message);
+      }
+    }
+
+    return res.status(200).json({
+      ok: true,
+      orderId: order.id,
+      twilioSent,
+      whatsappNumber: process.env.TWILIO_WHATSAPP_TO?.replace(/[^0-9]/g, '') || ''
     });
-
-    res.status(200).json({ ok: true, orderId: order.id });
   } catch (e) {
-    console.error('Order error', e);
-    res.status(500).json({ error: e.message });
+    console.error('Order error:', e);
+    return res.status(500).json({ error: e.message });
   } finally {
-    await pgClient.end();
+    await client.end();
   }
 }
-
