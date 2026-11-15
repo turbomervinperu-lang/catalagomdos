@@ -8,3 +8,5 @@ node_modules/
 Thumbs.db
 
 !/.env.example
+
+.next/
