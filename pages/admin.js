@@ -1,6 +1,46 @@
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Header from '../components/Header';
+
+// Función para optimizar y comprimir imágenes en el navegador
+async function compressImageFile(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const maxWidth = 1000;
+        const maxHeight = 1000;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > maxWidth) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          }
+        } else {
+          if (height > maxHeight) {
+            width = Math.round((width * maxHeight) / height);
+            height = maxHeight;
+          }
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+        resolve(dataUrl);
+      };
+      img.onerror = reject;
+      img.src = e.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -9,22 +49,32 @@ export default function AdminPage() {
   const [loginError, setLoginError] = useState(null);
   const [loginLoading, setLoginLoading] = useState(false);
 
-  // Estados de gestión de productos
+  // Inventario y búsqueda avanzada
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
 
-  // Formulario nuevo o edición de producto
+  // Filtros de búsqueda avanzada
+  const [search, setSearch] = useState('');
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
+  const [sortBy, setSortBy] = useState('id_desc');
+
+  // Formulario de Producto (hasta 4 imágenes)
   const [form, setForm] = useState({
     id: null,
     name: '',
     description: '',
     price: '',
-    imageUrl: ''
+    images: [] // array de hasta 4 strings (dataUrl o https URL)
   });
+  const [manualUrlInput, setManualUrlInput] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
+
+  const fileInputRef = useRef(null);
 
   // Cambio de contraseña
   const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -33,7 +83,7 @@ export default function AdminPage() {
   const [passError, setPassError] = useState(null);
   const [passSubmitting, setPassSubmitting] = useState(false);
 
-  // Verificar sesión en sessionStorage al cargar
+  // Verificar sesión
   useEffect(() => {
     try {
       const auth = sessionStorage.getItem('admin_auth');
@@ -49,7 +99,13 @@ export default function AdminPage() {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/products');
+      const queryParams = new URLSearchParams();
+      if (search.trim()) queryParams.set('search', search.trim());
+      if (minPrice) queryParams.set('minPrice', minPrice);
+      if (maxPrice) queryParams.set('maxPrice', maxPrice);
+      if (sortBy) queryParams.set('sortBy', sortBy);
+
+      const res = await fetch(`/api/products?${queryParams.toString()}`);
       if (!res.ok) throw new Error('Error al obtener productos');
       const data = await res.json();
       setProducts(data);
@@ -65,9 +121,9 @@ export default function AdminPage() {
     if (isAuthenticated) {
       fetchProducts();
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, search, minPrice, maxPrice, sortBy]);
 
-  // Manejo de inicio de sesión
+  // Login
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoginLoading(true);
@@ -102,25 +158,102 @@ export default function AdminPage() {
     setIsAuthenticated(false);
   };
 
-  // Manejo de productos
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  // Manejo de carga de archivos (hasta 4)
+  const handleFileChange = async (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length === 0) return;
+
+    const availableSlots = 4 - form.images.length;
+    if (availableSlots <= 0) {
+      alert('Ya alcanzaste el límite máximo de 4 imágenes para este producto.');
+      return;
+    }
+
+    const filesToProcess = files.slice(0, availableSlots);
+    setUploadingImage(true);
+
+    try {
+      const compressedList = [];
+      for (const f of filesToProcess) {
+        const compressed = await compressImageFile(f);
+        compressedList.push(compressed);
+      }
+      setForm((prev) => ({
+        ...prev,
+        images: [...prev.images, ...compressedList]
+      }));
+    } catch (err) {
+      console.error(err);
+      alert('Error procesando las imágenes.');
+    } finally {
+      setUploadingImage(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
   };
 
+  // Agregar por URL manual
+  const handleAddManualUrl = () => {
+    if (!manualUrlInput.trim()) return;
+    if (form.images.length >= 4) {
+      alert('Límite de 4 imágenes alcanzado.');
+      return;
+    }
+    setForm((prev) => ({
+      ...prev,
+      images: [...prev.images, manualUrlInput.trim()]
+    }));
+    setManualUrlInput('');
+  };
+
+  // Reordenar imágenes
+  const handleMoveImage = (index, direction) => {
+    const newImages = [...form.images];
+    const targetIndex = index + direction;
+    if (targetIndex < 0 || targetIndex >= newImages.length) return;
+
+    const temp = newImages[index];
+    newImages[index] = newImages[targetIndex];
+    newImages[targetIndex] = temp;
+    setForm({ ...form, images: newImages });
+  };
+
+  // Marcar como principal
+  const handleMakePrimary = (index) => {
+    if (index === 0) return;
+    const newImages = [...form.images];
+    const [selected] = newImages.splice(index, 1);
+    newImages.unshift(selected);
+    setForm({ ...form, images: newImages });
+  };
+
+  // Eliminar imagen
+  const handleRemoveImage = (index) => {
+    const newImages = form.images.filter((_, i) => i !== index);
+    setForm({ ...form, images: newImages });
+  };
+
+  // Edición de producto
   const handleEditClick = (p) => {
+    let imgs = [];
+    if (Array.isArray(p.images) && p.images.length > 0) {
+      imgs = p.images;
+    } else if (p.imageUrl) {
+      imgs = [p.imageUrl];
+    }
+
     setForm({
       id: p.id,
       name: p.name,
       description: p.description || '',
       price: p.price,
-      imageUrl: p.imageUrl || ''
+      images: imgs
     });
     setIsEditing(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleCancelEdit = () => {
-    setForm({ id: null, name: '', description: '', price: '', imageUrl: '' });
+    setForm({ id: null, name: '', description: '', price: '', images: [] });
     setIsEditing(false);
   };
 
@@ -135,7 +268,10 @@ export default function AdminPage() {
       const res = await fetch('/api/products', {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form)
+        body: JSON.stringify({
+          ...form,
+          imageUrl: form.images[0] || ''
+        })
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Error al guardar');
@@ -163,7 +299,7 @@ export default function AdminPage() {
     }
   };
 
-  // Manejo de cambio de contraseña
+  // Cambio de contraseña
   const handleChangePassword = async (e) => {
     e.preventDefault();
     setPassSubmitting(true);
@@ -250,7 +386,7 @@ export default function AdminPage() {
               Panel Administrador
             </h1>
             <p style={{ color: '#64748b', fontSize: '0.9rem', margin: '0 0 1.75rem 0' }}>
-              Ingresa la clave de seguridad para administrar productos
+              Ingresa la contraseña de seguridad para administrar productos
             </p>
 
             {loginError && (
@@ -268,7 +404,7 @@ export default function AdminPage() {
                   type="password"
                   required
                   autoFocus
-                  placeholder="Introduce la contraseña"
+                  placeholder="Introduce la contraseña (por defecto: 1927)"
                   value={inputPassword}
                   onChange={(e) => setInputPassword(e.target.value)}
                   style={{
@@ -308,7 +444,7 @@ export default function AdminPage() {
     );
   }
 
-  // Panel de control autenticado
+  // Panel autenticado
   return (
     <>
       <Head>
@@ -317,7 +453,7 @@ export default function AdminPage() {
       <Header />
 
       <main style={{ maxWidth: '1200px', margin: '2rem auto 4rem auto', padding: '0 1.5rem' }}>
-        {/* Cabecera del Panel */}
+        {/* Cabecera */}
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
@@ -333,7 +469,7 @@ export default function AdminPage() {
               ⚙️ Gestión de Inventario
             </h1>
             <p style={{ color: '#64748b', margin: '0.25rem 0 0 0' }}>
-              TECNOSISTEMAS MDOS • Catálogo de Computadoras y Servicios
+              TECNOSISTEMAS MDOS • Venta, Reparación y Mantenimiento (Moneda: Soles S/)
             </p>
           </div>
 
@@ -371,7 +507,7 @@ export default function AdminPage() {
           </div>
         </div>
 
-        {/* Modal / Sección de Cambio de Contraseña */}
+        {/* Modal Cambio de Contraseña */}
         {showPasswordModal && (
           <div style={{
             background: '#ffffff',
@@ -481,76 +617,279 @@ export default function AdminPage() {
           </div>
         )}
 
-        {/* Formulario de Crear / Editar Producto */}
+        {/* Formulario de Producto */}
         <section style={{
           background: '#ffffff',
           padding: '1.75rem',
-          borderRadius: '14px',
+          borderRadius: '16px',
           border: '1px solid #e2e8f0',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+          boxShadow: '0 4px 15px rgba(0,0,0,0.03)',
           marginBottom: '2.5rem'
         }}>
-          <h2 style={{ fontSize: '1.25rem', fontWeight: 800, marginTop: 0, marginBottom: '1rem', color: isEditing ? '#2563eb' : '#0f172a' }}>
+          <h2 style={{ fontSize: '1.35rem', fontWeight: 800, marginTop: 0, marginBottom: '1.25rem', color: isEditing ? '#2563eb' : '#0f172a' }}>
             {isEditing ? `✏️ Modificar Producto #${form.id}` : '➕ Agregar Nuevo Producto / Servicio'}
           </h2>
 
-          <form onSubmit={handleSubmitProduct} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem' }}>
+          <form onSubmit={handleSubmitProduct} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.25rem' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.35rem' }}>
+              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.35rem', color: '#334155' }}>
                 Nombre del Producto / Servicio *
               </label>
               <input
                 type="text"
                 name="name"
                 value={form.name}
-                onChange={handleChange}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
                 required
-                placeholder="Ej. Disco Sólido SSD 1TB NVMe"
-                style={{ width: '100%', padding: '0.65rem 0.75rem', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.95rem' }}
+                placeholder="Ej. Disco Sólido SSD 1TB Kingston NVMe"
+                style={{ width: '100%', padding: '0.7rem 0.85rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.95rem', boxSizing: 'border-box' }}
               />
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.35rem' }}>
-                Precio ($ USD) *
+              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.35rem', color: '#334155' }}>
+                Precio en Soles Peruanos (S/) *
               </label>
-              <input
-                type="number"
-                step="0.01"
-                name="price"
-                value={form.price}
-                onChange={handleChange}
-                required
-                placeholder="Ej. 65.00"
-                style={{ width: '100%', padding: '0.65rem 0.75rem', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.95rem' }}
-              />
+              <div style={{ position: 'relative' }}>
+                <span style={{ position: 'absolute', left: '12px', top: '10px', fontWeight: 700, color: '#64748b' }}>S/</span>
+                <input
+                  type="number"
+                  step="0.01"
+                  name="price"
+                  value={form.price}
+                  onChange={(e) => setForm({ ...form, price: e.target.value })}
+                  required
+                  placeholder="0.00"
+                  style={{ width: '100%', padding: '0.7rem 0.85rem 0.7rem 2.2rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.95rem', boxSizing: 'border-box', fontWeight: 700, color: '#16a34a' }}
+                />
+              </div>
+            </div>
+
+            {/* SECCIÓN DE SUBIDA Y REORDENAMIENTO DE HASTA 4 IMÁGENES */}
+            <div style={{ gridColumn: '1 / -1', background: '#f8fafc', padding: '1.25rem', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                <div>
+                  <label style={{ fontWeight: 800, fontSize: '0.95rem', color: '#0f172a' }}>
+                    📸 Imágenes del Producto (Máximo 4 imágenes)
+                  </label>
+                  <p style={{ margin: '0.2rem 0 0 0', fontSize: '0.8rem', color: '#64748b' }}>
+                    Puedes subir archivos desde tu dispositivo o pegar URLs. <strong>La primera imagen (posición 1) será la Principal</strong>.
+                  </p>
+                </div>
+                <span style={{
+                  fontSize: '0.85rem',
+                  fontWeight: 800,
+                  color: form.images.length === 4 ? '#ea580c' : '#2563eb',
+                  background: '#ffffff',
+                  padding: '0.25rem 0.65rem',
+                  borderRadius: '999px',
+                  border: '1px solid #cbd5e1'
+                }}>
+                  {form.images.length} / 4 fotos
+                </span>
+              </div>
+
+              {/* Botón de carga de archivo */}
+              <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap', marginBottom: '1rem' }}>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  disabled={form.images.length >= 4 || uploadingImage}
+                  onChange={handleFileChange}
+                  style={{ display: 'none' }}
+                  id="product-images-upload"
+                />
+                <label
+                  htmlFor="product-images-upload"
+                  style={{
+                    background: form.images.length >= 4 ? '#e2e8f0' : '#0f172a',
+                    color: form.images.length >= 4 ? '#94a3b8' : '#ffffff',
+                    padding: '0.65rem 1.25rem',
+                    borderRadius: '8px',
+                    fontWeight: 700,
+                    fontSize: '0.875rem',
+                    cursor: form.images.length >= 4 ? 'not-allowed' : 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem'
+                  }}
+                >
+                  <span>📁</span>
+                  {uploadingImage ? 'Optimizando fotos...' : 'Subir fotos desde dispositivo'}
+                </label>
+
+                {/* Opción alternativa por URL */}
+                <div style={{ display: 'flex', gap: '0.4rem', flex: 1, minWidth: '260px' }}>
+                  <input
+                    type="url"
+                    placeholder="O pegar URL web de foto (https://...)"
+                    value={manualUrlInput}
+                    disabled={form.images.length >= 4}
+                    onChange={(e) => setManualUrlInput(e.target.value)}
+                    style={{ flex: 1, padding: '0.6rem 0.75rem', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.85rem' }}
+                  />
+                  <button
+                    type="button"
+                    disabled={form.images.length >= 4 || !manualUrlInput.trim()}
+                    onClick={handleAddManualUrl}
+                    style={{
+                      background: '#3b82f6',
+                      color: '#fff',
+                      border: 'none',
+                      padding: '0.6rem 0.85rem',
+                      borderRadius: '6px',
+                      fontSize: '0.85rem',
+                      fontWeight: 700,
+                      cursor: 'pointer'
+                    }}
+                  >
+                    Agregar URL
+                  </button>
+                </div>
+              </div>
+
+              {/* Galería de imágenes cargadas con reordenamiento */}
+              {form.images.length === 0 ? (
+                <div style={{ textAlign: 'center', padding: '1.5rem', background: '#ffffff', borderRadius: '8px', border: '1px dashed #cbd5e1', color: '#94a3b8', fontSize: '0.875rem' }}>
+                  No has subido ninguna imagen para este producto. Sube hasta 4 fotos.
+                </div>
+              ) : (
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1rem' }}>
+                  {form.images.map((imgUrl, index) => {
+                    const isPrimary = index === 0;
+                    return (
+                      <div
+                        key={index}
+                        style={{
+                          background: '#ffffff',
+                          borderRadius: '10px',
+                          border: isPrimary ? '2px solid #2563eb' : '1px solid #cbd5e1',
+                          overflow: 'hidden',
+                          boxShadow: isPrimary ? '0 4px 12px rgba(37, 99, 235, 0.15)' : 'none',
+                          display: 'flex',
+                          flexDirection: 'column'
+                        }}
+                      >
+                        <div style={{ position: 'relative', width: '100%', height: '140px', background: '#f1f5f9' }}>
+                          <img
+                            src={imgUrl}
+                            alt={`Imagen ${index + 1}`}
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          />
+                          <span style={{
+                            position: 'absolute',
+                            top: '8px',
+                            left: '8px',
+                            background: isPrimary ? '#2563eb' : 'rgba(15, 23, 42, 0.75)',
+                            color: '#ffffff',
+                            padding: '0.2rem 0.5rem',
+                            borderRadius: '6px',
+                            fontSize: '0.75rem',
+                            fontWeight: 800
+                          }}>
+                            {isPrimary ? '⭐ FOTO PRINCIPAL' : `Posición #${index + 1}`}
+                          </span>
+                        </div>
+
+                        {/* Botones de control y reordenamiento */}
+                        <div style={{ padding: '0.65rem', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                          {!isPrimary && (
+                            <button
+                              type="button"
+                              onClick={() => handleMakePrimary(index)}
+                              style={{
+                                background: '#eff6ff',
+                                color: '#1d4ed8',
+                                border: '1px solid #bfdbfe',
+                                padding: '0.35rem',
+                                borderRadius: '6px',
+                                fontSize: '0.75rem',
+                                fontWeight: 700,
+                                cursor: 'pointer'
+                              }}
+                            >
+                              ⭐ Hacer Principal
+                            </button>
+                          )}
+
+                          <div style={{ display: 'flex', gap: '0.4rem' }}>
+                            <button
+                              type="button"
+                              disabled={index === 0}
+                              onClick={() => handleMoveImage(index, -1)}
+                              title="Mover a la izquierda"
+                              style={{
+                                flex: 1,
+                                background: index === 0 ? '#f1f5f9' : '#ffffff',
+                                color: index === 0 ? '#cbd5e1' : '#334155',
+                                border: '1px solid #cbd5e1',
+                                padding: '0.3rem',
+                                borderRadius: '6px',
+                                fontSize: '0.8rem',
+                                fontWeight: 700,
+                                cursor: index === 0 ? 'not-allowed' : 'pointer'
+                              }}
+                            >
+                              ⬅ Mover
+                            </button>
+                            <button
+                              type="button"
+                              disabled={index === form.images.length - 1}
+                              onClick={() => handleMoveImage(index, 1)}
+                              title="Mover a la derecha"
+                              style={{
+                                flex: 1,
+                                background: index === form.images.length - 1 ? '#f1f5f9' : '#ffffff',
+                                color: index === form.images.length - 1 ? '#cbd5e1' : '#334155',
+                                border: '1px solid #cbd5e1',
+                                padding: '0.3rem',
+                                borderRadius: '6px',
+                                fontSize: '0.8rem',
+                                fontWeight: 700,
+                                cursor: index === form.images.length - 1 ? 'not-allowed' : 'pointer'
+                              }}
+                            >
+                              Mover ➡
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveImage(index)}
+                              title="Eliminar esta foto"
+                              style={{
+                                background: '#fee2e2',
+                                color: '#dc2626',
+                                border: 'none',
+                                padding: '0.3rem 0.5rem',
+                                borderRadius: '6px',
+                                fontSize: '0.8rem',
+                                cursor: 'pointer',
+                                fontWeight: 700
+                              }}
+                            >
+                              🗑
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
 
             <div style={{ gridColumn: '1 / -1' }}>
-              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.35rem' }}>
-                URL de Imagen
-              </label>
-              <input
-                type="url"
-                name="imageUrl"
-                value={form.imageUrl}
-                onChange={handleChange}
-                placeholder="https://images.unsplash.com/..."
-                style={{ width: '100%', padding: '0.65rem 0.75rem', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.95rem' }}
-              />
-            </div>
-
-            <div style={{ gridColumn: '1 / -1' }}>
-              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.35rem' }}>
+              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.35rem', color: '#334155' }}>
                 Descripción Detallada
               </label>
               <textarea
                 name="description"
                 rows="3"
                 value={form.description}
-                onChange={handleChange}
-                placeholder="Especificaciones técnicas, velocidad, compatibilidad, garantía..."
-                style={{ width: '100%', padding: '0.65rem 0.75rem', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.95rem', resize: 'vertical' }}
+                onChange={(e) => setForm({ ...form, description: e.target.value })}
+                placeholder="Especificaciones técnicas, velocidad, compatibilidad, garantía, estado del equipo..."
+                style={{ width: '100%', padding: '0.7rem 0.85rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.95rem', resize: 'vertical', boxSizing: 'border-box' }}
               />
             </div>
 
@@ -593,83 +932,205 @@ export default function AdminPage() {
           </form>
         </section>
 
-        {/* Inventario actual */}
-        <section>
-          <h2 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '1rem', color: '#0f172a' }}>
-            📦 Inventario en Vivo ({products.length})
+        {/* SECCIÓN DE BÚSQUEDA AVANZADA EN EL INVENTARIO */}
+        <section style={{
+          background: '#ffffff',
+          padding: '1.5rem',
+          borderRadius: '16px',
+          border: '1px solid #e2e8f0',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+          marginBottom: '2rem'
+        }}>
+          <h2 style={{ fontSize: '1.2rem', fontWeight: 800, margin: '0 0 1rem 0', color: '#0f172a' }}>
+            🔍 Búsqueda Avanzada de Inventario
           </h2>
 
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', alignItems: 'flex-end' }}>
+            <div>
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#475569', marginBottom: '0.35rem' }}>
+                Buscar por nombre o descripción
+              </label>
+              <input
+                type="text"
+                placeholder="Ej. SSD, Laptop, Mantenimiento..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                style={{ width: '100%', padding: '0.65rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.9rem', boxSizing: 'border-box' }}
+              />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#475569', marginBottom: '0.35rem' }}>
+                Precio Mínimo (S/)
+              </label>
+              <input
+                type="number"
+                placeholder="0.00"
+                value={minPrice}
+                onChange={(e) => setMinPrice(e.target.value)}
+                style={{ width: '100%', padding: '0.65rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.9rem', boxSizing: 'border-box' }}
+              />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#475569', marginBottom: '0.35rem' }}>
+                Precio Máximo (S/)
+              </label>
+              <input
+                type="number"
+                placeholder="Sin límite"
+                value={maxPrice}
+                onChange={(e) => setMaxPrice(e.target.value)}
+                style={{ width: '100%', padding: '0.65rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.9rem', boxSizing: 'border-box' }}
+              />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#475569', marginBottom: '0.35rem' }}>
+                Ordenar por
+              </label>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                style={{ width: '100%', padding: '0.65rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.9rem', boxSizing: 'border-box', background: '#fff' }}
+              >
+                <option value="id_desc">Más recientes primero</option>
+                <option value="id_asc">Más antiguos primero</option>
+                <option value="price_asc">Menor precio (S/)</option>
+                <option value="price_desc">Mayor precio (S/)</option>
+                <option value="name_asc">Nombre (A - Z)</option>
+              </select>
+            </div>
+
+            <div>
+              <button
+                type="button"
+                onClick={() => {
+                  setSearch('');
+                  setMinPrice('');
+                  setMaxPrice('');
+                  setSortBy('id_desc');
+                }}
+                style={{
+                  width: '100%',
+                  background: '#f1f5f9',
+                  color: '#475569',
+                  border: '1px solid #cbd5e1',
+                  padding: '0.65rem',
+                  borderRadius: '8px',
+                  fontWeight: 600,
+                  fontSize: '0.9rem',
+                  cursor: 'pointer'
+                }}
+              >
+                Limpiar Filtros
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* Tabla de Productos */}
+        <section>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+            <h2 style={{ fontSize: '1.25rem', fontWeight: 800, margin: 0, color: '#0f172a' }}>
+              📦 Resultados del Inventario ({products.length})
+            </h2>
+          </div>
+
           {loading ? (
-            <p>Cargando catálogo...</p>
+            <p>Buscando en el catálogo...</p>
           ) : products.length === 0 ? (
-            <p style={{ color: '#64748b' }}>No hay productos en el inventario.</p>
+            <div style={{ textAlign: 'center', padding: '3rem', background: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', color: '#64748b' }}>
+              No se encontraron productos con los filtros aplicados.
+            </div>
           ) : (
             <div style={{ overflowX: 'auto', background: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
                 <thead>
                   <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0', color: '#475569', fontWeight: 700 }}>
                     <th style={{ padding: '0.85rem 1rem' }}>ID</th>
-                    <th style={{ padding: '0.85rem 1rem' }}>Foto</th>
+                    <th style={{ padding: '0.85rem 1rem' }}>Fotos (hasta 4)</th>
                     <th style={{ padding: '0.85rem 1rem' }}>Nombre</th>
-                    <th style={{ padding: '0.85rem 1rem' }}>Precio</th>
+                    <th style={{ padding: '0.85rem 1rem' }}>Precio (PEN)</th>
                     <th style={{ padding: '0.85rem 1rem' }}>Descripción</th>
                     <th style={{ padding: '0.85rem 1rem', textAlign: 'center' }}>Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {products.map((p) => (
-                    <tr key={p.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                      <td style={{ padding: '0.85rem 1rem', color: '#94a3b8' }}>#{p.id}</td>
-                      <td style={{ padding: '0.85rem 1rem' }}>
-                        {p.imageUrl ? (
-                          <img src={p.imageUrl} alt={p.name} style={{ width: '48px', height: '48px', objectFit: 'cover', borderRadius: '6px' }} />
-                        ) : (
-                          <div style={{ width: '48px', height: '48px', background: '#f1f5f9', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontSize: '0.75rem' }}>
-                            Sin foto
+                  {products.map((p) => {
+                    const imgs = Array.isArray(p.images) && p.images.length > 0 ? p.images : (p.imageUrl ? [p.imageUrl] : []);
+                    return (
+                      <tr key={p.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
+                        <td style={{ padding: '0.85rem 1rem', color: '#94a3b8' }}>#{p.id}</td>
+                        <td style={{ padding: '0.85rem 1rem' }}>
+                          <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+                            {imgs.length > 0 ? (
+                              imgs.map((src, idx) => (
+                                <img
+                                  key={idx}
+                                  src={src}
+                                  alt=""
+                                  style={{
+                                    width: idx === 0 ? '46px' : '30px',
+                                    height: idx === 0 ? '46px' : '30px',
+                                    objectFit: 'cover',
+                                    borderRadius: '6px',
+                                    border: idx === 0 ? '2px solid #2563eb' : '1px solid #cbd5e1'
+                                  }}
+                                  title={idx === 0 ? 'Foto principal' : `Foto #${idx + 1}`}
+                                />
+                              ))
+                            ) : (
+                              <div style={{ width: '46px', height: '46px', background: '#f1f5f9', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontSize: '0.7rem' }}>
+                                Sin foto
+                              </div>
+                            )}
                           </div>
-                        )}
-                      </td>
-                      <td style={{ padding: '0.85rem 1rem', fontWeight: 700, color: '#0f172a' }}>{p.name}</td>
-                      <td style={{ padding: '0.85rem 1rem', fontWeight: 800, color: '#16a34a' }}>${parseFloat(p.price).toFixed(2)}</td>
-                      <td style={{ padding: '0.85rem 1rem', color: '#64748b', maxWidth: '320px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                        {p.description || '—'}
-                      </td>
-                      <td style={{ padding: '0.85rem 1rem', textAlign: 'center' }}>
-                        <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
-                          <button
-                            onClick={() => handleEditClick(p)}
-                            style={{
-                              background: '#eff6ff',
-                              color: '#1d4ed8',
-                              border: '1px solid #bfdbfe',
-                              padding: '0.4rem 0.75rem',
-                              borderRadius: '6px',
-                              cursor: 'pointer',
-                              fontWeight: 700,
-                              fontSize: '0.8rem'
-                            }}
-                          >
-                            Editar
-                          </button>
-                          <button
-                            onClick={() => handleDelete(p.id)}
-                            style={{
-                              background: '#fef2f2',
-                              color: '#dc2626',
-                              border: '1px solid #fecaca',
-                              padding: '0.4rem 0.75rem',
-                              borderRadius: '6px',
-                              cursor: 'pointer',
-                              fontWeight: 700,
-                              fontSize: '0.8rem'
-                            }}
-                          >
-                            Eliminar
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+                        </td>
+                        <td style={{ padding: '0.85rem 1rem', fontWeight: 700, color: '#0f172a' }}>{p.name}</td>
+                        <td style={{ padding: '0.85rem 1rem', fontWeight: 800, color: '#16a34a', whiteSpace: 'nowrap' }}>
+                          S/ {parseFloat(p.price).toFixed(2)}
+                        </td>
+                        <td style={{ padding: '0.85rem 1rem', color: '#64748b', maxWidth: '300px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          {p.description || '—'}
+                        </td>
+                        <td style={{ padding: '0.85rem 1rem', textAlign: 'center' }}>
+                          <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
+                            <button
+                              onClick={() => handleEditClick(p)}
+                              style={{
+                                background: '#eff6ff',
+                                color: '#1d4ed8',
+                                border: '1px solid #bfdbfe',
+                                padding: '0.4rem 0.75rem',
+                                borderRadius: '6px',
+                                cursor: 'pointer',
+                                fontWeight: 700,
+                                fontSize: '0.8rem'
+                              }}
+                            >
+                              Editar
+                            </button>
+                            <button
+                              onClick={() => handleDelete(p.id)}
+                              style={{
+                                background: '#fef2f2',
+                                color: '#dc2626',
+                                border: '1px solid #fecaca',
+                                padding: '0.4rem 0.75rem',
+                                borderRadius: '6px',
+                                cursor: 'pointer',
+                                fontWeight: 700,
+                                fontSize: '0.8rem'
+                              }}
+                            >
+                              Eliminar
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

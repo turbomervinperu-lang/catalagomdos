@@ -3,18 +3,129 @@ import { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import { useCart } from '../components/CartContext';
 
+// Componente para tarjeta de producto con soporte de hasta 4 imágenes
+function ProductCard({ product, onAddToCart, isAdded }) {
+  const images = Array.isArray(product.images) && product.images.length > 0
+    ? product.images
+    : (product.imageUrl ? [product.imageUrl] : []);
+
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const currentImage = images[activeImageIndex] || product.imageUrl || '';
+
+  return (
+    <div
+      style={{
+        background: '#ffffff',
+        borderRadius: '16px',
+        border: '1px solid #e2e8f0',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
+        boxShadow: '0 4px 15px rgba(0,0,0,0.03)',
+        transition: 'transform 0.15s, box-shadow 0.15s'
+      }}
+    >
+      {/* Imagen Principal */}
+      <div style={{ width: '100%', height: '230px', background: '#f8fafc', position: 'relative', overflow: 'hidden' }}>
+        {currentImage ? (
+          <img
+            src={currentImage}
+            alt={product.name}
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        ) : (
+          <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontSize: '0.9rem' }}>
+            🖥️ Sin imagen
+          </div>
+        )}
+      </div>
+
+      {/* Miniaturas si tiene múltiples imágenes (hasta 4) */}
+      {images.length > 1 && (
+        <div style={{ display: 'flex', gap: '6px', padding: '0.5rem 0.75rem', background: '#f8fafc', borderBottom: '1px solid #f1f5f9', overflowX: 'auto' }}>
+          {images.map((img, idx) => (
+            <button
+              key={idx}
+              type="button"
+              onClick={() => setActiveImageIndex(idx)}
+              style={{
+                padding: 0,
+                border: activeImageIndex === idx ? '2px solid #2563eb' : '1px solid #cbd5e1',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                background: 'none',
+                width: '38px',
+                height: '38px',
+                overflow: 'hidden',
+                flexShrink: 0
+              }}
+            >
+              <img src={img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Datos del Producto */}
+      <div style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
+        <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.15rem', fontWeight: 800, color: '#0f172a' }}>
+          {product.name}
+        </h3>
+        {product.description && (
+          <p style={{ color: '#64748b', fontSize: '0.875rem', margin: '0 0 1rem 0', flex: 1, lineHeight: '1.45' }}>
+            {product.description}
+          </p>
+        )}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto', paddingTop: '0.85rem', borderTop: '1px solid #f1f5f9' }}>
+          <div>
+            <span style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 600, display: 'block' }}>Precio:</span>
+            <span style={{ fontSize: '1.45rem', fontWeight: 900, color: '#16a34a' }}>
+              S/ {parseFloat(product.price).toFixed(2)}
+            </span>
+          </div>
+          <button
+            onClick={() => onAddToCart(product, currentImage)}
+            style={{
+              background: isAdded ? '#059669' : '#0f172a',
+              color: '#ffffff',
+              border: 'none',
+              padding: '0.65rem 1.15rem',
+              borderRadius: '10px',
+              fontWeight: 700,
+              fontSize: '0.875rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
+              transition: 'background 0.2s'
+            }}
+          >
+            {isAdded ? '✓ ¡Agregado!' : '🛒 Agregar'}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState('');
+  const [sortBy, setSortBy] = useState('id_desc');
   const [addedId, setAddedId] = useState(null);
 
   const { addItem } = useCart();
 
-  const fetchProducts = (searchTerm = '') => {
+  const fetchProducts = () => {
     setLoading(true);
-    fetch(`/api/products?search=${encodeURIComponent(searchTerm)}`)
+    const params = new URLSearchParams();
+    if (search.trim()) params.set('search', search.trim());
+    if (sortBy) params.set('sortBy', sortBy);
+
+    fetch(`/api/products?${params.toString()}`)
       .then((res) => {
         if (!res.ok) throw new Error(`API error ${res.status}`);
         return res.json();
@@ -34,19 +145,19 @@ export default function Home() {
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [sortBy]);
 
   const handleSearch = (e) => {
     e.preventDefault();
-    fetchProducts(search);
+    fetchProducts();
   };
 
-  const handleAddToCart = (product) => {
+  const handleAddToCart = (product, chosenImage) => {
     addItem({
       id: product.id,
       name: product.name,
       price: parseFloat(product.price),
-      imageUrl: product.imageUrl
+      imageUrl: chosenImage || product.imageUrl
     });
     setAddedId(product.id);
     setTimeout(() => {
@@ -57,14 +168,14 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>TECNOSISTEMAS MDOS | Catálogo Oficial y Pedidos</title>
-        <meta name="description" content="Venta de computadoras, reparación, mantenimiento y programación de computadoras en TECNOSISTEMAS MDOS." />
+        <title>TECNOSISTEMAS MDOS | Catálogo Oficial en Soles (S/)</title>
+        <meta name="description" content="Venta de computadoras, repuestos, reparación y mantenimiento en Soles (S/) en TECNOSISTEMAS MDOS." />
       </Head>
 
       <Header />
 
       <main style={{ maxWidth: '1200px', margin: '1.5rem auto 3rem auto', padding: '0 1.5rem' }}>
-        {/* Banner Principal Tecnológico */}
+        {/* Banner Principal */}
         <section style={{
           borderRadius: '16px',
           overflow: 'hidden',
@@ -113,15 +224,15 @@ export default function Home() {
                 margin: '0 0 0.35rem 0',
                 letterSpacing: '-0.5px'
               }}>
-                Catálogo de Productos y Servicios
+                Catálogo de Productos y Servicios (Soles S/)
               </h1>
               <p style={{ color: '#94a3b8', margin: 0, fontSize: '0.95rem' }}>
-                Venta de Computadoras • Mantenimiento • Reparación • Repuestos • Envío directo a WhatsApp
+                Venta de Computadoras • Mantenimiento • Reparación • Precios en Soles Peruanos
               </p>
             </div>
 
-            {/* Barra de Búsqueda */}
-            <form onSubmit={handleSearch} style={{ display: 'flex', gap: '0.5rem', minWidth: '320px', flex: '1', maxWidth: '480px' }}>
+            {/* Búsqueda y Ordenación */}
+            <form onSubmit={handleSearch} style={{ display: 'flex', gap: '0.5rem', minWidth: '320px', flex: '1', maxWidth: '520px', flexWrap: 'wrap' }}>
               <input
                 type="text"
                 placeholder="Buscar componente, laptop, servicio..."
@@ -129,6 +240,7 @@ export default function Home() {
                 onChange={(e) => setSearch(e.target.value)}
                 style={{
                   flex: 1,
+                  minWidth: '200px',
                   padding: '0.75rem 1rem',
                   borderRadius: '10px',
                   border: '1px solid #334155',
@@ -138,6 +250,25 @@ export default function Home() {
                   outline: 'none'
                 }}
               />
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                style={{
+                  padding: '0.75rem',
+                  borderRadius: '10px',
+                  border: '1px solid #334155',
+                  background: '#1e293b',
+                  color: '#ffffff',
+                  fontSize: '0.85rem',
+                  cursor: 'pointer',
+                  outline: 'none'
+                }}
+              >
+                <option value="id_desc">Más recientes</option>
+                <option value="price_asc">Menor precio (S/)</option>
+                <option value="price_desc">Mayor precio (S/)</option>
+                <option value="name_asc">Nombre (A - Z)</option>
+              </select>
               <button
                 type="submit"
                 style={{
@@ -152,40 +283,21 @@ export default function Home() {
               >
                 Buscar
               </button>
-              {search && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSearch('');
-                    fetchProducts('');
-                  }}
-                  style={{
-                    background: '#334155',
-                    color: '#e2e8f0',
-                    border: 'none',
-                    padding: '0.75rem 1rem',
-                    borderRadius: '10px',
-                    cursor: 'pointer'
-                  }}
-                >
-                  ✕
-                </button>
-              )}
             </form>
           </div>
         </section>
 
-        {/* Notificaciones */}
+        {/* Notificaciones de error */}
         {error && (
           <div style={{ background: '#fee2e2', color: '#b91c1c', padding: '1rem', borderRadius: '10px', marginBottom: '1.5rem', fontWeight: 600 }}>
             ⚠️ Error: {error}
           </div>
         )}
 
-        {/* Cuadrícula de Productos */}
+        {/* Listado de Productos */}
         {loading ? (
           <div style={{ textAlign: 'center', padding: '4rem', color: '#64748b', fontSize: '1.15rem' }}>
-            ⚡ Cargando inventario de TECNOSISTEMAS MDOS...
+            ⚡ Cargando catálogo de TECNOSISTEMAS MDOS...
           </div>
         ) : products.length === 0 ? (
           <div style={{
@@ -200,82 +312,23 @@ export default function Home() {
               No hay productos que coincidan con la búsqueda.
             </p>
             <p style={{ color: '#64748b', marginTop: '0.5rem' }}>
-              Puedes agregar nuevos productos desde el Panel de Administración.
+              Prueba con otro término o revisa el catálogo completo.
             </p>
           </div>
         ) : (
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fill, minmax(270px, 1fr))',
-            gap: '1.5rem'
+            gap: '1.75rem'
           }}>
-            {products.map((p) => {
-              const isAdded = addedId === p.id;
-              return (
-                <div
-                  key={p.id}
-                  style={{
-                    background: '#ffffff',
-                    borderRadius: '14px',
-                    border: '1px solid #e2e8f0',
-                    overflow: 'hidden',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    transition: 'transform 0.15s, box-shadow 0.15s',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
-                  }}
-                >
-                  <div style={{ width: '100%', height: '220px', background: '#f1f5f9', position: 'relative' }}>
-                    {p.imageUrl ? (
-                      <img
-                        src={p.imageUrl}
-                        alt={p.name}
-                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                      />
-                    ) : (
-                      <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontSize: '0.9rem' }}>
-                        🖥️ Sin imagen
-                      </div>
-                    )}
-                  </div>
-
-                  <div style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
-                    <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.15rem', fontWeight: 800, color: '#0f172a' }}>
-                      {p.name}
-                    </h3>
-                    {p.description && (
-                      <p style={{ color: '#64748b', fontSize: '0.875rem', margin: '0 0 1rem 0', flex: 1, lineHeight: '1.45' }}>
-                        {p.description}
-                      </p>
-                    )}
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto', paddingTop: '0.85rem', borderTop: '1px solid #f1f5f9' }}>
-                      <span style={{ fontSize: '1.4rem', fontWeight: 900, color: '#16a34a' }}>
-                        ${parseFloat(p.price).toFixed(2)}
-                      </span>
-                      <button
-                        onClick={() => handleAddToCart(p)}
-                        style={{
-                          background: isAdded ? '#059669' : '#0f172a',
-                          color: '#ffffff',
-                          border: 'none',
-                          padding: '0.65rem 1rem',
-                          borderRadius: '8px',
-                          fontWeight: 700,
-                          fontSize: '0.875rem',
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '0.4rem',
-                          transition: 'background 0.2s'
-                        }}
-                      >
-                        {isAdded ? '✓ ¡Agregado!' : '🛒 Agregar'}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+            {products.map((p) => (
+              <ProductCard
+                key={p.id}
+                product={p}
+                onAddToCart={handleAddToCart}
+                isAdded={addedId === p.id}
+              />
+            ))}
           </div>
         )}
       </main>

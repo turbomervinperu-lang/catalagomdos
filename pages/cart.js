@@ -41,12 +41,12 @@ export default function CartPage() {
       message += `*Orden #:* ${data.orderId}\n`;
       if (customer.name) message += `*Cliente:* ${customer.name}\n`;
       if (customer.phone) message += `*Teléfono:* ${customer.phone}\n`;
-      message += `*Total:* $${total.toFixed(2)}\n\n`;
-      message += `*Detalle:*\n`;
+      message += `*Total a Pagar:* S/ ${total.toFixed(2)}\n\n`;
+      message += `*Detalle de Productos:*\n`;
       items.forEach((item) => {
-        message += `• ${item.name} x${item.quantity} = $${(item.price * item.quantity).toFixed(2)}\n`;
+        message += `• ${item.name} x${item.quantity} = S/ ${(item.price * item.quantity).toFixed(2)}\n`;
       });
-      if (customer.notes) message += `\n*Notas:* ${customer.notes}\n`;
+      if (customer.notes) message += `\n*Notas / Dirección:* ${customer.notes}\n`;
 
       const targetPhone = data.whatsappNumber || '';
       const waUrl = targetPhone
@@ -172,7 +172,7 @@ export default function CartPage() {
                     <div>
                       <h4 style={{ margin: 0, fontSize: '1rem', color: '#111827' }}>{item.name}</h4>
                       <p style={{ margin: '0.25rem 0 0 0', color: '#16a34a', fontWeight: 700 }}>
-                        ${parseFloat(item.price).toFixed(2)} c/u
+                        S/ {parseFloat(item.price).toFixed(2)} c/u
                       </p>
                     </div>
                   </div>
@@ -216,7 +216,7 @@ export default function CartPage() {
 
                   <div style={{ textAlign: 'right', minWidth: '90px' }}>
                     <div style={{ fontWeight: 800, fontSize: '1.05rem', color: '#111827' }}>
-                      ${(item.price * item.quantity).toFixed(2)}
+                      S/ {(item.price * item.quantity).toFixed(2)}
                     </div>
                     <button
                       type="button"
@@ -255,7 +255,7 @@ export default function CartPage() {
                 <div style={{ textAlign: 'right' }}>
                   <span style={{ color: '#6b7280', fontSize: '0.9rem' }}>Total a pagar:</span>
                   <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#16a34a' }}>
-                    ${total.toFixed(2)}
+                    S/ {total.toFixed(2)}
                   </div>
                 </div>
               </div>
@@ -337,7 +337,7 @@ export default function CartPage() {
                 }}
               >
                 <span>💬</span>
-                {submitting ? 'Procesando pedido...' : `Completar Pedido por WhatsApp ($${total.toFixed(2)})`}
+                {submitting ? 'Procesando pedido...' : `Completar Pedido por WhatsApp (S/ ${total.toFixed(2)})`}
               </button>
             </form>
           </div>

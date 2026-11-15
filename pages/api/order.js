@@ -47,12 +47,12 @@ export default async function handler(req, res) {
     ) {
       try {
         const twilio = Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
-        const messageBody = `🛒 *Nuevo Pedido en Catálogo MDoS*\n` +
+        const messageBody = `🛒 *Nuevo Pedido en TECNOSISTEMAS MDOS*\n` +
           `*Orden #:* ${order.id}\n` +
           (customerName ? `*Cliente:* ${customerName}\n` : '') +
           (customerPhone ? `*Teléfono:* ${customerPhone}\n` : '') +
-          `*Total:* $${total.toFixed(2)}\n\n` +
-          `*Productos:*\n${items.map((i) => `• ${i.name} (x${i.quantity}) - $${((parseFloat(i.price) || 0) * i.quantity).toFixed(2)}`).join('\n')}` +
+          `*Total:* S/ ${total.toFixed(2)}\n\n` +
+          `*Productos:*\n${items.map((i) => `• ${i.name} (x${i.quantity}) - S/ ${((parseFloat(i.price) || 0) * i.quantity).toFixed(2)}`).join('\n')}` +
           (customerNotes ? `\n\n*Notas:* ${customerNotes}` : '');
 
         await twilio.messages.create({
