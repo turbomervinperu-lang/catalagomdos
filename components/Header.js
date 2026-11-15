@@ -46,11 +46,11 @@ export default function Header() {
           </div>
         </Link>
 
-        <nav style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        <nav style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <Link href="/" style={{
             textDecoration: 'none',
             color: '#cbd5e1',
-            fontSize: '0.9rem',
+            fontSize: '0.92rem',
             fontWeight: 600,
             padding: '0.5rem 0.85rem',
             borderRadius: '6px',
@@ -59,29 +59,13 @@ export default function Header() {
             Catálogo
           </Link>
 
-          <Link href="/admin" style={{
-            textDecoration: 'none',
-            color: '#93c5fd',
-            background: 'rgba(59, 130, 246, 0.15)',
-            fontSize: '0.85rem',
-            fontWeight: 600,
-            padding: '0.5rem 0.85rem',
-            borderRadius: '8px',
-            border: '1px solid rgba(147, 197, 253, 0.3)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.35rem'
-          }}>
-            ⚙️ Panel Admin
-          </Link>
-
           <Link href="/cart" style={{
             textDecoration: 'none',
             color: '#ffffff',
             background: 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)',
             fontSize: '0.9rem',
             fontWeight: 700,
-            padding: '0.5rem 1.1rem',
+            padding: '0.5rem 1.15rem',
             borderRadius: '8px',
             display: 'flex',
             alignItems: 'center',

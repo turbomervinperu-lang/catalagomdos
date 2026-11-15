@@ -343,6 +343,39 @@ export default function CartPage() {
           </div>
         )}
       </main>
+
+      {/* Footer */}
+      <footer style={{
+        background: '#0f172a',
+        borderTop: '1px solid #1e293b',
+        color: '#94a3b8',
+        padding: '2.5rem 1.5rem',
+        textAlign: 'center',
+        fontSize: '0.875rem',
+        marginTop: '3rem'
+      }}>
+        <p style={{ margin: '0 0 0.5rem 0', fontWeight: 700, color: '#f8fafc' }}>
+          TECNOSISTEMAS MDOS
+        </p>
+        <p style={{ margin: '0 0 1.25rem 0' }}>
+          Venta de Computadoras • Reparación, Mantenimiento y Programación de Computadoras
+        </p>
+        <div>
+          <a
+            href="/admin"
+            title="Administración"
+            style={{
+              textDecoration: 'none',
+              color: '#334155',
+              fontSize: '0.75rem',
+              transition: 'color 0.2s',
+              userSelect: 'none'
+            }}
+          >
+            🔒 Acceso
+          </a>
+        </div>
+      </footer>
     </>
   );
 }
