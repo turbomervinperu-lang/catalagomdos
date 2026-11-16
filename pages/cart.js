@@ -48,10 +48,8 @@ export default function CartPage() {
       });
       if (customer.notes) message += `\n*Notas / Dirección:* ${customer.notes}\n`;
 
-      const targetPhone = data.whatsappNumber || '';
-      const waUrl = targetPhone
-        ? `https://wa.me/${targetPhone}?text=${encodeURIComponent(message)}`
-        : `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+      const targetPhone = data.whatsappNumber || '51929198813';
+      const waUrl = `https://api.whatsapp.com/send?phone=${targetPhone}&text=${encodeURIComponent(message)}`;
 
       // Abrir WhatsApp en pestaña nueva
       if (typeof window !== 'undefined') {

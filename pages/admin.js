@@ -43,11 +43,22 @@ export default function AdminPage() {
   const [loginError, setLoginError] = useState(null);
   const [loginLoading, setLoginLoading] = useState(false);
 
+  // Pestaña activa: 'products' o 'orders'
+  const [activeTab, setActiveTab] = useState('products');
+
   // Inventario y productos
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
+
+  // Órdenes de Compra en Línea
+  const [orders, setOrders] = useState([]);
+  const [ordersLoading, setOrdersLoading] = useState(false);
+  const [ordersError, setOrdersError] = useState(null);
+  const [orderSearch, setOrderSearch] = useState('');
+  const [orderStatusFilter, setOrderStatusFilter] = useState('Todos');
+  const [updatingOrderId, setUpdatingOrderId] = useState(null);
 
   // Filtros de búsqueda exacta
   const [search, setSearch] = useState('');
@@ -79,16 +90,8 @@ export default function AdminPage() {
   const [passError, setPassError] = useState(null);
   const [passSubmitting, setPassSubmitting] = useState(false);
 
-  // Verificar sesión
+  // El panel SIEMPRE solicita contraseña al entrar (sin auto-login persistente)
   useEffect(() => {
-    try {
-      const auth = sessionStorage.getItem('admin_auth');
-      if (auth === 'true') {
-        setIsAuthenticated(true);
-      }
-    } catch (e) {
-      console.warn(e);
-    }
     setCheckingAuth(false);
   }, []);
 
@@ -114,11 +117,58 @@ export default function AdminPage() {
     }
   };
 
+  const fetchOrders = async () => {
+    setOrdersLoading(true);
+    try {
+      const res = await fetch('/api/admin/orders');
+      if (!res.ok) throw new Error('Error al obtener las órdenes de compra');
+      const data = await res.json();
+      setOrders(Array.isArray(data) ? data : []);
+      setOrdersError(null);
+    } catch (err) {
+      setOrdersError(err.message);
+    } finally {
+      setOrdersLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (isAuthenticated) {
       fetchProducts();
+      fetchOrders();
+      // Auto-actualizar órdenes cada 15 segundos para monitoreo en vivo
+      const interval = setInterval(fetchOrders, 15000);
+      return () => clearInterval(interval);
     }
   }, [isAuthenticated, search, selectedCategory, sortBy]);
+
+  const handleUpdateOrderStatus = async (id, newStatus) => {
+    setUpdatingOrderId(id);
+    try {
+      const res = await fetch('/api/admin/orders', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, status: newStatus })
+      });
+      if (!res.ok) throw new Error('No se pudo actualizar el estado');
+      setOrders(orders.map((o) => (o.id === id ? { ...o, status: newStatus } : o)));
+    } catch (err) {
+      alert('Error: ' + err.message);
+    } finally {
+      setUpdatingOrderId(null);
+    }
+  };
+
+  const handleDeleteOrder = async (id) => {
+    if (!window.confirm(`¿Estás seguro de eliminar la Orden #${id}?`)) return;
+    try {
+      const res = await fetch(`/api/admin/orders?id=${id}`, { method: 'DELETE' });
+      if (!res.ok) throw new Error('No se pudo eliminar la orden');
+      setOrders(orders.filter((o) => o.id !== id));
+    } catch (err) {
+      alert('Error: ' + err.message);
+    }
+  };
 
   // Login
   const handleLogin = async (e) => {
@@ -586,17 +636,105 @@ export default function AdminPage() {
           </div>
         )}
 
-        {/* Notificaciones */}
-        {message && (
-          <div style={{ background: '#dcfce7', color: '#15803d', padding: '0.75rem 1rem', borderRadius: '8px', marginBottom: '1.5rem', fontWeight: 600 }}>
-            ✅ {message}
-          </div>
-        )}
-        {error && (
-          <div style={{ background: '#fee2e2', color: '#b91c1c', padding: '0.75rem 1rem', borderRadius: '8px', marginBottom: '1.5rem', fontWeight: 600 }}>
-            ⚠️ {error}
-          </div>
-        )}
+        {/* Selector de Pestañas Principales */}
+        <div style={{
+          display: 'flex',
+          gap: '0.75rem',
+          marginBottom: '2rem',
+          borderBottom: '2px solid #e2e8f0',
+          paddingBottom: '0.75rem',
+          flexWrap: 'wrap'
+        }}>
+          <button
+            type="button"
+            onClick={() => setActiveTab('products')}
+            style={{
+              background: activeTab === 'products' ? '#0f172a' : '#ffffff',
+              color: activeTab === 'products' ? '#ffffff' : '#475569',
+              border: activeTab === 'products' ? '1px solid #0f172a' : '1px solid #cbd5e1',
+              padding: '0.7rem 1.35rem',
+              borderRadius: '10px',
+              fontWeight: 800,
+              fontSize: '0.92rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              boxShadow: activeTab === 'products' ? '0 2px 8px rgba(15,23,42,0.2)' : 'none',
+              transition: 'all 0.15s'
+            }}
+          >
+            <span>📦 Catálogo y Productos</span>
+            <span style={{
+              background: activeTab === 'products' ? '#334155' : '#f1f5f9',
+              color: activeTab === 'products' ? '#ffffff' : '#475569',
+              fontSize: '0.75rem',
+              fontWeight: 800,
+              padding: '0.15rem 0.55rem',
+              borderRadius: '999px'
+            }}>
+              {products.length}
+            </span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab('orders')}
+            style={{
+              background: activeTab === 'orders' ? '#ef4444' : '#ffffff',
+              color: activeTab === 'orders' ? '#ffffff' : '#475569',
+              border: activeTab === 'orders' ? '1px solid #dc2626' : '1px solid #cbd5e1',
+              padding: '0.7rem 1.35rem',
+              borderRadius: '10px',
+              fontWeight: 800,
+              fontSize: '0.92rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              boxShadow: activeTab === 'orders' ? '0 2px 10px rgba(239,68,68,0.35)' : 'none',
+              transition: 'all 0.15s'
+            }}
+          >
+            <span>🛒 Órdenes de Compra en Línea</span>
+            <span style={{
+              background: activeTab === 'orders' ? '#ffffff' : '#ef4444',
+              color: activeTab === 'orders' ? '#dc2626' : '#ffffff',
+              fontSize: '0.75rem',
+              fontWeight: 900,
+              padding: '0.15rem 0.55rem',
+              borderRadius: '999px'
+            }}>
+              {orders.length}
+            </span>
+            {orders.filter((o) => (o.status || 'Pendiente') === 'Pendiente').length > 0 && (
+              <span style={{
+                background: '#fef08a',
+                color: '#854d0e',
+                fontSize: '0.72rem',
+                fontWeight: 800,
+                padding: '0.15rem 0.5rem',
+                borderRadius: '6px'
+              }}>
+                ⚡ {orders.filter((o) => (o.status || 'Pendiente') === 'Pendiente').length} Nuevas
+              </span>
+            )}
+          </button>
+        </div>
+
+        {activeTab === 'products' ? (
+          <>
+            {/* Notificaciones */}
+            {message && (
+              <div style={{ background: '#dcfce7', color: '#15803d', padding: '0.75rem 1rem', borderRadius: '8px', marginBottom: '1.5rem', fontWeight: 600 }}>
+                ✅ {message}
+              </div>
+            )}
+            {error && (
+              <div style={{ background: '#fee2e2', color: '#b91c1c', padding: '0.75rem 1rem', borderRadius: '8px', marginBottom: '1.5rem', fontWeight: 600 }}>
+                ⚠️ {error}
+              </div>
+            )}
 
         {/* Formulario de Producto */}
         <section style={{
@@ -1341,6 +1479,380 @@ export default function AdminPage() {
             </div>
           )}
         </section>
+          </>
+        ) : (
+          /* SECCIÓN DE ÓRDENES DE COMPRA EN LÍNEA */
+          <section>
+            {/* Cabecera de Órdenes */}
+            <div style={{
+              background: '#ffffff',
+              borderRadius: '16px',
+              border: '1px solid #e2e8f0',
+              padding: '1.5rem',
+              marginBottom: '1.5rem',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '1rem'
+            }}>
+              <div>
+                <h2 style={{ margin: '0 0 0.25rem 0', fontSize: '1.4rem', fontWeight: 900, color: '#0f172a' }}>
+                  🛒 Órdenes de Compra en Línea
+                </h2>
+                <p style={{ margin: 0, color: '#64748b', fontSize: '0.88rem' }}>
+                  Monitoreo de pedidos realizados por los clientes desde el catálogo en tiempo real.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={fetchOrders}
+                disabled={ordersLoading}
+                style={{
+                  background: '#0f172a',
+                  color: '#ffffff',
+                  border: 'none',
+                  padding: '0.65rem 1.1rem',
+                  borderRadius: '8px',
+                  fontWeight: 700,
+                  fontSize: '0.85rem',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.4rem'
+                }}
+              >
+                <span>🔄</span>
+                <span>{ordersLoading ? 'Actualizando...' : 'Actualizar Ahora'}</span>
+              </button>
+            </div>
+
+            {/* Filtros de Órdenes */}
+            <div style={{
+              background: '#ffffff',
+              borderRadius: '12px',
+              border: '1px solid #e2e8f0',
+              padding: '1rem 1.25rem',
+              marginBottom: '1.5rem',
+              display: 'flex',
+              gap: '1rem',
+              alignItems: 'center',
+              flexWrap: 'wrap'
+            }}>
+              <div style={{ flex: 1, minWidth: '240px' }}>
+                <input
+                  type="text"
+                  placeholder="🔍 Buscar por cliente, teléfono, producto o # orden..."
+                  value={orderSearch}
+                  onChange={(e) => setOrderSearch(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: '0.6rem 0.85rem',
+                    borderRadius: '8px',
+                    border: '1px solid #cbd5e1',
+                    fontSize: '0.88rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                />
+              </div>
+
+              <div style={{ display: 'flex', gap: '0.35rem', flexWrap: 'wrap', alignItems: 'center' }}>
+                <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#64748b', marginRight: '0.25rem' }}>Estado:</span>
+                {['Todos', 'Pendiente', 'En Proceso', 'Entregado', 'Cancelado'].map((st) => (
+                  <button
+                    key={st}
+                    type="button"
+                    onClick={() => setOrderStatusFilter(st)}
+                    style={{
+                      background: orderStatusFilter === st ? '#ef4444' : '#f1f5f9',
+                      color: orderStatusFilter === st ? '#ffffff' : '#334155',
+                      border: 'none',
+                      borderRadius: '6px',
+                      padding: '0.4rem 0.75rem',
+                      fontSize: '0.8rem',
+                      fontWeight: 700,
+                      cursor: 'pointer'
+                    }}
+                  >
+                    {st}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Listado de Órdenes */}
+            {ordersLoading && orders.length === 0 ? (
+              <div style={{ textAlign: 'center', padding: '3rem', color: '#64748b' }}>
+                ⚡ Cargando órdenes en tiempo real...
+              </div>
+            ) : orders.length === 0 ? (
+              <div style={{
+                background: '#ffffff',
+                borderRadius: '16px',
+                border: '1px solid #e2e8f0',
+                padding: '3.5rem 2rem',
+                textAlign: 'center'
+              }}>
+                <div style={{ fontSize: '3rem', marginBottom: '0.75rem' }}>📦</div>
+                <h3 style={{ margin: '0 0 0.5rem 0', color: '#0f172a' }}>No hay órdenes de compra registradas aún</h3>
+                <p style={{ margin: 0, color: '#64748b', fontSize: '0.9rem' }}>
+                  Cuando los clientes hagan un pedido desde el carrito, aparecerá aquí inmediatamente con todos los datos y opción de contacto por WhatsApp.
+                </p>
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                {orders
+                  .filter((o) => {
+                    let customerInfo = { name: '', phone: '', notes: '' };
+                    let itemsList = [];
+                    if (o.items) {
+                      if (Array.isArray(o.items)) {
+                        itemsList = o.items;
+                      } else if (typeof o.items === 'object') {
+                        itemsList = Array.isArray(o.items.items) ? o.items.items : [];
+                        customerInfo = o.items.customer || customerInfo;
+                      }
+                    }
+
+                    if (orderStatusFilter !== 'Todos' && (o.status || 'Pendiente') !== orderStatusFilter) {
+                      return false;
+                    }
+
+                    if (orderSearch.trim()) {
+                      const q = orderSearch.toLowerCase();
+                      const matchId = String(o.id).includes(q);
+                      const matchCustomer = (customerInfo.name || '').toLowerCase().includes(q);
+                      const matchPhone = (customerInfo.phone || '').includes(q);
+                      const matchItems = itemsList.some((it) => (it.name || '').toLowerCase().includes(q));
+                      if (!matchId && !matchCustomer && !matchPhone && !matchItems) return false;
+                    }
+
+                    return true;
+                  })
+                  .map((order) => {
+                    let customerInfo = { name: '', phone: '', notes: '' };
+                    let itemsList = [];
+                    if (order.items) {
+                      if (Array.isArray(order.items)) {
+                        itemsList = order.items;
+                      } else if (typeof order.items === 'object') {
+                        itemsList = Array.isArray(order.items.items) ? order.items.items : [];
+                        customerInfo = order.items.customer || customerInfo;
+                      }
+                    }
+
+                    const cleanPhone = (customerInfo.phone || '').replace(/[^0-9]/g, '');
+                    const waCustomerUrl = cleanPhone
+                      ? `https://api.whatsapp.com/send?phone=51${cleanPhone}&text=${encodeURIComponent(`Hola ${customerInfo.name || ''}, te contactamos de TECNOSISTEMAS MDOS para coordinar tu Orden #${order.id}.`)}`
+                      : null;
+
+                    return (
+                      <div
+                        key={order.id}
+                        style={{
+                          background: '#ffffff',
+                          borderRadius: '16px',
+                          border: '1px solid #e2e8f0',
+                          padding: '1.5rem',
+                          boxShadow: '0 2px 8px rgba(0,0,0,0.03)'
+                        }}
+                      >
+                        {/* Fila Superior: ID, Estado, Fecha y Total */}
+                        <div style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          flexWrap: 'wrap',
+                          gap: '0.75rem',
+                          borderBottom: '1px solid #f1f5f9',
+                          paddingBottom: '1rem',
+                          marginBottom: '1rem'
+                        }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                            <span style={{ fontWeight: 900, fontSize: '1.25rem', color: '#0f172a' }}>
+                              ORDEN #{order.id}
+                            </span>
+                            <span style={{
+                              background: order.status === 'Entregado' ? '#dcfce7' : (order.status === 'Cancelado' ? '#fee2e2' : (order.status === 'En Proceso' ? '#eff6ff' : '#fef3c7')),
+                              color: order.status === 'Entregado' ? '#15803d' : (order.status === 'Cancelado' ? '#b91c1c' : (order.status === 'En Proceso' ? '#1d4ed8' : '#b45309')),
+                              border: `1px solid ${order.status === 'Entregado' ? '#86efac' : (order.status === 'Cancelado' ? '#fca5a5' : (order.status === 'En Proceso' ? '#bfdbfe' : '#fde68a'))}`,
+                              padding: '0.2rem 0.75rem',
+                              borderRadius: '999px',
+                              fontSize: '0.8rem',
+                              fontWeight: 800
+                            }}>
+                              {order.status || 'Pendiente'}
+                            </span>
+                            <span style={{ fontSize: '0.8rem', color: '#64748b' }}>
+                              📅 {order.created_at ? new Date(order.created_at).toLocaleString('es-PE', { dateStyle: 'short', timeStyle: 'short' }) : 'Reciente'}
+                            </span>
+                          </div>
+
+                          <div style={{ textAlign: 'right' }}>
+                            <span style={{ fontSize: '0.75rem', color: '#64748b', textTransform: 'uppercase', fontWeight: 700, display: 'block' }}>
+                              Total de la Orden
+                            </span>
+                            <span style={{ fontSize: '1.45rem', fontWeight: 900, color: '#ef4444' }}>
+                              S/ {parseFloat(order.total).toFixed(2)}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Fila Cliente */}
+                        <div style={{
+                          background: '#f8fafc',
+                          borderRadius: '10px',
+                          padding: '0.85rem 1.1rem',
+                          marginBottom: '1rem',
+                          border: '1px solid #e2e8f0',
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          flexWrap: 'wrap',
+                          gap: '0.75rem'
+                        }}>
+                          <div>
+                            <div style={{ fontSize: '0.92rem', fontWeight: 800, color: '#1e293b' }}>
+                              👤 Cliente: {customerInfo.name || 'Cliente sin nombre'}
+                            </div>
+                            <div style={{ fontSize: '0.85rem', color: '#475569', marginTop: '0.2rem' }}>
+                              📞 Teléfono: {customerInfo.phone || 'No especificado'}
+                              {customerInfo.notes && (
+                                <span style={{ marginLeft: '1rem', color: '#64748b' }}>
+                                  📝 Notas: {customerInfo.notes}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+
+                          {waCustomerUrl && (
+                            <a
+                              href={waCustomerUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              style={{
+                                background: '#16a34a',
+                                color: '#ffffff',
+                                textDecoration: 'none',
+                                padding: '0.5rem 1rem',
+                                borderRadius: '8px',
+                                fontSize: '0.82rem',
+                                fontWeight: 800,
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '0.4rem',
+                                boxShadow: '0 2px 6px rgba(22,163,74,0.3)'
+                              }}
+                            >
+                              📲 Abrir WhatsApp del Cliente
+                            </a>
+                          )}
+                        </div>
+
+                        {/* Lista de Productos Solicitados */}
+                        <div style={{ marginBottom: '1.25rem' }}>
+                          <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#64748b', textTransform: 'uppercase', marginBottom: '0.45rem', letterSpacing: '0.5px' }}>
+                            Productos Comprados ({itemsList.length})
+                          </div>
+                          <div style={{ border: '1px solid #f1f5f9', borderRadius: '8px', overflow: 'hidden' }}>
+                            {itemsList.map((it, idx) => (
+                              <div
+                                key={idx}
+                                style={{
+                                  display: 'flex',
+                                  justifyContent: 'space-between',
+                                  alignItems: 'center',
+                                  padding: '0.65rem 1rem',
+                                  borderBottom: idx < itemsList.length - 1 ? '1px solid #f1f5f9' : 'none',
+                                  background: idx % 2 === 0 ? '#ffffff' : '#fafafa'
+                                }}
+                              >
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                  <span style={{
+                                    background: '#0f172a',
+                                    color: '#ffffff',
+                                    fontSize: '0.72rem',
+                                    fontWeight: 800,
+                                    padding: '0.15rem 0.5rem',
+                                    borderRadius: '6px'
+                                  }}>
+                                    x{it.quantity}
+                                  </span>
+                                  <span style={{ fontWeight: 700, fontSize: '0.88rem', color: '#1e293b' }}>
+                                    {it.name.toUpperCase()}
+                                  </span>
+                                </div>
+                                <div style={{ fontWeight: 800, color: '#0f172a', fontSize: '0.88rem' }}>
+                                  S/ {((parseFloat(it.price) || 0) * it.quantity).toFixed(2)}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Barra de Cambiar Estado y Eliminar */}
+                        <div style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          flexWrap: 'wrap',
+                          gap: '0.75rem',
+                          paddingTop: '0.75rem',
+                          borderTop: '1px solid #f1f5f9'
+                        }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', flexWrap: 'wrap' }}>
+                            <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#475569', marginRight: '0.35rem' }}>
+                              Cambiar Estado:
+                            </span>
+                            {['Pendiente', 'En Proceso', 'Entregado', 'Cancelado'].map((st) => (
+                              <button
+                                key={st}
+                                type="button"
+                                onClick={() => handleUpdateOrderStatus(order.id, st)}
+                                disabled={updatingOrderId === order.id}
+                                style={{
+                                  background: (order.status || 'Pendiente') === st ? '#0f172a' : '#f1f5f9',
+                                  color: (order.status || 'Pendiente') === st ? '#ffffff' : '#475569',
+                                  border: 'none',
+                                  padding: '0.35rem 0.65rem',
+                                  borderRadius: '6px',
+                                  fontSize: '0.78rem',
+                                  fontWeight: 700,
+                                  cursor: 'pointer'
+                                }}
+                              >
+                                {st}
+                              </button>
+                            ))}
+                          </div>
+
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteOrder(order.id)}
+                            style={{
+                              background: '#fee2e2',
+                              color: '#b91c1c',
+                              border: '1px solid #fecaca',
+                              padding: '0.4rem 0.85rem',
+                              borderRadius: '6px',
+                              fontSize: '0.78rem',
+                              fontWeight: 700,
+                              cursor: 'pointer'
+                            }}
+                          >
+                            🗑️ Eliminar Orden
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+            )}
+          </section>
+        )}
       </main>
     </>
   );

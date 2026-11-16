@@ -33,17 +33,17 @@ export default async function handler(req, res) {
       }
     };
 
-    const query = `INSERT INTO "Order" (items, total) VALUES ($1, $2) RETURNING id, created_at;`;
-    const result = await client.query(query, [JSON.stringify(orderPayload), total]);
+    const query = `INSERT INTO "Order" (items, total, status) VALUES ($1, $2, $3) RETURNING id, created_at, status;`;
+    const result = await client.query(query, [JSON.stringify(orderPayload), total, 'Pendiente']);
     const order = result.rows[0];
 
     // Intentar enviar WhatsApp por Twilio si las credenciales existen
     let twilioSent = false;
+    const WHATSAPP_PERU = '51929198813';
     if (
       process.env.TWILIO_ACCOUNT_SID &&
       process.env.TWILIO_AUTH_TOKEN &&
-      process.env.TWILIO_WHATSAPP_FROM &&
-      process.env.TWILIO_WHATSAPP_TO
+      process.env.TWILIO_WHATSAPP_FROM
     ) {
       try {
         const twilio = Twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
@@ -57,7 +57,7 @@ export default async function handler(req, res) {
 
         await twilio.messages.create({
           from: process.env.TWILIO_WHATSAPP_FROM,
-          to: process.env.TWILIO_WHATSAPP_TO,
+          to: `whatsapp:+${WHATSAPP_PERU}`,
           body: messageBody,
         });
         twilioSent = true;
@@ -70,7 +70,7 @@ export default async function handler(req, res) {
       ok: true,
       orderId: order.id,
       twilioSent,
-      whatsappNumber: process.env.TWILIO_WHATSAPP_TO?.replace(/[^0-9]/g, '') || ''
+      whatsappNumber: WHATSAPP_PERU
     });
   } catch (e) {
     console.error('Order error:', e);
