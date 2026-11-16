@@ -67,14 +67,14 @@ export default function AdminPage() {
     name: '',
     description: '',
     price: '',
-    images: [] // array de hasta 4 strings (dataUrl o https URL)
+    images: [] // array de hasta 4 strings
   });
-  const [manualUrlInput, setManualUrlInput] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [uploadingImage, setUploadingImage] = useState(false);
+  const [loadingSlot, setLoadingSlot] = useState(null);
 
-  const fileInputRef = useRef(null);
+  // Inputs de archivo para los 4 cuadros
+  const slotInputRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
 
   // Cambio de contraseña
   const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -158,54 +158,31 @@ export default function AdminPage() {
     setIsAuthenticated(false);
   };
 
-  // Manejo de carga de archivos (hasta 4)
-  const handleFileChange = async (e) => {
-    const files = Array.from(e.target.files);
-    if (files.length === 0) return;
+  // Carga de archivo para una casilla específica (0, 1, 2, 3)
+  const handleSlotUpload = async (slotIndex, e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
 
-    const availableSlots = 4 - form.images.length;
-    if (availableSlots <= 0) {
-      alert('Ya alcanzaste el límite máximo de 4 imágenes para este producto.');
-      return;
-    }
-
-    const filesToProcess = files.slice(0, availableSlots);
-    setUploadingImage(true);
-
+    setLoadingSlot(slotIndex);
     try {
-      const compressedList = [];
-      for (const f of filesToProcess) {
-        const compressed = await compressImageFile(f);
-        compressedList.push(compressed);
-      }
-      setForm((prev) => ({
-        ...prev,
-        images: [...prev.images, ...compressedList]
-      }));
+      const compressed = await compressImageFile(file);
+      const newImages = [...form.images];
+      newImages[slotIndex] = compressed;
+      // Filtrar huecos vacíos para mantener orden continuo
+      const cleanImages = newImages.filter(Boolean);
+      setForm((prev) => ({ ...prev, images: cleanImages }));
     } catch (err) {
       console.error(err);
-      alert('Error procesando las imágenes.');
+      alert('Error procesando la imagen.');
     } finally {
-      setUploadingImage(false);
-      if (fileInputRef.current) fileInputRef.current.value = '';
+      setLoadingSlot(null);
+      if (slotInputRefs[slotIndex].current) {
+        slotInputRefs[slotIndex].current.value = '';
+      }
     }
   };
 
-  // Agregar por URL manual
-  const handleAddManualUrl = () => {
-    if (!manualUrlInput.trim()) return;
-    if (form.images.length >= 4) {
-      alert('Límite de 4 imágenes alcanzado.');
-      return;
-    }
-    setForm((prev) => ({
-      ...prev,
-      images: [...prev.images, manualUrlInput.trim()]
-    }));
-    setManualUrlInput('');
-  };
-
-  // Reordenar imágenes
+  // Reordenar imágenes (mover izquierda o derecha)
   const handleMoveImage = (index, direction) => {
     const newImages = [...form.images];
     const targetIndex = index + direction;
@@ -217,7 +194,7 @@ export default function AdminPage() {
     setForm({ ...form, images: newImages });
   };
 
-  // Marcar como principal
+  // Marcar como principal (mover a la posición 0)
   const handleMakePrimary = (index) => {
     if (index === 0) return;
     const newImages = [...form.images];
@@ -226,7 +203,7 @@ export default function AdminPage() {
     setForm({ ...form, images: newImages });
   };
 
-  // Eliminar imagen
+  // Eliminar imagen de un cuadro
   const handleRemoveImage = (index) => {
     const newImages = form.images.filter((_, i) => i !== index);
     setForm({ ...form, images: newImages });
@@ -665,218 +642,241 @@ export default function AdminPage() {
               </div>
             </div>
 
-            {/* SECCIÓN DE SUBIDA Y REORDENAMIENTO DE HASTA 4 IMÁGENES */}
-            <div style={{ gridColumn: '1 / -1', background: '#f8fafc', padding: '1.25rem', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+            {/* LOS 4 CUADROS FIJOS DE INSERCIÓN Y REORDENAMIENTO DE IMÁGENES */}
+            <div style={{ gridColumn: '1 / -1', background: '#f8fafc', padding: '1.5rem', borderRadius: '14px', border: '1px solid #e2e8f0' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
                 <div>
-                  <label style={{ fontWeight: 800, fontSize: '0.95rem', color: '#0f172a' }}>
-                    📸 Imágenes del Producto (Máximo 4 imágenes)
+                  <label style={{ fontWeight: 800, fontSize: '1rem', color: '#0f172a' }}>
+                    📸 Cuadros de Imágenes del Producto (4 Casillas)
                   </label>
-                  <p style={{ margin: '0.2rem 0 0 0', fontSize: '0.8rem', color: '#64748b' }}>
-                    Puedes subir archivos desde tu dispositivo o pegar URLs. <strong>La primera imagen (posición 1) será la Principal</strong>.
+                  <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.85rem', color: '#64748b' }}>
+                    Haz clic en cada recuadro para subir la foto correspondiente. <strong>El Cuadro 1 siempre es la Foto Principal</strong>. Usa los botones para moverlas de posición.
                   </p>
                 </div>
                 <span style={{
                   fontSize: '0.85rem',
                   fontWeight: 800,
-                  color: form.images.length === 4 ? '#ea580c' : '#2563eb',
+                  color: form.images.length > 0 ? '#16a34a' : '#64748b',
                   background: '#ffffff',
-                  padding: '0.25rem 0.65rem',
+                  padding: '0.3rem 0.75rem',
                   borderRadius: '999px',
                   border: '1px solid #cbd5e1'
                 }}>
-                  {form.images.length} / 4 fotos
+                  {form.images.length} de 4 fotos cargadas
                 </span>
               </div>
 
-              {/* Botón de carga de archivo */}
-              <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap', marginBottom: '1rem' }}>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  disabled={form.images.length >= 4 || uploadingImage}
-                  onChange={handleFileChange}
-                  style={{ display: 'none' }}
-                  id="product-images-upload"
-                />
-                <label
-                  htmlFor="product-images-upload"
-                  style={{
-                    background: form.images.length >= 4 ? '#e2e8f0' : '#0f172a',
-                    color: form.images.length >= 4 ? '#94a3b8' : '#ffffff',
-                    padding: '0.65rem 1.25rem',
-                    borderRadius: '8px',
-                    fontWeight: 700,
-                    fontSize: '0.875rem',
-                    cursor: form.images.length >= 4 ? 'not-allowed' : 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.5rem'
-                  }}
-                >
-                  <span>📁</span>
-                  {uploadingImage ? 'Optimizando fotos...' : 'Subir fotos desde dispositivo'}
-                </label>
+              {/* Grid con los 4 cuadros */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.25rem' }}>
+                {[0, 1, 2, 3].map((slotIdx) => {
+                  const imageSrc = form.images[slotIdx];
+                  const hasImage = Boolean(imageSrc);
+                  const isPrimary = slotIdx === 0;
+                  const isSlotLoading = loadingSlot === slotIdx;
 
-                {/* Opción alternativa por URL */}
-                <div style={{ display: 'flex', gap: '0.4rem', flex: 1, minWidth: '260px' }}>
-                  <input
-                    type="url"
-                    placeholder="O pegar URL web de foto (https://...)"
-                    value={manualUrlInput}
-                    disabled={form.images.length >= 4}
-                    onChange={(e) => setManualUrlInput(e.target.value)}
-                    style={{ flex: 1, padding: '0.6rem 0.75rem', borderRadius: '6px', border: '1px solid #cbd5e1', fontSize: '0.85rem' }}
-                  />
-                  <button
-                    type="button"
-                    disabled={form.images.length >= 4 || !manualUrlInput.trim()}
-                    onClick={handleAddManualUrl}
-                    style={{
-                      background: '#3b82f6',
-                      color: '#fff',
-                      border: 'none',
-                      padding: '0.6rem 0.85rem',
-                      borderRadius: '6px',
-                      fontSize: '0.85rem',
-                      fontWeight: 700,
-                      cursor: 'pointer'
-                    }}
-                  >
-                    Agregar URL
-                  </button>
-                </div>
-              </div>
+                  return (
+                    <div
+                      key={slotIdx}
+                      style={{
+                        background: '#ffffff',
+                        borderRadius: '12px',
+                        border: isPrimary ? '2px solid #2563eb' : (hasImage ? '1px solid #cbd5e1' : '2px dashed #94a3b8'),
+                        overflow: 'hidden',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        boxShadow: isPrimary ? '0 4px 15px rgba(37, 99, 235, 0.12)' : '0 2px 6px rgba(0,0,0,0.02)',
+                        transition: 'border 0.2s, box-shadow 0.2s',
+                        position: 'relative'
+                      }}
+                    >
+                      {/* Input file invisible para este cuadro */}
+                      <input
+                        ref={slotInputRefs[slotIdx]}
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleSlotUpload(slotIdx, e)}
+                        style={{ display: 'none' }}
+                        id={`slot-file-${slotIdx}`}
+                      />
 
-              {/* Galería de imágenes cargadas con reordenamiento */}
-              {form.images.length === 0 ? (
-                <div style={{ textAlign: 'center', padding: '1.5rem', background: '#ffffff', borderRadius: '8px', border: '1px dashed #cbd5e1', color: '#94a3b8', fontSize: '0.875rem' }}>
-                  No has subido ninguna imagen para este producto. Sube hasta 4 fotos.
-                </div>
-              ) : (
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1rem' }}>
-                  {form.images.map((imgUrl, index) => {
-                    const isPrimary = index === 0;
-                    return (
-                      <div
-                        key={index}
-                        style={{
-                          background: '#ffffff',
-                          borderRadius: '10px',
-                          border: isPrimary ? '2px solid #2563eb' : '1px solid #cbd5e1',
-                          overflow: 'hidden',
-                          boxShadow: isPrimary ? '0 4px 12px rgba(37, 99, 235, 0.15)' : 'none',
-                          display: 'flex',
-                          flexDirection: 'column'
-                        }}
-                      >
-                        <div style={{ position: 'relative', width: '100%', height: '140px', background: '#f1f5f9' }}>
-                          <img
-                            src={imgUrl}
-                            alt={`Imagen ${index + 1}`}
-                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                          />
-                          <span style={{
-                            position: 'absolute',
-                            top: '8px',
-                            left: '8px',
-                            background: isPrimary ? '#2563eb' : 'rgba(15, 23, 42, 0.75)',
-                            color: '#ffffff',
-                            padding: '0.2rem 0.5rem',
-                            borderRadius: '6px',
-                            fontSize: '0.75rem',
-                            fontWeight: 800
-                          }}>
-                            {isPrimary ? '⭐ FOTO PRINCIPAL' : `Posición #${index + 1}`}
-                          </span>
-                        </div>
+                      {/* Encabezado del cuadro */}
+                      <div style={{
+                        padding: '0.5rem 0.75rem',
+                        background: isPrimary ? '#2563eb' : '#f1f5f9',
+                        color: isPrimary ? '#ffffff' : '#334155',
+                        fontSize: '0.8rem',
+                        fontWeight: 800,
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center'
+                      }}>
+                        <span>{isPrimary ? '⭐ CUADRO 1 (PRINCIPAL)' : `CUADRO #${slotIdx + 1}`}</span>
+                        {hasImage && (
+                          <span style={{ fontSize: '0.7rem', opacity: 0.9 }}>Cargada ✓</span>
+                        )}
+                      </div>
 
-                        {/* Botones de control y reordenamiento */}
-                        <div style={{ padding: '0.65rem', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                          {!isPrimary && (
-                            <button
-                              type="button"
-                              onClick={() => handleMakePrimary(index)}
-                              style={{
-                                background: '#eff6ff',
-                                color: '#1d4ed8',
-                                border: '1px solid #bfdbfe',
-                                padding: '0.35rem',
-                                borderRadius: '6px',
-                                fontSize: '0.75rem',
-                                fontWeight: 700,
-                                cursor: 'pointer'
-                              }}
-                            >
-                              ⭐ Hacer Principal
-                            </button>
-                          )}
+                      {/* Contenido: Si tiene foto o si está vacío */}
+                      {hasImage ? (
+                        <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+                          <div style={{ width: '100%', height: '170px', background: '#f8fafc', position: 'relative' }}>
+                            <img
+                              src={imageSrc}
+                              alt={`Foto ${slotIdx + 1}`}
+                              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                            />
+                          </div>
 
-                          <div style={{ display: 'flex', gap: '0.4rem' }}>
-                            <button
-                              type="button"
-                              disabled={index === 0}
-                              onClick={() => handleMoveImage(index, -1)}
-                              title="Mover a la izquierda"
-                              style={{
-                                flex: 1,
-                                background: index === 0 ? '#f1f5f9' : '#ffffff',
-                                color: index === 0 ? '#cbd5e1' : '#334155',
-                                border: '1px solid #cbd5e1',
-                                padding: '0.3rem',
-                                borderRadius: '6px',
-                                fontSize: '0.8rem',
-                                fontWeight: 700,
-                                cursor: index === 0 ? 'not-allowed' : 'pointer'
-                              }}
-                            >
-                              ⬅ Mover
-                            </button>
-                            <button
-                              type="button"
-                              disabled={index === form.images.length - 1}
-                              onClick={() => handleMoveImage(index, 1)}
-                              title="Mover a la derecha"
-                              style={{
-                                flex: 1,
-                                background: index === form.images.length - 1 ? '#f1f5f9' : '#ffffff',
-                                color: index === form.images.length - 1 ? '#cbd5e1' : '#334155',
-                                border: '1px solid #cbd5e1',
-                                padding: '0.3rem',
-                                borderRadius: '6px',
-                                fontSize: '0.8rem',
-                                fontWeight: 700,
-                                cursor: index === form.images.length - 1 ? 'not-allowed' : 'pointer'
-                              }}
-                            >
-                              Mover ➡
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => handleRemoveImage(index)}
-                              title="Eliminar esta foto"
-                              style={{
-                                background: '#fee2e2',
-                                color: '#dc2626',
-                                border: 'none',
-                                padding: '0.3rem 0.5rem',
-                                borderRadius: '6px',
-                                fontSize: '0.8rem',
-                                cursor: 'pointer',
-                                fontWeight: 700
-                              }}
-                            >
-                              🗑
-                            </button>
+                          {/* Herramientas de movimiento y cambio de posición */}
+                          <div style={{ padding: '0.75rem', display: 'flex', flexDirection: 'column', gap: '0.45rem', background: '#fafafa', borderTop: '1px solid #f1f5f9' }}>
+                            {!isPrimary && (
+                              <button
+                                type="button"
+                                onClick={() => handleMakePrimary(slotIdx)}
+                                style={{
+                                  background: '#eff6ff',
+                                  color: '#1d4ed8',
+                                  border: '1px solid #bfdbfe',
+                                  padding: '0.4rem',
+                                  borderRadius: '6px',
+                                  fontSize: '0.78rem',
+                                  fontWeight: 800,
+                                  cursor: 'pointer'
+                                }}
+                              >
+                                ⭐ Hacer Principal
+                              </button>
+                            )}
+
+                            <div style={{ display: 'flex', gap: '0.35rem' }}>
+                              <button
+                                type="button"
+                                disabled={slotIdx === 0}
+                                onClick={() => handleMoveImage(slotIdx, -1)}
+                                title="Mover a casilla anterior"
+                                style={{
+                                  flex: 1,
+                                  background: slotIdx === 0 ? '#f1f5f9' : '#ffffff',
+                                  color: slotIdx === 0 ? '#cbd5e1' : '#334155',
+                                  border: '1px solid #cbd5e1',
+                                  padding: '0.35rem',
+                                  borderRadius: '6px',
+                                  fontSize: '0.8rem',
+                                  fontWeight: 700,
+                                  cursor: slotIdx === 0 ? 'not-allowed' : 'pointer'
+                                }}
+                              >
+                                ⬅
+                              </button>
+                              <button
+                                type="button"
+                                disabled={slotIdx === form.images.length - 1 || slotIdx === 3}
+                                onClick={() => handleMoveImage(slotIdx, 1)}
+                                title="Mover a casilla siguiente"
+                                style={{
+                                  flex: 1,
+                                  background: (slotIdx === form.images.length - 1 || slotIdx === 3) ? '#f1f5f9' : '#ffffff',
+                                  color: (slotIdx === form.images.length - 1 || slotIdx === 3) ? '#cbd5e1' : '#334155',
+                                  border: '1px solid #cbd5e1',
+                                  padding: '0.35rem',
+                                  borderRadius: '6px',
+                                  fontSize: '0.8rem',
+                                  fontWeight: 700,
+                                  cursor: (slotIdx === form.images.length - 1 || slotIdx === 3) ? 'not-allowed' : 'pointer'
+                                }}
+                              >
+                                ➡
+                              </button>
+                              <label
+                                htmlFor={`slot-file-${slotIdx}`}
+                                title="Cambiar por otra foto"
+                                style={{
+                                  background: '#f1f5f9',
+                                  color: '#334155',
+                                  border: '1px solid #cbd5e1',
+                                  padding: '0.35rem 0.5rem',
+                                  borderRadius: '6px',
+                                  fontSize: '0.75rem',
+                                  fontWeight: 700,
+                                  cursor: 'pointer',
+                                  display: 'flex',
+                                  alignItems: 'center'
+                                }}
+                              >
+                                🔄
+                              </label>
+                              <button
+                                type="button"
+                                onClick={() => handleRemoveImage(slotIdx)}
+                                title="Eliminar foto de este cuadro"
+                                style={{
+                                  background: '#fee2e2',
+                                  color: '#dc2626',
+                                  border: 'none',
+                                  padding: '0.35rem 0.55rem',
+                                  borderRadius: '6px',
+                                  fontSize: '0.8rem',
+                                  cursor: 'pointer',
+                                  fontWeight: 700
+                                }}
+                              >
+                                🗑
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
+                      ) : (
+                        /* Cuadro Vacío para Inserción */
+                        <label
+                          htmlFor={`slot-file-${slotIdx}`}
+                          style={{
+                            minHeight: '210px',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            padding: '1.5rem',
+                            textAlign: 'center',
+                            background: '#fafafa',
+                            transition: 'background 0.2s',
+                            flex: 1
+                          }}
+                        >
+                          {isSlotLoading ? (
+                            <div style={{ color: '#2563eb', fontWeight: 700, fontSize: '0.9rem' }}>
+                              ⏳ Cargando...
+                            </div>
+                          ) : (
+                            <>
+                              <div style={{
+                                width: '52px',
+                                height: '52px',
+                                borderRadius: '50%',
+                                background: '#e2e8f0',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '1.6rem',
+                                marginBottom: '0.75rem',
+                                color: '#475569'
+                              }}>
+                                📷
+                              </div>
+                              <span style={{ fontWeight: 800, fontSize: '0.9rem', color: isPrimary ? '#2563eb' : '#334155' }}>
+                                {isPrimary ? '+ Subir Foto Principal' : `+ Subir Foto #${slotIdx + 1}`}
+                              </span>
+                              <span style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.3rem' }}>
+                                Clic para seleccionar archivo
+                              </span>
+                            </>
+                          )}
+                        </label>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
 
             <div style={{ gridColumn: '1 / -1' }}>
