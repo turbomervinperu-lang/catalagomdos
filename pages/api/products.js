@@ -13,8 +13,8 @@ function getPgClient() {
 export default async function handler(req, res) {
   if (!process.env.POSTGRES_URL) {
     return res.status(200).json([
-      { id: 1, name: 'Producto demo 1', price: 10, imageUrl: '', images: [] },
-      { id: 2, name: 'Producto demo 2', price: 20, imageUrl: '', images: [] }
+      { id: 1, name: 'Producto demo 1', price: 10, imageUrl: '', images: [], category: 'Otros', stock: '+5' },
+      { id: 2, name: 'Producto demo 2', price: 20, imageUrl: '', images: [], category: 'Otros', stock: '+5' }
     ]);
   }
 
@@ -24,7 +24,7 @@ export default async function handler(req, res) {
     await client.connect();
 
     if (req.method === 'GET') {
-      const { search = '', minPrice, maxPrice, sortBy = 'id_desc' } = req.query;
+      const { search = '', category = '', minPrice, maxPrice, sortBy = 'id_desc' } = req.query;
 
       let conditions = [];
       let params = [];
@@ -32,6 +32,11 @@ export default async function handler(req, res) {
       if (search && search.trim()) {
         params.push(`%${search.trim()}%`);
         conditions.push(`(name ILIKE $${params.length} OR description ILIKE $${params.length})`);
+      }
+
+      if (category && category.trim() && category !== 'Mostrar todas') {
+        params.push(category.trim());
+        conditions.push(`category = $${params.length}`);
       }
 
       if (minPrice && !isNaN(parseFloat(minPrice))) {
@@ -52,7 +57,15 @@ export default async function handler(req, res) {
 
       const whereClause = conditions.length > 0 ? `WHERE ${conditions.join(' AND ')}` : '';
       const query = `
-        SELECT id, name, description, price, "imageUrl", COALESCE(images, '[]'::jsonb) as images
+        SELECT 
+          id, 
+          name, 
+          description, 
+          price, 
+          "imageUrl", 
+          COALESCE(images, '[]'::jsonb) as images,
+          COALESCE(category, 'Otros') as category,
+          COALESCE(stock, '+5') as stock
         FROM "Product"
         ${whereClause}
         ${orderClause}
@@ -63,7 +76,7 @@ export default async function handler(req, res) {
     }
 
     if (req.method === 'POST') {
-      const { name, description, price, imageUrl, images } = req.body;
+      const { name, description, price, imageUrl, images, category, stock } = req.body;
       if (!name || price === undefined || isNaN(parseFloat(price))) {
         return res.status(400).json({ error: 'Nombre y precio válido en Soles (S/) son requeridos' });
       }
@@ -74,24 +87,28 @@ export default async function handler(req, res) {
         imagesArray = [imageUrl];
       }
       const primaryImage = imagesArray[0] || imageUrl || '';
+      const prodCategory = category && category.trim() ? category.trim() : 'Otros';
+      const prodStock = stock && stock.trim() ? stock.trim() : '+5';
 
       const query = `
-        INSERT INTO "Product" (name, description, price, "imageUrl", images)
-        VALUES ($1, $2, $3, $4, $5)
-        RETURNING id, name, description, price, "imageUrl", images;
+        INSERT INTO "Product" (name, description, price, "imageUrl", images, category, stock)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
+        RETURNING id, name, description, price, "imageUrl", images, category, stock;
       `;
       const result = await client.query(query, [
         name,
         description || '',
         parseFloat(price),
         primaryImage,
-        JSON.stringify(imagesArray)
+        JSON.stringify(imagesArray),
+        prodCategory,
+        prodStock
       ]);
       return res.status(201).json(result.rows[0]);
     }
 
     if (req.method === 'PUT') {
-      const { id, name, description, price, imageUrl, images } = req.body;
+      const { id, name, description, price, imageUrl, images, category, stock } = req.body;
       if (!id || !name || price === undefined || isNaN(parseFloat(price))) {
         return res.status(400).json({ error: 'ID, nombre y precio válido en Soles (S/) son requeridos' });
       }
@@ -101,12 +118,14 @@ export default async function handler(req, res) {
         imagesArray = [imageUrl];
       }
       const primaryImage = imagesArray[0] || imageUrl || '';
+      const prodCategory = category && category.trim() ? category.trim() : 'Otros';
+      const prodStock = stock && stock.trim() ? stock.trim() : '+5';
 
       const query = `
         UPDATE "Product"
-        SET name = $1, description = $2, price = $3, "imageUrl" = $4, images = $5
-        WHERE id = $6
-        RETURNING id, name, description, price, "imageUrl", images;
+        SET name = $1, description = $2, price = $3, "imageUrl" = $4, images = $5, category = $6, stock = $7
+        WHERE id = $8
+        RETURNING id, name, description, price, "imageUrl", images, category, stock;
       `;
       const result = await client.query(query, [
         name,
@@ -114,6 +133,8 @@ export default async function handler(req, res) {
         parseFloat(price),
         primaryImage,
         JSON.stringify(imagesArray),
+        prodCategory,
+        prodStock,
         id
       ]);
 

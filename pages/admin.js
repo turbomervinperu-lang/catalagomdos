@@ -1,37 +1,31 @@
 import Head from 'next/head';
-import { useEffect, useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Header from '../components/Header';
+import { CATEGORIES, EDITABLE_CATEGORIES } from '../lib/categories';
 
-// Función para optimizar y comprimir imágenes en el navegador
-async function compressImageFile(file) {
+// Función para comprimir imágenes en el cliente (HTML5 Canvas)
+function compressImage(file, maxDimension = 1000, quality = 0.82) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = (e) => {
       const img = new Image();
       img.onload = () => {
-        const maxWidth = 1000;
-        const maxHeight = 1000;
-        let width = img.width;
-        let height = img.height;
-
-        if (width > height) {
-          if (width > maxWidth) {
-            height = Math.round((height * maxWidth) / width);
-            width = maxWidth;
-          }
-        } else {
-          if (height > maxHeight) {
-            width = Math.round((width * maxHeight) / height);
-            height = maxHeight;
+        let { width, height } = img;
+        if (width > maxDimension || height > maxDimension) {
+          if (width > height) {
+            height = Math.round((height * maxDimension) / width);
+            width = maxDimension;
+          } else {
+            width = Math.round((width * maxDimension) / height);
+            height = maxDimension;
           }
         }
-
         const canvas = document.createElement('canvas');
         canvas.width = width;
         canvas.height = height;
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0, width, height);
-        const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+        const dataUrl = canvas.toDataURL('image/jpeg', quality);
         resolve(dataUrl);
       };
       img.onerror = reject;
@@ -49,25 +43,27 @@ export default function AdminPage() {
   const [loginError, setLoginError] = useState(null);
   const [loginLoading, setLoginLoading] = useState(false);
 
-  // Inventario y búsqueda avanzada
+  // Inventario y productos
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
 
-  // Filtros de búsqueda avanzada
+  // Filtros de búsqueda exacta
   const [search, setSearch] = useState('');
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('Mostrar todas');
+  const [showCategoryMenu, setShowCategoryMenu] = useState(false);
   const [sortBy, setSortBy] = useState('id_desc');
 
-  // Formulario de Producto (hasta 4 imágenes)
+  // Formulario de Producto (con categoría, stock y 4 cuadros de imágenes)
   const [form, setForm] = useState({
     id: null,
     name: '',
-    description: '',
+    category: 'Placas Madres',
+    stock: '+5',
     price: '',
-    images: [] // array de hasta 4 strings
+    description: '',
+    images: [] // array de hasta 4 imágenes
   });
   const [isEditing, setIsEditing] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -101,8 +97,9 @@ export default function AdminPage() {
     try {
       const queryParams = new URLSearchParams();
       if (search.trim()) queryParams.set('search', search.trim());
-      if (minPrice) queryParams.set('minPrice', minPrice);
-      if (maxPrice) queryParams.set('maxPrice', maxPrice);
+      if (selectedCategory && selectedCategory !== 'Mostrar todas') {
+        queryParams.set('category', selectedCategory);
+      }
       if (sortBy) queryParams.set('sortBy', sortBy);
 
       const res = await fetch(`/api/products?${queryParams.toString()}`);
@@ -121,7 +118,7 @@ export default function AdminPage() {
     if (isAuthenticated) {
       fetchProducts();
     }
-  }, [isAuthenticated, search, minPrice, maxPrice, sortBy]);
+  }, [isAuthenticated, search, selectedCategory, sortBy]);
 
   // Login
   const handleLogin = async (e) => {
@@ -158,25 +155,23 @@ export default function AdminPage() {
     setIsAuthenticated(false);
   };
 
-  // Carga de archivo para una casilla específica (0, 1, 2, 3)
-  const handleSlotUpload = async (slotIndex, e) => {
-    const file = e.target.files && e.target.files[0];
+  // Subida de imagen a casilla específica
+  const handleSlotUpload = async (slotIndex, event) => {
+    const file = event.target.files?.[0];
     if (!file) return;
 
     setLoadingSlot(slotIndex);
     try {
-      const compressed = await compressImageFile(file);
+      const compressedDataUrl = await compressImage(file, 1000, 0.82);
       const newImages = [...form.images];
-      newImages[slotIndex] = compressed;
-      // Filtrar huecos vacíos para mantener orden continuo
+      newImages[slotIndex] = compressedDataUrl;
       const cleanImages = newImages.filter(Boolean);
-      setForm((prev) => ({ ...prev, images: cleanImages }));
+      setForm({ ...form, images: cleanImages });
     } catch (err) {
-      console.error(err);
-      alert('Error procesando la imagen.');
+      alert('Error al procesar la imagen: ' + err.message);
     } finally {
       setLoadingSlot(null);
-      if (slotInputRefs[slotIndex].current) {
+      if (slotInputRefs[slotIndex]?.current) {
         slotInputRefs[slotIndex].current.value = '';
       }
     }
@@ -194,7 +189,7 @@ export default function AdminPage() {
     setForm({ ...form, images: newImages });
   };
 
-  // Marcar como principal (mover a la posición 0)
+  // Marcar como principal (mover al Cuadro 1)
   const handleMakePrimary = (index) => {
     if (index === 0) return;
     const newImages = [...form.images];
@@ -203,13 +198,13 @@ export default function AdminPage() {
     setForm({ ...form, images: newImages });
   };
 
-  // Eliminar imagen de un cuadro
+  // Eliminar imagen de una casilla
   const handleRemoveImage = (index) => {
     const newImages = form.images.filter((_, i) => i !== index);
     setForm({ ...form, images: newImages });
   };
 
-  // Edición de producto
+  // Cargar para edición
   const handleEditClick = (p) => {
     let imgs = [];
     if (Array.isArray(p.images) && p.images.length > 0) {
@@ -221,6 +216,8 @@ export default function AdminPage() {
     setForm({
       id: p.id,
       name: p.name,
+      category: p.category || 'Otros',
+      stock: p.stock || '+5',
       description: p.description || '',
       price: p.price,
       images: imgs
@@ -230,7 +227,15 @@ export default function AdminPage() {
   };
 
   const handleCancelEdit = () => {
-    setForm({ id: null, name: '', description: '', price: '', images: [] });
+    setForm({
+      id: null,
+      name: '',
+      category: 'Placas Madres',
+      stock: '+5',
+      description: '',
+      price: '',
+      images: []
+    });
     setIsEditing(false);
   };
 
@@ -269,7 +274,7 @@ export default function AdminPage() {
       const res = await fetch(`/api/products?id=${id}`, { method: 'DELETE' });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Error al eliminar');
-      setMessage('Producto eliminado.');
+      setMessage('Producto eliminado con éxito.');
       fetchProducts();
     } catch (err) {
       alert('Error: ' + err.message);
@@ -298,12 +303,9 @@ export default function AdminPage() {
         throw new Error(data.error || 'Error al cambiar contraseña');
       }
 
-      setPassMessage('¡Contraseña cambiada exitosamente!');
+      setPassMessage('¡Contraseña actualizada correctamente!');
       setPassForm({ currentPassword: '', newPassword: '' });
-      setTimeout(() => {
-        setShowPasswordModal(false);
-        setPassMessage(null);
-      }, 1800);
+      setTimeout(() => setShowPasswordModal(false), 2000);
     } catch (err) {
       setPassError(err.message);
     } finally {
@@ -313,57 +315,59 @@ export default function AdminPage() {
 
   if (checkingAuth) {
     return (
-      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0f172a', color: '#fff' }}>
-        Verificando acceso...
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f8fafc', color: '#64748b' }}>
+        <p>Cargando panel...</p>
       </div>
     );
   }
 
-  // Pantalla de bloqueo / Login
+  // Pantalla de bloqueo si no está autenticado
   if (!isAuthenticated) {
     return (
       <>
         <Head>
-          <title>Acceso Administrador | TECNOSISTEMAS MDOS</title>
+          <title>Acceso al Panel | TECNOSISTEMAS MDOS</title>
         </Head>
         <Header />
-
         <div style={{
-          minHeight: '80vh',
+          minHeight: '75vh',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '2rem 1rem'
+          background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
+          padding: '1.5rem'
         }}>
           <div style={{
             background: '#ffffff',
-            borderRadius: '16px',
-            border: '1px solid #e2e8f0',
-            padding: '2.5rem 2rem',
+            borderRadius: '20px',
+            padding: '2.5rem',
+            maxWidth: '440px',
             width: '100%',
-            maxWidth: '420px',
-            boxShadow: '0 10px 25px rgba(0,0,0,0.06)',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.08)',
+            border: '1px solid #e2e8f0',
             textAlign: 'center'
           }}>
             <div style={{
               width: '64px',
               height: '64px',
-              margin: '0 auto 1.25rem auto',
-              borderRadius: '16px',
-              background: '#0f172a',
+              background: '#eff6ff',
+              color: '#2563eb',
+              borderRadius: '50%',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              boxShadow: '0 4px 12px rgba(15, 23, 42, 0.2)'
+              fontSize: '2rem',
+              margin: '0 auto 1.25rem auto',
+              border: '2px solid #bfdbfe'
             }}>
-              <span style={{ fontSize: '2rem' }}>🔒</span>
+              🔒
             </div>
 
-            <h1 style={{ fontSize: '1.45rem', fontWeight: 800, margin: '0 0 0.4rem 0', color: '#0f172a' }}>
-              Panel Administrador
+            <h1 style={{ fontSize: '1.5rem', fontWeight: 900, color: '#0f172a', margin: '0 0 0.5rem 0' }}>
+              Panel de Administración
             </h1>
-            <p style={{ color: '#64748b', fontSize: '0.9rem', margin: '0 0 1.75rem 0' }}>
-              Ingresa la contraseña de seguridad para administrar productos
+            <p style={{ color: '#64748b', fontSize: '0.9rem', margin: '0 0 1.5rem 0' }}>
+              TECNOSISTEMAS MDOS • Ingrese la clave de seguridad para gestionar productos
             </p>
 
             {loginError && (
@@ -446,7 +450,7 @@ export default function AdminPage() {
               ⚙️ Gestión de Inventario
             </h1>
             <p style={{ color: '#64748b', margin: '0.25rem 0 0 0' }}>
-              TECNOSISTEMAS MDOS • Venta, Reparación y Mantenimiento (Moneda: Soles S/)
+              TECNOSISTEMAS MDOS • Categorías, Stock y Precios en Soles (S/)
             </p>
           </div>
 
@@ -519,34 +523,34 @@ export default function AdminPage() {
 
             <form onSubmit={handleChangePassword} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.35rem' }}>
+                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.3rem', color: '#334155' }}>
                   Contraseña Actual
                 </label>
                 <input
                   type="password"
                   required
-                  placeholder="Ingresa la actual (ej. 1927)"
+                  placeholder="Introduce la contraseña actual"
                   value={passForm.currentPassword}
                   onChange={(e) => setPassForm({ ...passForm, currentPassword: e.target.value })}
-                  style={{ width: '100%', padding: '0.6rem 0.75rem', borderRadius: '6px', border: '1px solid #cbd5e1' }}
+                  style={{ width: '100%', padding: '0.65rem', borderRadius: '8px', border: '1px solid #cbd5e1', boxSizing: 'border-box' }}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.35rem' }}>
+                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.3rem', color: '#334155' }}>
                   Nueva Contraseña
                 </label>
                 <input
                   type="password"
                   required
-                  placeholder="Mínimo 3 caracteres"
+                  placeholder="Introduce la nueva clave"
                   value={passForm.newPassword}
                   onChange={(e) => setPassForm({ ...passForm, newPassword: e.target.value })}
-                  style={{ width: '100%', padding: '0.6rem 0.75rem', borderRadius: '6px', border: '1px solid #cbd5e1' }}
+                  style={{ width: '100%', padding: '0.65rem', borderRadius: '8px', border: '1px solid #cbd5e1', boxSizing: 'border-box' }}
                 />
               </div>
 
-              <div style={{ gridColumn: '1 / -1', display: 'flex', gap: '0.75rem', marginTop: '0.25rem' }}>
+              <div style={{ gridColumn: '1 / -1', display: 'flex', gap: '0.75rem', marginTop: '0.5rem' }}>
                 <button
                   type="submit"
                   disabled={passSubmitting}
@@ -560,7 +564,7 @@ export default function AdminPage() {
                     cursor: 'pointer'
                   }}
                 >
-                  {passSubmitting ? 'Actualizando...' : 'Guardar Nueva Contraseña'}
+                  {passSubmitting ? 'Guardando...' : 'Actualizar Contraseña'}
                 </button>
                 <button
                   type="button"
@@ -608,7 +612,8 @@ export default function AdminPage() {
           </h2>
 
           <form onSubmit={handleSubmitProduct} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.25rem' }}>
-            <div>
+            {/* Nombre */}
+            <div style={{ gridColumn: 'span 2' }}>
               <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.35rem', color: '#334155' }}>
                 Nombre del Producto / Servicio *
               </label>
@@ -618,11 +623,42 @@ export default function AdminPage() {
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 required
-                placeholder="Ej. Disco Sólido SSD 1TB Kingston NVMe"
+                placeholder="Ej. PLACA MADRE GIGABYTE B550M-K (AM4) (DDR4)"
                 style={{ width: '100%', padding: '0.7rem 0.85rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.95rem', boxSizing: 'border-box' }}
               />
             </div>
 
+            {/* Categoría */}
+            <div>
+              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.35rem', color: '#334155' }}>
+                Categoría *
+              </label>
+              <select
+                value={form.category}
+                onChange={(e) => setForm({ ...form, category: e.target.value })}
+                style={{ width: '100%', padding: '0.7rem 0.85rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.95rem', boxSizing: 'border-box', background: '#fff' }}
+              >
+                {EDITABLE_CATEGORIES.map((cat) => (
+                  <option key={cat} value={cat}>{cat}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Stock */}
+            <div>
+              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.35rem', color: '#334155' }}>
+                Stock Disponible *
+              </label>
+              <input
+                type="text"
+                value={form.stock}
+                onChange={(e) => setForm({ ...form, stock: e.target.value })}
+                placeholder="Ej. +5, 4, 1, Agotado"
+                style={{ width: '100%', padding: '0.7rem 0.85rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.95rem', boxSizing: 'border-box', fontWeight: 700, color: '#0f172a' }}
+              />
+            </div>
+
+            {/* Precio */}
             <div>
               <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.35rem', color: '#334155' }}>
                 Precio en Soles Peruanos (S/) *
@@ -888,12 +924,12 @@ export default function AdminPage() {
                 rows="3"
                 value={form.description}
                 onChange={(e) => setForm({ ...form, description: e.target.value })}
-                placeholder="Especificaciones técnicas, velocidad, compatibilidad, garantía, estado del equipo..."
-                style={{ width: '100%', padding: '0.7rem 0.85rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.95rem', resize: 'vertical', boxSizing: 'border-box' }}
+                placeholder="Especificaciones técnicas, compatibilidad, socket, garantía..."
+                style={{ width: '100%', padding: '0.7rem 0.85rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.95rem', boxSizing: 'border-box' }}
               />
             </div>
 
-            <div style={{ gridColumn: '1 / -1', display: 'flex', gap: '0.75rem', marginTop: '0.5rem' }}>
+            <div style={{ gridColumn: '1 / -1', display: 'flex', gap: '0.75rem' }}>
               <button
                 type="submit"
                 disabled={submitting}
@@ -932,199 +968,263 @@ export default function AdminPage() {
           </form>
         </section>
 
-        {/* SECCIÓN DE BÚSQUEDA AVANZADA EN EL INVENTARIO */}
+        {/* SECCIÓN DE BÚSQUEDA EXACTA EN EL INVENTARIO (ESTILO ACTUALIZACIÓN DE STOCK EN TIEMPO REAL) */}
         <section style={{
           background: '#ffffff',
-          padding: '1.5rem',
+          padding: '1.75rem',
           borderRadius: '16px',
           border: '1px solid #e2e8f0',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
+          boxShadow: '0 2px 10px rgba(0,0,0,0.03)',
           marginBottom: '2rem'
         }}>
-          <h2 style={{ fontSize: '1.2rem', fontWeight: 800, margin: '0 0 1rem 0', color: '#0f172a' }}>
-            🔍 Búsqueda Avanzada de Inventario
-          </h2>
+          <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
+            <h2 style={{ fontSize: '1.35rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.5px', margin: '0 0 0.35rem 0', color: '#0f172a' }}>
+              ACTUALIZACIÓN DE STOCK EN TIEMPO REAL
+            </h2>
+            <p style={{ color: '#64748b', fontSize: '0.85rem', margin: 0 }}>
+              Consulta disponibilidad y precios de distribución
+            </p>
+          </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', alignItems: 'flex-end' }}>
-            <div>
-              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#475569', marginBottom: '0.35rem' }}>
-                Buscar por nombre o descripción
-              </label>
-              <input
-                type="text"
-                placeholder="Ej. SSD, Laptop, Mantenimiento..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                style={{ width: '100%', padding: '0.65rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.9rem', boxSizing: 'border-box' }}
-              />
-            </div>
-
-            <div>
-              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#475569', marginBottom: '0.35rem' }}>
-                Precio Mínimo (S/)
-              </label>
-              <input
-                type="number"
-                placeholder="0.00"
-                value={minPrice}
-                onChange={(e) => setMinPrice(e.target.value)}
-                style={{ width: '100%', padding: '0.65rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.9rem', boxSizing: 'border-box' }}
-              />
-            </div>
-
-            <div>
-              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#475569', marginBottom: '0.35rem' }}>
-                Precio Máximo (S/)
-              </label>
-              <input
-                type="number"
-                placeholder="Sin límite"
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(e.target.value)}
-                style={{ width: '100%', padding: '0.65rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.9rem', boxSizing: 'border-box' }}
-              />
-            </div>
-
-            <div>
-              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#475569', marginBottom: '0.35rem' }}>
-                Ordenar por
-              </label>
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                style={{ width: '100%', padding: '0.65rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.9rem', boxSizing: 'border-box', background: '#fff' }}
-              >
-                <option value="id_desc">Más recientes primero</option>
-                <option value="id_asc">Más antiguos primero</option>
-                <option value="price_asc">Menor precio (S/)</option>
-                <option value="price_desc">Mayor precio (S/)</option>
-                <option value="name_asc">Nombre (A - Z)</option>
-              </select>
-            </div>
-
-            <div>
+          {/* Barra de control con selector de categoría y búsqueda exacta */}
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
+            {/* Dropdown de Categorías */}
+            <div style={{ position: 'relative' }}>
               <button
                 type="button"
-                onClick={() => {
-                  setSearch('');
-                  setMinPrice('');
-                  setMaxPrice('');
-                  setSortBy('id_desc');
-                }}
+                onClick={() => setShowCategoryMenu(!showCategoryMenu)}
                 style={{
-                  width: '100%',
-                  background: '#f1f5f9',
-                  color: '#475569',
+                  background: '#ffffff',
+                  color: selectedCategory !== 'Mostrar todas' ? '#2563eb' : '#0f172a',
                   border: '1px solid #cbd5e1',
-                  padding: '0.65rem',
-                  borderRadius: '8px',
-                  fontWeight: 600,
-                  fontSize: '0.9rem',
-                  cursor: 'pointer'
+                  borderRadius: '10px',
+                  padding: '0.65rem 1rem',
+                  fontSize: '0.85rem',
+                  fontWeight: 800,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
+                  minWidth: '160px',
+                  justifyContent: 'space-between'
                 }}
               >
-                Limpiar Filtros
+                <span>{selectedCategory === 'Mostrar todas' ? 'CATEGORÍAS ▾' : `${selectedCategory.toUpperCase()} ▾`}</span>
               </button>
+
+              {showCategoryMenu && (
+                <div style={{
+                  position: 'absolute',
+                  top: '100%',
+                  left: 0,
+                  marginTop: '0.4rem',
+                  background: '#ffffff',
+                  borderRadius: '10px',
+                  border: '1px solid #cbd5e1',
+                  boxShadow: '0 10px 25px rgba(0,0,0,0.12)',
+                  zIndex: 50,
+                  width: '240px',
+                  maxHeight: '340px',
+                  overflowY: 'auto'
+                }}>
+                  {CATEGORIES.map((cat) => (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => {
+                        setSelectedCategory(cat);
+                        setShowCategoryMenu(false);
+                      }}
+                      style={{
+                        display: 'block',
+                        width: '100%',
+                        textAlign: 'left',
+                        padding: '0.65rem 1rem',
+                        fontSize: '0.85rem',
+                        fontWeight: selectedCategory === cat ? 800 : 500,
+                        color: selectedCategory === cat ? '#2563eb' : '#334155',
+                        background: selectedCategory === cat ? '#eff6ff' : 'transparent',
+                        border: 'none',
+                        cursor: 'pointer',
+                        borderBottom: '1px solid #f1f5f9'
+                      }}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Input de Búsqueda con botón X y lupa */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              background: '#ffffff',
+              border: '1px solid #cbd5e1',
+              borderRadius: '10px',
+              padding: '0 0.75rem',
+              width: '100%',
+              maxWidth: '380px',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+            }}>
+              <input
+                type="text"
+                placeholder="Buscar"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                style={{
+                  border: 'none',
+                  outline: 'none',
+                  padding: '0.65rem 0',
+                  fontSize: '0.9rem',
+                  width: '100%',
+                  color: '#0f172a'
+                }}
+              />
+              {search && (
+                <button
+                  type="button"
+                  onClick={() => setSearch('')}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: '#94a3b8',
+                    cursor: 'pointer',
+                    fontSize: '1rem',
+                    padding: '0 0.35rem'
+                  }}
+                  title="Limpiar búsqueda"
+                >
+                  ✕
+                </button>
+              )}
+              <span style={{ color: '#0284c7', fontSize: '1rem', paddingLeft: '0.35rem' }}>🔍</span>
             </div>
           </div>
-        </section>
 
-        {/* Tabla de Productos */}
-        <section>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 800, margin: 0, color: '#0f172a' }}>
-              📦 Resultados del Inventario ({products.length})
-            </h2>
+          {/* Subtítulo dinámico con contador exacto de productos */}
+          <div style={{ textAlign: 'center', color: '#64748b', fontSize: '0.82rem', marginBottom: '1.25rem' }}>
+            {selectedCategory !== 'Mostrar todas' || search.trim() ? (
+              <span>Mostrando {products.length} productos filtrados</span>
+            ) : (
+              <span>Mostrando {products.length} productos</span>
+            )}
           </div>
 
+          {/* Tabla de Resultados de Inventario */}
           {loading ? (
-            <p>Buscando en el catálogo...</p>
+            <div style={{ textAlign: 'center', padding: '3rem', color: '#64748b' }}>
+              ⚡ Buscando en inventario...
+            </div>
           ) : products.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '3rem', background: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', color: '#64748b' }}>
+            <div style={{ textAlign: 'center', padding: '3rem', background: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0', color: '#64748b' }}>
               No se encontraron productos con los filtros aplicados.
             </div>
           ) : (
-            <div style={{ overflowX: 'auto', background: '#ffffff', borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+            <div style={{ overflowX: 'auto', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
                 <thead>
-                  <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0', color: '#475569', fontWeight: 700 }}>
-                    <th style={{ padding: '0.85rem 1rem' }}>ID</th>
-                    <th style={{ padding: '0.85rem 1rem' }}>Fotos (hasta 4)</th>
-                    <th style={{ padding: '0.85rem 1rem' }}>Nombre</th>
-                    <th style={{ padding: '0.85rem 1rem' }}>Precio (PEN)</th>
-                    <th style={{ padding: '0.85rem 1rem' }}>Descripción</th>
-                    <th style={{ padding: '0.85rem 1rem', textAlign: 'center' }}>Acciones</th>
+                  <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0', color: '#475569', fontWeight: 800, fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                    <th style={{ padding: '0.85rem 1rem' }}>PRODUCTO</th>
+                    <th style={{ padding: '0.85rem 1rem', width: '150px' }}>CATEGORÍA</th>
+                    <th style={{ padding: '0.85rem 1rem', width: '90px', textAlign: 'center' }}>STOCK</th>
+                    <th style={{ padding: '0.85rem 1rem', width: '110px', textAlign: 'right' }}>PRECIO</th>
+                    <th style={{ padding: '0.85rem 1rem', width: '140px', textAlign: 'center' }}>ACCIONES</th>
                   </tr>
                 </thead>
                 <tbody>
                   {products.map((p) => {
-                    const imgs = Array.isArray(p.images) && p.images.length > 0 ? p.images : (p.imageUrl ? [p.imageUrl] : []);
+                    const thumb = (Array.isArray(p.images) && p.images[0]) || p.imageUrl || '';
                     return (
                       <tr key={p.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                        <td style={{ padding: '0.85rem 1rem', color: '#94a3b8' }}>#{p.id}</td>
-                        <td style={{ padding: '0.85rem 1rem' }}>
-                          <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
-                            {imgs.length > 0 ? (
-                              imgs.map((src, idx) => (
-                                <img
-                                  key={idx}
-                                  src={src}
-                                  alt=""
-                                  style={{
-                                    width: idx === 0 ? '46px' : '30px',
-                                    height: idx === 0 ? '46px' : '30px',
-                                    objectFit: 'cover',
-                                    borderRadius: '6px',
-                                    border: idx === 0 ? '2px solid #2563eb' : '1px solid #cbd5e1'
-                                  }}
-                                  title={idx === 0 ? 'Foto principal' : `Foto #${idx + 1}`}
-                                />
-                              ))
-                            ) : (
-                              <div style={{ width: '46px', height: '46px', background: '#f1f5f9', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontSize: '0.7rem' }}>
-                                Sin foto
-                              </div>
-                            )}
+                        <td style={{ padding: '0.75rem 1rem' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                            <div style={{
+                              width: '42px',
+                              height: '42px',
+                              borderRadius: '6px',
+                              background: '#f8fafc',
+                              border: '1px solid #e2e8f0',
+                              overflow: 'hidden',
+                              flexShrink: 0,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center'
+                            }}>
+                              {thumb ? (
+                                <img src={thumb} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                              ) : (
+                                <span style={{ fontSize: '1rem', color: '#94a3b8' }}>🖥️</span>
+                              )}
+                            </div>
+                            <span style={{ fontWeight: 800, color: '#0f172a', fontSize: '0.88rem' }}>
+                              {p.name.toUpperCase()}
+                            </span>
                           </div>
                         </td>
-                        <td style={{ padding: '0.85rem 1rem', fontWeight: 700, color: '#0f172a' }}>{p.name}</td>
-                        <td style={{ padding: '0.85rem 1rem', fontWeight: 800, color: '#16a34a', whiteSpace: 'nowrap' }}>
+                        <td style={{ padding: '0.75rem 1rem' }}>
+                          <span style={{
+                            background: '#eff6ff',
+                            color: '#1d4ed8',
+                            padding: '0.25rem 0.6rem',
+                            borderRadius: '6px',
+                            fontSize: '0.78rem',
+                            fontWeight: 700
+                          }}>
+                            {p.category || 'Otros'}
+                          </span>
+                        </td>
+                        <td style={{ padding: '0.75rem 1rem', textAlign: 'center' }}>
+                          <span style={{
+                            background: '#ffffff',
+                            border: '1px solid #cbd5e1',
+                            color: '#334155',
+                            padding: '0.2rem 0.6rem',
+                            borderRadius: '999px',
+                            fontSize: '0.8rem',
+                            fontWeight: 800
+                          }}>
+                            {p.stock || '+5'}
+                          </span>
+                        </td>
+                        <td style={{ padding: '0.75rem 1rem', textAlign: 'right', fontWeight: 800, color: '#16a34a' }}>
                           S/ {parseFloat(p.price).toFixed(2)}
                         </td>
-                        <td style={{ padding: '0.85rem 1rem', color: '#64748b', maxWidth: '300px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                          {p.description || '—'}
-                        </td>
-                        <td style={{ padding: '0.85rem 1rem', textAlign: 'center' }}>
-                          <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
+                        <td style={{ padding: '0.75rem 1rem', textAlign: 'center' }}>
+                          <div style={{ display: 'flex', justifyContent: 'center', gap: '0.4rem' }}>
                             <button
                               onClick={() => handleEditClick(p)}
+                              title="Editar producto"
                               style={{
                                 background: '#eff6ff',
-                                color: '#1d4ed8',
+                                color: '#2563eb',
                                 border: '1px solid #bfdbfe',
-                                padding: '0.4rem 0.75rem',
+                                padding: '0.35rem 0.65rem',
                                 borderRadius: '6px',
-                                cursor: 'pointer',
+                                fontSize: '0.8rem',
                                 fontWeight: 700,
-                                fontSize: '0.8rem'
+                                cursor: 'pointer'
                               }}
                             >
-                              Editar
+                              ✏️
                             </button>
                             <button
                               onClick={() => handleDelete(p.id)}
+                              title="Eliminar producto"
                               style={{
-                                background: '#fef2f2',
+                                background: '#fee2e2',
                                 color: '#dc2626',
                                 border: '1px solid #fecaca',
-                                padding: '0.4rem 0.75rem',
+                                padding: '0.35rem 0.65rem',
                                 borderRadius: '6px',
-                                cursor: 'pointer',
+                                fontSize: '0.8rem',
                                 fontWeight: 700,
-                                fontSize: '0.8rem'
+                                cursor: 'pointer'
                               }}
                             >
-                              Eliminar
+                              🗑️
                             </button>
                           </div>
                         </td>
