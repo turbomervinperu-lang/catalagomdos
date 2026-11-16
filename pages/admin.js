@@ -683,7 +683,7 @@ export default function AdminPage() {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
                 <div>
                   <label style={{ fontWeight: 800, fontSize: '1rem', color: '#0f172a' }}>
-                    📸 Cuadros de Imágenes del Producto (4 Casillas)
+                    📸 Cuadros de Imágenes del Producto
                   </label>
                   <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.85rem', color: '#64748b' }}>
                     Haz clic en cada recuadro para subir la foto correspondiente. <strong>El Cuadro 1 siempre es la Foto Principal</strong>. Usa los botones para moverlas de posición.

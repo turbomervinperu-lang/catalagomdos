@@ -1,11 +1,38 @@
-body {
+/* Global Styles */
+html, body {
   margin: 0;
+  padding: 0;
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  background: #fafafa;
-  color: #222;
+  background: #f8fafc;
+  color: #0f172a;
 }
 
 * {
   box-sizing: border-box;
 }
 
+/* Scrollbar personalizada en color ROJO para todo el catálogo y panel */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+  border-radius: 6px;
+  border: 2px solid #f8fafc;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #dc2626 0%, #b91c1c 50%, #991b1b 100%);
+}
+
+/* Soporte estándar Firefox */
+html, body, * {
+  scrollbar-width: thin;
+  scrollbar-color: #dc2626 #f1f5f9;
+}
