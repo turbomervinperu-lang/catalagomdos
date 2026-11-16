@@ -20,3 +20,4 @@ testParse().catch(err => {
   console.error('Error al parsear:', err);
   process.exit(1);
 });
+

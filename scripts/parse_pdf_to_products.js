@@ -158,3 +158,4 @@ console.log(`Productos con incremento de S/40 (Videos / Procesadores): ${videosA
 if (videosAndCpu.length > 0) {
   console.log('Ejemplo Video/CPU:', videosAndCpu.slice(0, 3));
 }
+

@@ -26,3 +26,4 @@ console.log(JSON.stringify(sampleProducts.slice(0, 15), null, 2));
 
 console.log('--- ÚLTIMOS 10 EJEMPLOS ---');
 console.log(JSON.stringify(sampleProducts.slice(-10), null, 2));
+

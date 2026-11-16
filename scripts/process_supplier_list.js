@@ -150,3 +150,4 @@ for (const p of products) {
   catCounts[p['CATEGORÍA']] = (catCounts[p['CATEGORÍA']] || 0) + 1;
 }
 console.log('Distribución por Categorías:', catCounts);
+
