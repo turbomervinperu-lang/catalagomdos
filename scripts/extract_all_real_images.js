@@ -99,3 +99,4 @@ processAllImages().catch(err => {
   console.error('Error durante extracción:', err);
   process.exit(1);
 });
+

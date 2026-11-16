@@ -14,7 +14,7 @@ export default function Home() {
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Mostrar todas');
   const [showCategoryMenu, setShowCategoryMenu] = useState(false);
-  const [viewMode, setViewMode] = useState('table'); // 'table' (por defecto como en las fotos) o 'grid'
+  const [viewMode, setViewMode] = useState('grid'); // 'grid' por defecto con fotos grandes como en Imagen 2
 
   // Modal de detalle de producto
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -264,43 +264,61 @@ export default function Home() {
               <span style={{ color: '#0284c7', fontSize: '1.05rem', paddingLeft: '0.35rem' }}>🔍</span>
             </div>
 
-            {/* Selector de modo de vista (Tabla vs Cuadrícula) */}
-            <div style={{ display: 'flex', gap: '0.25rem', background: '#f1f5f9', padding: '0.25rem', borderRadius: '8px' }}>
-              <button
-                type="button"
-                onClick={() => setViewMode('table')}
-                title="Vista Lista de Distribución"
-                style={{
-                  background: viewMode === 'table' ? '#ffffff' : 'transparent',
-                  color: viewMode === 'table' ? '#0f172a' : '#64748b',
-                  border: 'none',
-                  borderRadius: '6px',
-                  padding: '0.45rem 0.65rem',
-                  fontWeight: 700,
-                  fontSize: '0.8rem',
-                  cursor: 'pointer',
-                  boxShadow: viewMode === 'table' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none'
-                }}
-              >
-                📋 Lista
-              </button>
+            {/* Selector de modo de vista (Cuadrícula vs Tabla) */}
+            <div style={{ display: 'flex', gap: '0.35rem', alignItems: 'center' }}>
               <button
                 type="button"
                 onClick={() => setViewMode('grid')}
-                title="Vista Cuadrícula con Fotos"
+                title="Vista Cuadrícula con Fotos Grandes"
                 style={{
-                  background: viewMode === 'grid' ? '#ffffff' : 'transparent',
-                  color: viewMode === 'grid' ? '#0f172a' : '#64748b',
+                  width: '38px',
+                  height: '38px',
+                  borderRadius: '50%',
+                  background: viewMode === 'grid' ? '#10b981' : '#f1f5f9',
+                  color: viewMode === 'grid' ? '#ffffff' : '#64748b',
                   border: 'none',
-                  borderRadius: '6px',
-                  padding: '0.45rem 0.65rem',
-                  fontWeight: 700,
-                  fontSize: '0.8rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   cursor: 'pointer',
-                  boxShadow: viewMode === 'grid' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none'
+                  boxShadow: viewMode === 'grid' ? '0 2px 8px rgba(16, 185, 129, 0.35)' : 'none',
+                  transition: 'all 0.15s'
                 }}
               >
-                🔲 Cuadrícula
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="3" y="3" width="7" height="7" rx="1.5" />
+                  <rect x="14" y="3" width="7" height="7" rx="1.5" />
+                  <rect x="3" y="14" width="7" height="7" rx="1.5" />
+                  <rect x="14" y="14" width="7" height="7" rx="1.5" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                onClick={() => setViewMode('table')}
+                title="Vista Lista de Precios"
+                style={{
+                  width: '38px',
+                  height: '38px',
+                  borderRadius: '50%',
+                  background: viewMode === 'table' ? '#10b981' : '#f1f5f9',
+                  color: viewMode === 'table' ? '#ffffff' : '#64748b',
+                  border: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  boxShadow: viewMode === 'table' ? '0 2px 8px rgba(16, 185, 129, 0.35)' : 'none',
+                  transition: 'all 0.15s'
+                }}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <circle cx="4" cy="6" r="2" />
+                  <circle cx="4" cy="12" r="2" />
+                  <circle cx="4" cy="18" r="2" />
+                  <rect x="9" y="5" width="12" height="2" rx="1" />
+                  <rect x="9" y="11" width="12" height="2" rx="1" />
+                  <rect x="9" y="17" width="12" height="2" rx="1" />
+                </svg>
               </button>
             </div>
           </div>
@@ -344,7 +362,7 @@ export default function Home() {
             </p>
           </div>
         ) : viewMode === 'table' ? (
-          /* VISTA TABLA EN TIEMPO REAL (COMO EN LAS IMÁGENES 1, 2 Y 3) */
+          /* VISTA TABLA EN TIEMPO REAL (CON FOTOS MEJORADAS) */
           <div style={{
             background: '#ffffff',
             borderRadius: '16px',
@@ -365,7 +383,7 @@ export default function Home() {
                   <th style={{ padding: '1rem 1.25rem' }}>PRODUCTO</th>
                   <th style={{ padding: '1rem', textAlign: 'center', width: '90px' }}>STOCK</th>
                   <th style={{ padding: '1rem 1.25rem', textAlign: 'right', width: '130px' }}>PRECIO</th>
-                  <th style={{ padding: '1rem 1.25rem', textAlign: 'center', width: '110px' }}>PEDIR</th>
+                  <th style={{ padding: '1rem 1.25rem', textAlign: 'center', width: '120px' }}>PEDIR</th>
                 </tr>
               </thead>
               <tbody>
@@ -374,6 +392,7 @@ export default function Home() {
                   const thumb = images[0] || '';
                   const isAdded = addedId === p.id;
                   const isConsultar = parseFloat(p.price) === 0;
+                  const stockDisplay = p.stock ? (String(p.stock).startsWith('+') ? `>${p.stock.slice(1)}` : p.stock) : '>5';
 
                   return (
                     <tr
@@ -387,56 +406,61 @@ export default function Home() {
                       onMouseEnter={(e) => (e.currentTarget.style.background = '#f8fafc')}
                       onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
                     >
-                      {/* Columna Producto */}
+                      {/* Columna Producto con foto grande de 64px */}
                       <td style={{ padding: '0.85rem 1.25rem' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                           <div style={{
-                            width: '42px',
-                            height: '42px',
-                            borderRadius: '6px',
-                            background: '#f8fafc',
+                            width: '64px',
+                            height: '64px',
+                            borderRadius: '8px',
+                            background: '#ffffff',
                             border: '1px solid #e2e8f0',
                             overflow: 'hidden',
                             flexShrink: 0,
                             display: 'flex',
                             alignItems: 'center',
-                            justifyContent: 'center'
+                            justifyContent: 'center',
+                            padding: '3px'
                           }}>
                             {thumb ? (
-                              <img src={thumb} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                              <img src={thumb} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                             ) : (
-                              <span style={{ fontSize: '1rem', color: '#94a3b8' }}>🖥️</span>
+                              <span style={{ fontSize: '1.4rem', color: '#94a3b8' }}>🖥️</span>
                             )}
                           </div>
                           <div>
-                            <span style={{ fontWeight: 800, color: '#0f172a', fontSize: '0.88rem', display: 'block' }}>
+                            <span style={{ fontWeight: 800, color: '#0f172a', fontSize: '0.9rem', display: 'block' }}>
                               {p.name.toUpperCase()}
                             </span>
-                            {p.category && (
-                              <span style={{ fontSize: '0.75rem', color: '#64748b' }}>
-                                {p.category}
-                              </span>
-                            )}
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.2rem' }}>
+                              <span style={{ color: '#f59e0b', fontSize: '0.8rem' }}>★★★★☆</span>
+                              <span style={{ fontSize: '0.75rem', color: '#64748b' }}>id: {p.id}</span>
+                              {p.category && (
+                                <span style={{ fontSize: '0.72rem', color: '#2563eb', fontWeight: 700, marginLeft: '0.4rem' }}>
+                                  • {p.category}
+                                </span>
+                              )}
+                            </div>
                           </div>
                         </div>
                       </td>
 
-                      {/* Columna Stock */}
+                      {/* Columna Stock con verde */}
                       <td style={{ padding: '0.85rem 1rem', textAlign: 'center' }}>
                         <span style={{
-                          background: '#ffffff',
-                          border: '1px solid #cbd5e1',
-                          color: '#334155',
-                          padding: '0.2rem 0.65rem',
+                          background: '#ecfdf5',
+                          border: '1px solid #a7f3d0',
+                          color: '#047857',
+                          padding: '0.25rem 0.65rem',
                           borderRadius: '999px',
-                          fontSize: '0.82rem',
-                          fontWeight: 700
+                          fontSize: '0.8rem',
+                          fontWeight: 800
                         }}>
-                          {p.stock || '+5'}
+                          {stockDisplay}
                         </span>
                       </td>
 
-                      {/* Columna Precio */}
+                      {/* Columna Precio en Rojo */}
                       <td style={{ padding: '0.85rem 1.25rem', textAlign: 'right' }}>
                         {isConsultar ? (
                           <span style={{
@@ -452,15 +476,11 @@ export default function Home() {
                           </span>
                         ) : (
                           <span style={{
-                            background: '#fffaf5',
-                            border: '1px solid #ffedd5',
-                            color: '#0f172a',
-                            padding: '0.35rem 0.75rem',
-                            borderRadius: '6px',
-                            fontSize: '0.88rem',
-                            fontWeight: 800
+                            color: '#ef4444',
+                            fontSize: '1.1rem',
+                            fontWeight: 900
                           }}>
-                            S/{parseFloat(p.price).toFixed(0)}
+                            S/ {parseFloat(p.price).toFixed(0)}
                           </span>
                         )}
                       </td>
@@ -472,17 +492,18 @@ export default function Home() {
                           onClick={(e) => handleAddToCart(p, thumb, e)}
                           title="Agregar al Carrito"
                           style={{
-                            background: isAdded ? '#059669' : '#0f172a',
+                            background: isAdded ? '#10b981' : '#ef4444',
                             color: '#ffffff',
                             border: 'none',
-                            padding: '0.45rem 0.85rem',
+                            padding: '0.5rem 0.95rem',
                             borderRadius: '8px',
-                            fontWeight: 700,
-                            fontSize: '0.8rem',
+                            fontWeight: 800,
+                            fontSize: '0.82rem',
                             cursor: 'pointer',
                             display: 'inline-flex',
                             alignItems: 'center',
-                            gap: '0.35rem'
+                            gap: '0.35rem',
+                            boxShadow: '0 2px 4px rgba(239, 68, 68, 0.2)'
                           }}
                         >
                           {isAdded ? '✓ Listo' : '🛒 Agregar'}
@@ -495,16 +516,18 @@ export default function Home() {
             </table>
           </div>
         ) : (
-          /* VISTA EN CUADRÍCULA (CON FOTOS GRANDES) */
+          /* VISTA EN CUADRÍCULA CON FOTOS GRANDES (IDÉNTICO A IMAGEN 2) */
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(270px, 1fr))',
-            gap: '1.75rem'
+            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+            gap: '1.5rem'
           }}>
             {products.map((p) => {
               const images = Array.isArray(p.images) && p.images.length > 0 ? p.images : (p.imageUrl ? [p.imageUrl] : []);
               const thumb = images[0] || '';
               const isAdded = addedId === p.id;
+              const isConsultar = parseFloat(p.price) === 0;
+              const stockDisplay = p.stock ? (String(p.stock).startsWith('+') ? `>${p.stock.slice(1)}` : p.stock) : '>5';
 
               return (
                 <div
@@ -517,62 +540,138 @@ export default function Home() {
                     overflow: 'hidden',
                     display: 'flex',
                     flexDirection: 'column',
-                    boxShadow: '0 4px 15px rgba(0,0,0,0.03)',
+                    boxShadow: '0 4px 14px rgba(0,0,0,0.03)',
                     cursor: 'pointer',
                     transition: 'transform 0.15s, box-shadow 0.15s'
                   }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                    e.currentTarget.style.boxShadow = '0 10px 24px rgba(0,0,0,0.08)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 4px 14px rgba(0,0,0,0.03)';
+                  }}
                 >
-                  <div style={{ width: '100%', height: '210px', background: '#f8fafc', position: 'relative' }}>
+                  {/* Contenedor de Foto Grande (como en Imagen 2) */}
+                  <div style={{
+                    width: '100%',
+                    height: '260px',
+                    background: '#ffffff',
+                    position: 'relative',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '1.25rem'
+                  }}>
                     {thumb ? (
-                      <img src={thumb} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      <img
+                        src={thumb}
+                        alt={p.name}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'contain',
+                          display: 'block'
+                        }}
+                      />
                     ) : (
-                      <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8' }}>
-                        🖥️ Sin imagen
+                      <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontSize: '2rem' }}>
+                        🖥️
                       </div>
                     )}
+
+                    {/* Badge de Stock Verde en la esquina superior derecha */}
                     <span style={{
                       position: 'absolute',
-                      top: '10px',
-                      right: '10px',
-                      background: 'rgba(15, 23, 42, 0.85)',
+                      top: '12px',
+                      right: '12px',
+                      background: '#10b981',
                       color: '#ffffff',
-                      padding: '0.2rem 0.6rem',
-                      borderRadius: '999px',
-                      fontSize: '0.75rem',
-                      fontWeight: 700
+                      padding: '0.2rem 0.65rem',
+                      borderRadius: '6px',
+                      fontSize: '0.74rem',
+                      fontWeight: 800,
+                      letterSpacing: '0.3px',
+                      boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
                     }}>
-                      Stock: {p.stock || '+5'}
+                      Stock: {stockDisplay}
                     </span>
                   </div>
 
-                  <div style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
-                    <span style={{ fontSize: '0.75rem', color: '#2563eb', fontWeight: 700, textTransform: 'uppercase', marginBottom: '0.25rem' }}>
-                      {p.category || 'Otros'}
-                    </span>
-                    <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1rem', fontWeight: 800, color: '#0f172a', lineHeight: '1.3' }}>
+                  {/* Cuerpo del Card */}
+                  <div style={{
+                    padding: '0.85rem 1.25rem 1.25rem 1.25rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    flex: 1
+                  }}>
+                    {/* Título en Mayúsculas */}
+                    <h3 style={{
+                      margin: '0 0 0.5rem 0',
+                      fontSize: '0.92rem',
+                      fontWeight: 800,
+                      color: '#1e293b',
+                      lineHeight: '1.35',
+                      minHeight: '2.5rem',
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden',
+                      textTransform: 'uppercase'
+                    }}>
                       {p.name.toUpperCase()}
                     </h3>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto', paddingTop: '0.85rem', borderTop: '1px solid #f1f5f9' }}>
-                      <span style={{ fontSize: '1.3rem', fontWeight: 900, color: '#16a34a' }}>
-                        S/ {parseFloat(p.price).toFixed(2)}
-                      </span>
-                      <button
-                        type="button"
-                        onClick={(e) => handleAddToCart(p, thumb, e)}
-                        style={{
-                          background: isAdded ? '#059669' : '#0f172a',
-                          color: '#ffffff',
-                          border: 'none',
-                          padding: '0.55rem 0.95rem',
-                          borderRadius: '8px',
-                          fontWeight: 700,
-                          fontSize: '0.82rem',
-                          cursor: 'pointer'
-                        }}
-                      >
-                        {isAdded ? '✓ ¡Agregado!' : '🛒 Agregar'}
-                      </button>
+
+                    {/* Estrellas de Calificación + ID */}
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.4rem',
+                      marginBottom: '0.65rem'
+                    }}>
+                      <span style={{ color: '#f59e0b', fontSize: '0.85rem', letterSpacing: '1px' }}>★★★★☆</span>
+                      <span style={{ color: '#64748b', fontSize: '0.75rem', fontWeight: 600 }}>id: {p.id}</span>
                     </div>
+
+                    {/* Precio en ROJO Vibrante */}
+                    <div style={{
+                      fontSize: '1.45rem',
+                      fontWeight: 900,
+                      color: '#ef4444',
+                      marginBottom: '0.85rem'
+                    }}>
+                      {isConsultar ? (
+                        <span style={{ fontSize: '1.1rem', color: '#ea580c' }}>CONSULTAR</span>
+                      ) : (
+                        `S/ ${parseFloat(p.price).toFixed(0)}`
+                      )}
+                    </div>
+
+                    {/* Botón Rojo Ancho Completo: 🛒 Agregar */}
+                    <button
+                      type="button"
+                      onClick={(e) => handleAddToCart(p, thumb, e)}
+                      style={{
+                        width: '100%',
+                        background: isAdded ? '#10b981' : '#ef4444',
+                        color: '#ffffff',
+                        border: 'none',
+                        padding: '0.7rem 1rem',
+                        borderRadius: '8px',
+                        fontWeight: 800,
+                        fontSize: '0.95rem',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '0.45rem',
+                        transition: 'background 0.15s, transform 0.1s',
+                        boxShadow: '0 2px 6px rgba(239, 68, 68, 0.25)'
+                      }}
+                    >
+                      {isAdded ? '✓ ¡Agregado!' : '🛒 Agregar'}
+                    </button>
                   </div>
                 </div>
               );
