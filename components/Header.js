@@ -99,23 +99,6 @@ export default function Header() {
               </span>
             )}
           </Link>
-
-          <Link href="/admin" style={{
-            textDecoration: 'none',
-            color: '#94a3b8',
-            fontSize: '0.88rem',
-            fontWeight: 700,
-            padding: '0.45rem 0.75rem',
-            borderRadius: '8px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.35rem',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
-            background: 'rgba(255, 255, 255, 0.03)',
-            transition: 'color 0.2s, background 0.2s'
-          }}>
-            <span>🔒 Acceso</span>
-          </Link>
         </nav>
       </div>
     </header>

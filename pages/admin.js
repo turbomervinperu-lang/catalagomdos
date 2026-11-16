@@ -417,7 +417,7 @@ export default function AdminPage() {
               Panel de Administración
             </h1>
             <p style={{ color: '#64748b', fontSize: '0.9rem', margin: '0 0 1.5rem 0' }}>
-              TECNOSISTEMAS MDOS • Ingrese la clave de seguridad para gestionar productos
+              TECNOSISTEMAS MDOS • Ingrese la clave de seguridad
             </p>
 
             {loginError && (
@@ -435,7 +435,7 @@ export default function AdminPage() {
                   type="password"
                   required
                   autoFocus
-                  placeholder="Introduce la contraseña (por defecto: 1927)"
+                  placeholder=""
                   value={inputPassword}
                   onChange={(e) => setInputPassword(e.target.value)}
                   style={{
