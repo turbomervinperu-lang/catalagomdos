@@ -59,7 +59,7 @@ export default function AdminPage() {
   const [form, setForm] = useState({
     id: null,
     name: '',
-    category: 'Placas Madres',
+    category: '', // Inicialmente vacío: exige elegir categoría primero
     stock: '+5',
     price: '',
     description: '',
@@ -230,7 +230,7 @@ export default function AdminPage() {
     setForm({
       id: null,
       name: '',
-      category: 'Placas Madres',
+      category: '', // Reinicia la regla exigiendo elegir categoría de nuevo
       stock: '+5',
       description: '',
       price: '',
@@ -611,361 +611,466 @@ export default function AdminPage() {
             {isEditing ? `✏️ Modificar Producto #${form.id}` : '➕ Agregar Nuevo Producto / Servicio'}
           </h2>
 
-          <form onSubmit={handleSubmitProduct} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.25rem' }}>
-            {/* Nombre */}
-            <div style={{ gridColumn: 'span 2' }}>
-              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.35rem', color: '#334155' }}>
-                Nombre del Producto / Servicio *
-              </label>
-              <input
-                type="text"
-                name="name"
-                value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-                required
-                placeholder="Ej. PLACA MADRE GIGABYTE B550M-K (AM4) (DDR4)"
-                style={{ width: '100%', padding: '0.7rem 0.85rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.95rem', boxSizing: 'border-box' }}
-              />
-            </div>
+          {(() => {
+            const isCategorySelected = Boolean(form.category && form.category.trim() !== '');
 
-            {/* Categoría */}
-            <div>
-              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.35rem', color: '#334155' }}>
-                Categoría *
-              </label>
-              <select
-                value={form.category}
-                onChange={(e) => setForm({ ...form, category: e.target.value })}
-                style={{ width: '100%', padding: '0.7rem 0.85rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.95rem', boxSizing: 'border-box', background: '#fff' }}
-              >
-                {EDITABLE_CATEGORIES.map((cat) => (
-                  <option key={cat} value={cat}>{cat}</option>
-                ))}
-              </select>
-            </div>
+            return (
+              <form onSubmit={handleSubmitProduct} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.25rem' }}>
+                {/* AVISO INICIAL SI NO HA ELEGIDO CATEGORÍA */}
+                {!isCategorySelected && (
+                  <div style={{
+                    gridColumn: '1 / -1',
+                    background: '#fffbeb',
+                    border: '1px solid #fde68a',
+                    color: '#b45309',
+                    padding: '0.75rem 1rem',
+                    borderRadius: '8px',
+                    fontSize: '0.88rem',
+                    fontWeight: 700,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem'
+                  }}>
+                    <span>⚠️</span>
+                    <span>Elija una Categoría en el primer campo para habilitar el registro del producto.</span>
+                  </div>
+                )}
 
-            {/* Stock */}
-            <div>
-              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.35rem', color: '#334155' }}>
-                Stock Disponible *
-              </label>
-              <input
-                type="text"
-                value={form.stock}
-                onChange={(e) => setForm({ ...form, stock: e.target.value })}
-                placeholder="Ej. +5, 4, 1, Agotado"
-                style={{ width: '100%', padding: '0.7rem 0.85rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.95rem', boxSizing: 'border-box', fontWeight: 700, color: '#0f172a' }}
-              />
-            </div>
-
-            {/* Precio */}
-            <div>
-              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.35rem', color: '#334155' }}>
-                Precio en Soles Peruanos (S/) *
-              </label>
-              <div style={{ position: 'relative' }}>
-                <span style={{ position: 'absolute', left: '12px', top: '10px', fontWeight: 700, color: '#64748b' }}>S/</span>
-                <input
-                  type="number"
-                  step="0.01"
-                  name="price"
-                  value={form.price}
-                  onChange={(e) => setForm({ ...form, price: e.target.value })}
-                  required
-                  placeholder="0.00"
-                  style={{ width: '100%', padding: '0.7rem 0.85rem 0.7rem 2.2rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.95rem', boxSizing: 'border-box', fontWeight: 700, color: '#16a34a' }}
-                />
-              </div>
-            </div>
-
-            {/* LOS 4 CUADROS FIJOS DE INSERCIÓN Y REORDENAMIENTO DE IMÁGENES */}
-            <div style={{ gridColumn: '1 / -1', background: '#f8fafc', padding: '1.5rem', borderRadius: '14px', border: '1px solid #e2e8f0' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                {/* 1. CATEGORÍA - PRIMER ÍTEM A LA IZQUIERDA */}
                 <div>
-                  <label style={{ fontWeight: 800, fontSize: '1rem', color: '#0f172a' }}>
-                    📸 Cuadros de Imágenes del Producto
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 800, marginBottom: '0.35rem', color: '#0f172a' }}>
+                    Categoría *
                   </label>
-                  <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.85rem', color: '#64748b' }}>
-                    Haz clic en cada recuadro para subir la foto correspondiente. <strong>El Cuadro 1 siempre es la Foto Principal</strong>. Usa los botones para moverlas de posición.
-                  </p>
+                  <select
+                    value={form.category}
+                    onChange={(e) => setForm({ ...form, category: e.target.value })}
+                    required
+                    style={{
+                      width: '100%',
+                      padding: '0.7rem 0.85rem',
+                      borderRadius: '8px',
+                      border: isCategorySelected ? '2px solid #2563eb' : '2px solid #f59e0b',
+                      fontSize: '0.95rem',
+                      boxSizing: 'border-box',
+                      background: '#fff',
+                      fontWeight: isCategorySelected ? 700 : 600,
+                      color: isCategorySelected ? '#0f172a' : '#b45309',
+                      outline: 'none'
+                    }}
+                  >
+                    <option value="">Elija una Categoría</option>
+                    {EDITABLE_CATEGORIES.map((cat) => (
+                      <option key={cat} value={cat}>{cat}</option>
+                    ))}
+                  </select>
                 </div>
-                <span style={{
-                  fontSize: '0.85rem',
-                  fontWeight: 800,
-                  color: form.images.length > 0 ? '#16a34a' : '#64748b',
-                  background: '#ffffff',
-                  padding: '0.3rem 0.75rem',
-                  borderRadius: '999px',
-                  border: '1px solid #cbd5e1'
-                }}>
-                  {form.images.length} de 4 fotos cargadas
-                </span>
-              </div>
 
-              {/* Grid con los 4 cuadros */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.25rem' }}>
-                {[0, 1, 2, 3].map((slotIdx) => {
-                  const imageSrc = form.images[slotIdx];
-                  const hasImage = Boolean(imageSrc);
-                  const isPrimary = slotIdx === 0;
-                  const isSlotLoading = loadingSlot === slotIdx;
+                {/* 2. NOMBRE DEL PRODUCTO / SERVICIO - A LA DERECHA */}
+                <div style={{ gridColumn: 'span 2' }}>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.35rem', color: isCategorySelected ? '#334155' : '#94a3b8' }}>
+                    Nombre del Producto / Servicio *
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                    required
+                    disabled={!isCategorySelected}
+                    placeholder={isCategorySelected ? "Ej. PLACA MADRE GIGABYTE B550M-K (AM4) (DDR4)" : "🔒 Ingrese la categoría primero"}
+                    style={{
+                      width: '100%',
+                      padding: '0.7rem 0.85rem',
+                      borderRadius: '8px',
+                      border: '1px solid #cbd5e1',
+                      fontSize: '0.95rem',
+                      boxSizing: 'border-box',
+                      background: isCategorySelected ? '#ffffff' : '#f8fafc',
+                      cursor: isCategorySelected ? 'text' : 'not-allowed',
+                      color: isCategorySelected ? '#0f172a' : '#94a3b8'
+                    }}
+                  />
+                </div>
 
-                  return (
-                    <div
-                      key={slotIdx}
+                {/* 3. STOCK DISPONIBLE */}
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.35rem', color: isCategorySelected ? '#334155' : '#94a3b8' }}>
+                    Stock Disponible *
+                  </label>
+                  <input
+                    type="text"
+                    value={form.stock}
+                    onChange={(e) => setForm({ ...form, stock: e.target.value })}
+                    disabled={!isCategorySelected}
+                    placeholder="Ej. +5, 4, 1, Agotado"
+                    style={{
+                      width: '100%',
+                      padding: '0.7rem 0.85rem',
+                      borderRadius: '8px',
+                      border: '1px solid #cbd5e1',
+                      fontSize: '0.95rem',
+                      boxSizing: 'border-box',
+                      fontWeight: 700,
+                      color: isCategorySelected ? '#0f172a' : '#94a3b8',
+                      background: isCategorySelected ? '#ffffff' : '#f8fafc',
+                      cursor: isCategorySelected ? 'text' : 'not-allowed'
+                    }}
+                  />
+                </div>
+
+                {/* 4. PRECIO EN SOLES */}
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.35rem', color: isCategorySelected ? '#334155' : '#94a3b8' }}>
+                    Precio en Soles Peruanos (S/) *
+                  </label>
+                  <div style={{ position: 'relative' }}>
+                    <span style={{ position: 'absolute', left: '12px', top: '10px', fontWeight: 700, color: isCategorySelected ? '#64748b' : '#cbd5e1' }}>S/</span>
+                    <input
+                      type="number"
+                      step="0.01"
+                      name="price"
+                      value={form.price}
+                      onChange={(e) => setForm({ ...form, price: e.target.value })}
+                      required
+                      disabled={!isCategorySelected}
+                      placeholder="0.00"
                       style={{
-                        background: '#ffffff',
-                        borderRadius: '12px',
-                        border: isPrimary ? '2px solid #2563eb' : (hasImage ? '1px solid #cbd5e1' : '2px dashed #94a3b8'),
-                        overflow: 'hidden',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        boxShadow: isPrimary ? '0 4px 15px rgba(37, 99, 235, 0.12)' : '0 2px 6px rgba(0,0,0,0.02)',
-                        transition: 'border 0.2s, box-shadow 0.2s',
-                        position: 'relative'
+                        width: '100%',
+                        padding: '0.7rem 0.85rem 0.7rem 2.2rem',
+                        borderRadius: '8px',
+                        border: '1px solid #cbd5e1',
+                        fontSize: '0.95rem',
+                        boxSizing: 'border-box',
+                        fontWeight: 700,
+                        color: isCategorySelected ? '#16a34a' : '#94a3b8',
+                        background: isCategorySelected ? '#ffffff' : '#f8fafc',
+                        cursor: isCategorySelected ? 'text' : 'not-allowed'
                       }}
-                    >
-                      {/* Input file invisible para este cuadro */}
-                      <input
-                        ref={slotInputRefs[slotIdx]}
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => handleSlotUpload(slotIdx, e)}
-                        style={{ display: 'none' }}
-                        id={`slot-file-${slotIdx}`}
-                      />
+                    />
+                  </div>
+                </div>
 
-                      {/* Encabezado del cuadro */}
-                      <div style={{
-                        padding: '0.5rem 0.75rem',
-                        background: isPrimary ? '#2563eb' : '#f1f5f9',
-                        color: isPrimary ? '#ffffff' : '#334155',
-                        fontSize: '0.8rem',
-                        fontWeight: 800,
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center'
-                      }}>
-                        <span>{isPrimary ? '⭐ CUADRO 1 (PRINCIPAL)' : `CUADRO #${slotIdx + 1}`}</span>
-                        {hasImage && (
-                          <span style={{ fontSize: '0.7rem', opacity: 0.9 }}>Cargada ✓</span>
-                        )}
-                      </div>
+                {/* LOS 4 CUADROS FIJOS DE INSERCIÓN Y REORDENAMIENTO DE IMÁGENES */}
+                <div style={{
+                  gridColumn: '1 / -1',
+                  background: '#f8fafc',
+                  padding: '1.5rem',
+                  borderRadius: '14px',
+                  border: '1px solid #e2e8f0',
+                  opacity: isCategorySelected ? 1 : 0.6,
+                  transition: 'opacity 0.2s'
+                }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                    <div>
+                      <label style={{ fontWeight: 800, fontSize: '1rem', color: isCategorySelected ? '#0f172a' : '#64748b' }}>
+                        📸 Cuadros de Imágenes del Producto
+                      </label>
+                      <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.85rem', color: '#64748b' }}>
+                        {isCategorySelected
+                          ? 'Haz clic en cada recuadro para subir la foto correspondiente. El Cuadro 1 siempre es la Foto Principal.'
+                          : '🔒 Seleccione una categoría arriba para habilitar la carga de fotos.'}
+                      </p>
+                    </div>
+                    <span style={{
+                      fontSize: '0.85rem',
+                      fontWeight: 800,
+                      color: form.images.length > 0 ? '#16a34a' : '#64748b',
+                      background: '#ffffff',
+                      padding: '0.3rem 0.75rem',
+                      borderRadius: '999px',
+                      border: '1px solid #cbd5e1'
+                    }}>
+                      {form.images.length} de 4 fotos cargadas
+                    </span>
+                  </div>
 
-                      {/* Contenido: Si tiene foto o si está vacío */}
-                      {hasImage ? (
-                        <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-                          <div style={{ width: '100%', height: '170px', background: '#f8fafc', position: 'relative' }}>
-                            <img
-                              src={imageSrc}
-                              alt={`Foto ${slotIdx + 1}`}
-                              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                            />
-                          </div>
+                  {/* Grid con los 4 cuadros */}
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.25rem' }}>
+                    {[0, 1, 2, 3].map((slotIdx) => {
+                      const imageSrc = form.images[slotIdx];
+                      const hasImage = Boolean(imageSrc);
+                      const isPrimary = slotIdx === 0;
+                      const isSlotLoading = loadingSlot === slotIdx;
 
-                          {/* Herramientas de movimiento y cambio de posición */}
-                          <div style={{ padding: '0.75rem', display: 'flex', flexDirection: 'column', gap: '0.45rem', background: '#fafafa', borderTop: '1px solid #f1f5f9' }}>
-                            {!isPrimary && (
-                              <button
-                                type="button"
-                                onClick={() => handleMakePrimary(slotIdx)}
-                                style={{
-                                  background: '#eff6ff',
-                                  color: '#1d4ed8',
-                                  border: '1px solid #bfdbfe',
-                                  padding: '0.4rem',
-                                  borderRadius: '6px',
-                                  fontSize: '0.78rem',
-                                  fontWeight: 800,
-                                  cursor: 'pointer'
-                                }}
-                              >
-                                ⭐ Hacer Principal
-                              </button>
-                            )}
-
-                            <div style={{ display: 'flex', gap: '0.35rem' }}>
-                              <button
-                                type="button"
-                                disabled={slotIdx === 0}
-                                onClick={() => handleMoveImage(slotIdx, -1)}
-                                title="Mover a casilla anterior"
-                                style={{
-                                  flex: 1,
-                                  background: slotIdx === 0 ? '#f1f5f9' : '#ffffff',
-                                  color: slotIdx === 0 ? '#cbd5e1' : '#334155',
-                                  border: '1px solid #cbd5e1',
-                                  padding: '0.35rem',
-                                  borderRadius: '6px',
-                                  fontSize: '0.8rem',
-                                  fontWeight: 700,
-                                  cursor: slotIdx === 0 ? 'not-allowed' : 'pointer'
-                                }}
-                              >
-                                ⬅
-                              </button>
-                              <button
-                                type="button"
-                                disabled={slotIdx === form.images.length - 1 || slotIdx === 3}
-                                onClick={() => handleMoveImage(slotIdx, 1)}
-                                title="Mover a casilla siguiente"
-                                style={{
-                                  flex: 1,
-                                  background: (slotIdx === form.images.length - 1 || slotIdx === 3) ? '#f1f5f9' : '#ffffff',
-                                  color: (slotIdx === form.images.length - 1 || slotIdx === 3) ? '#cbd5e1' : '#334155',
-                                  border: '1px solid #cbd5e1',
-                                  padding: '0.35rem',
-                                  borderRadius: '6px',
-                                  fontSize: '0.8rem',
-                                  fontWeight: 700,
-                                  cursor: (slotIdx === form.images.length - 1 || slotIdx === 3) ? 'not-allowed' : 'pointer'
-                                }}
-                              >
-                                ➡
-                              </button>
-                              <label
-                                htmlFor={`slot-file-${slotIdx}`}
-                                title="Cambiar por otra foto"
-                                style={{
-                                  background: '#f1f5f9',
-                                  color: '#334155',
-                                  border: '1px solid #cbd5e1',
-                                  padding: '0.35rem 0.5rem',
-                                  borderRadius: '6px',
-                                  fontSize: '0.75rem',
-                                  fontWeight: 700,
-                                  cursor: 'pointer',
-                                  display: 'flex',
-                                  alignItems: 'center'
-                                }}
-                              >
-                                🔄
-                              </label>
-                              <button
-                                type="button"
-                                onClick={() => handleRemoveImage(slotIdx)}
-                                title="Eliminar foto de este cuadro"
-                                style={{
-                                  background: '#fee2e2',
-                                  color: '#dc2626',
-                                  border: 'none',
-                                  padding: '0.35rem 0.55rem',
-                                  borderRadius: '6px',
-                                  fontSize: '0.8rem',
-                                  cursor: 'pointer',
-                                  fontWeight: 700
-                                }}
-                              >
-                                🗑
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      ) : (
-                        /* Cuadro Vacío para Inserción */
-                        <label
-                          htmlFor={`slot-file-${slotIdx}`}
+                      return (
+                        <div
+                          key={slotIdx}
                           style={{
-                            minHeight: '210px',
+                            background: '#ffffff',
+                            borderRadius: '12px',
+                            border: isPrimary ? '2px solid #2563eb' : (hasImage ? '1px solid #cbd5e1' : '2px dashed #94a3b8'),
+                            overflow: 'hidden',
                             display: 'flex',
                             flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            cursor: 'pointer',
-                            padding: '1.5rem',
-                            textAlign: 'center',
-                            background: '#fafafa',
-                            transition: 'background 0.2s',
-                            flex: 1
+                            boxShadow: isPrimary ? '0 4px 15px rgba(37, 99, 235, 0.12)' : '0 2px 6px rgba(0,0,0,0.02)',
+                            transition: 'border 0.2s, box-shadow 0.2s',
+                            position: 'relative'
                           }}
                         >
-                          {isSlotLoading ? (
-                            <div style={{ color: '#2563eb', fontWeight: 700, fontSize: '0.9rem' }}>
-                              ⏳ Cargando...
+                          {/* Input file invisible para este cuadro */}
+                          <input
+                            ref={slotInputRefs[slotIdx]}
+                            type="file"
+                            accept="image/*"
+                            disabled={!isCategorySelected}
+                            onChange={(e) => handleSlotUpload(slotIdx, e)}
+                            style={{ display: 'none' }}
+                            id={`slot-file-${slotIdx}`}
+                          />
+
+                          {/* Encabezado del cuadro */}
+                          <div style={{
+                            padding: '0.5rem 0.75rem',
+                            background: isPrimary ? '#2563eb' : '#f1f5f9',
+                            color: isPrimary ? '#ffffff' : '#334155',
+                            fontSize: '0.8rem',
+                            fontWeight: 800,
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center'
+                          }}>
+                            <span>{isPrimary ? '⭐ CUADRO 1 (PRINCIPAL)' : `CUADRO #${slotIdx + 1}`}</span>
+                            {hasImage && (
+                              <span style={{ fontSize: '0.7rem', opacity: 0.9 }}>Cargada ✓</span>
+                            )}
+                          </div>
+
+                          {/* Contenido: Si tiene foto o si está vacío */}
+                          {hasImage ? (
+                            <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+                              <div style={{ width: '100%', height: '170px', background: '#f8fafc', position: 'relative' }}>
+                                <img
+                                  src={imageSrc}
+                                  alt={`Foto ${slotIdx + 1}`}
+                                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                                />
+                              </div>
+
+                              {/* Herramientas de movimiento y cambio de posición */}
+                              <div style={{ padding: '0.75rem', display: 'flex', flexDirection: 'column', gap: '0.45rem', background: '#fafafa', borderTop: '1px solid #f1f5f9' }}>
+                                {!isPrimary && (
+                                  <button
+                                    type="button"
+                                    onClick={() => handleMakePrimary(slotIdx)}
+                                    style={{
+                                      background: '#eff6ff',
+                                      color: '#1d4ed8',
+                                      border: '1px solid #bfdbfe',
+                                      padding: '0.4rem',
+                                      borderRadius: '6px',
+                                      fontSize: '0.78rem',
+                                      fontWeight: 800,
+                                      cursor: 'pointer'
+                                    }}
+                                  >
+                                    ⭐ Hacer Principal
+                                  </button>
+                                )}
+
+                                <div style={{ display: 'flex', gap: '0.35rem' }}>
+                                  <button
+                                    type="button"
+                                    disabled={slotIdx === 0}
+                                    onClick={() => handleMoveImage(slotIdx, -1)}
+                                    title="Mover a casilla anterior"
+                                    style={{
+                                      flex: 1,
+                                      background: slotIdx === 0 ? '#f1f5f9' : '#ffffff',
+                                      color: slotIdx === 0 ? '#cbd5e1' : '#334155',
+                                      border: '1px solid #cbd5e1',
+                                      padding: '0.35rem',
+                                      borderRadius: '6px',
+                                      fontSize: '0.8rem',
+                                      fontWeight: 700,
+                                      cursor: slotIdx === 0 ? 'not-allowed' : 'pointer'
+                                    }}
+                                  >
+                                    ⬅
+                                  </button>
+                                  <button
+                                    type="button"
+                                    disabled={slotIdx === form.images.length - 1 || slotIdx === 3}
+                                    onClick={() => handleMoveImage(slotIdx, 1)}
+                                    title="Mover a casilla siguiente"
+                                    style={{
+                                      flex: 1,
+                                      background: (slotIdx === form.images.length - 1 || slotIdx === 3) ? '#f1f5f9' : '#ffffff',
+                                      color: (slotIdx === form.images.length - 1 || slotIdx === 3) ? '#cbd5e1' : '#334155',
+                                      border: '1px solid #cbd5e1',
+                                      padding: '0.35rem',
+                                      borderRadius: '6px',
+                                      fontSize: '0.8rem',
+                                      fontWeight: 700,
+                                      cursor: (slotIdx === form.images.length - 1 || slotIdx === 3) ? 'not-allowed' : 'pointer'
+                                    }}
+                                  >
+                                    ➡
+                                  </button>
+                                  <label
+                                    htmlFor={`slot-file-${slotIdx}`}
+                                    title="Cambiar por otra foto"
+                                    style={{
+                                      background: '#f1f5f9',
+                                      color: '#334155',
+                                      border: '1px solid #cbd5e1',
+                                      padding: '0.35rem 0.5rem',
+                                      borderRadius: '6px',
+                                      fontSize: '0.75rem',
+                                      fontWeight: 700,
+                                      cursor: 'pointer',
+                                      display: 'flex',
+                                      alignItems: 'center'
+                                    }}
+                                  >
+                                    🔄
+                                  </label>
+                                  <button
+                                    type="button"
+                                    onClick={() => handleRemoveImage(slotIdx)}
+                                    title="Eliminar foto de este cuadro"
+                                    style={{
+                                      background: '#fee2e2',
+                                      color: '#dc2626',
+                                      border: 'none',
+                                      padding: '0.35rem 0.55rem',
+                                      borderRadius: '6px',
+                                      fontSize: '0.8rem',
+                                      cursor: 'pointer',
+                                      fontWeight: 700
+                                    }}
+                                  >
+                                    🗑
+                                  </button>
+                                </div>
+                              </div>
                             </div>
                           ) : (
-                            <>
-                              <div style={{
-                                width: '52px',
-                                height: '52px',
-                                borderRadius: '50%',
-                                background: '#e2e8f0',
+                            /* Cuadro Vacío para Inserción */
+                            <label
+                              htmlFor={isCategorySelected ? `slot-file-${slotIdx}` : undefined}
+                              onClick={(e) => {
+                                if (!isCategorySelected) {
+                                  e.preventDefault();
+                                  alert('Por favor, primero elija una categoría.');
+                                }
+                              }}
+                              style={{
+                                minHeight: '210px',
                                 display: 'flex',
+                                flexDirection: 'column',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                fontSize: '1.6rem',
-                                marginBottom: '0.75rem',
-                                color: '#475569'
-                              }}>
-                                📷
-                              </div>
-                              <span style={{ fontWeight: 800, fontSize: '0.9rem', color: isPrimary ? '#2563eb' : '#334155' }}>
-                                {isPrimary ? '+ Subir Foto Principal' : `+ Subir Foto #${slotIdx + 1}`}
-                              </span>
-                              <span style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.3rem' }}>
-                                Clic para seleccionar archivo
-                              </span>
-                            </>
+                                cursor: isCategorySelected ? 'pointer' : 'not-allowed',
+                                padding: '1.5rem',
+                                textAlign: 'center',
+                                background: isCategorySelected ? '#fafafa' : '#f1f5f9',
+                                transition: 'background 0.2s',
+                                flex: 1
+                              }}
+                            >
+                              {isSlotLoading ? (
+                                <div style={{ color: '#2563eb', fontWeight: 700, fontSize: '0.9rem' }}>
+                                  ⏳ Cargando...
+                                </div>
+                              ) : (
+                                <>
+                                  <div style={{
+                                    width: '52px',
+                                    height: '52px',
+                                    borderRadius: '50%',
+                                    background: isCategorySelected ? '#e2e8f0' : '#cbd5e1',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    fontSize: '1.6rem',
+                                    marginBottom: '0.75rem',
+                                    color: isCategorySelected ? '#475569' : '#94a3b8'
+                                  }}>
+                                    {isCategorySelected ? '📷' : '🔒'}
+                                  </div>
+                                  <span style={{ fontWeight: 800, fontSize: '0.9rem', color: isCategorySelected ? (isPrimary ? '#2563eb' : '#334155') : '#94a3b8' }}>
+                                    {isPrimary ? '+ Subir Foto Principal' : `+ Subir Foto #${slotIdx + 1}`}
+                                  </span>
+                                  <span style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.3rem' }}>
+                                    {isCategorySelected ? 'Clic para seleccionar archivo' : 'Bloqueado hasta elegir categoría'}
+                                  </span>
+                                </>
+                              )}
+                            </label>
                           )}
-                        </label>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
 
-            <div style={{ gridColumn: '1 / -1' }}>
-              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.35rem', color: '#334155' }}>
-                Descripción Detallada
-              </label>
-              <textarea
-                name="description"
-                rows="3"
-                value={form.description}
-                onChange={(e) => setForm({ ...form, description: e.target.value })}
-                placeholder="Especificaciones técnicas, compatibilidad, socket, garantía..."
-                style={{ width: '100%', padding: '0.7rem 0.85rem', borderRadius: '8px', border: '1px solid #cbd5e1', fontSize: '0.95rem', boxSizing: 'border-box' }}
-              />
-            </div>
+                {/* 5. DESCRIPCIÓN DETALLADA */}
+                <div style={{ gridColumn: '1 / -1' }}>
+                  <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.35rem', color: isCategorySelected ? '#334155' : '#94a3b8' }}>
+                    Descripción Detallada
+                  </label>
+                  <textarea
+                    name="description"
+                    rows="3"
+                    value={form.description}
+                    onChange={(e) => setForm({ ...form, description: e.target.value })}
+                    disabled={!isCategorySelected}
+                    placeholder={isCategorySelected ? "Especificaciones técnicas, compatibilidad, socket, garantía..." : "🔒 Seleccione una categoría para redactar la descripción"}
+                    style={{
+                      width: '100%',
+                      padding: '0.7rem 0.85rem',
+                      borderRadius: '8px',
+                      border: '1px solid #cbd5e1',
+                      fontSize: '0.95rem',
+                      boxSizing: 'border-box',
+                      background: isCategorySelected ? '#ffffff' : '#f8fafc',
+                      cursor: isCategorySelected ? 'text' : 'not-allowed',
+                      color: isCategorySelected ? '#0f172a' : '#94a3b8'
+                    }}
+                  />
+                </div>
 
-            <div style={{ gridColumn: '1 / -1', display: 'flex', gap: '0.75rem' }}>
-              <button
-                type="submit"
-                disabled={submitting}
-                style={{
-                  background: isEditing ? '#2563eb' : '#16a34a',
-                  color: '#ffffff',
-                  padding: '0.75rem 1.75rem',
-                  border: 'none',
-                  borderRadius: '8px',
-                  fontWeight: 700,
-                  fontSize: '0.95rem',
-                  cursor: 'pointer'
-                }}
-              >
-                {submitting ? 'Guardando...' : (isEditing ? 'Guardar Cambios' : 'Crear Producto')}
-              </button>
+                {/* 6. BOTONES DE ACCIÓN */}
+                <div style={{ gridColumn: '1 / -1', display: 'flex', gap: '0.75rem' }}>
+                  <button
+                    type="submit"
+                    disabled={!isCategorySelected || submitting}
+                    style={{
+                      background: !isCategorySelected ? '#94a3b8' : (isEditing ? '#2563eb' : '#16a34a'),
+                      color: '#ffffff',
+                      padding: '0.75rem 1.75rem',
+                      border: 'none',
+                      borderRadius: '8px',
+                      fontWeight: 700,
+                      fontSize: '0.95rem',
+                      cursor: !isCategorySelected ? 'not-allowed' : 'pointer',
+                      boxShadow: isCategorySelected ? '0 2px 8px rgba(0,0,0,0.1)' : 'none'
+                    }}
+                  >
+                    {submitting ? 'Guardando...' : (isEditing ? 'Guardar Cambios' : 'Crear Producto')}
+                  </button>
 
-              {isEditing && (
-                <button
-                  type="button"
-                  onClick={handleCancelEdit}
-                  style={{
-                    background: '#f1f5f9',
-                    color: '#475569',
-                    padding: '0.75rem 1.25rem',
-                    border: '1px solid #cbd5e1',
-                    borderRadius: '8px',
-                    fontWeight: 600,
-                    cursor: 'pointer'
-                  }}
-                >
-                  Cancelar Edición
-                </button>
-              )}
-            </div>
-          </form>
+                  {isEditing && (
+                    <button
+                      type="button"
+                      onClick={handleCancelEdit}
+                      style={{
+                        background: '#f1f5f9',
+                        color: '#475569',
+                        padding: '0.75rem 1.25rem',
+                        border: '1px solid #cbd5e1',
+                        borderRadius: '8px',
+                        fontWeight: 600,
+                        cursor: 'pointer'
+                      }}
+                    >
+                      Cancelar Edición
+                    </button>
+                  )}
+                </div>
+              </form>
+            );
+          })()}
         </section>
 
         {/* SECCIÓN DE BÚSQUEDA EXACTA EN EL INVENTARIO (ESTILO ACTUALIZACIÓN DE STOCK EN TIEMPO REAL) */}

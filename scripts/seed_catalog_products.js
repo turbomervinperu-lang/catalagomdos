@@ -251,3 +251,4 @@ seedProducts().catch(err => {
   console.error('Error al insertar productos:', err);
   process.exit(1);
 });
+
