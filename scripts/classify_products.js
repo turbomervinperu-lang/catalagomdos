@@ -28,3 +28,4 @@ console.log(`Uncertain / local brands (leave blank): ${uncertain.length}`);
 
 fs.writeFileSync('C:/Users/OCANDO CARIDAD/Documents/caralago mdos/project_copy/scripts/recognizable.json', JSON.stringify(recognizable, null, 2));
 fs.writeFileSync('C:/Users/OCANDO CARIDAD/Documents/caralago mdos/project_copy/scripts/uncertain.json', JSON.stringify(uncertain, null, 2));
+

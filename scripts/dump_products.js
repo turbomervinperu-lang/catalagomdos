@@ -14,3 +14,4 @@ async function dump() {
   await client.end();
 }
 dump().catch(console.error);
+

@@ -59,6 +59,13 @@ export default function CartPage() {
       setOrderId(data.orderId);
       setOrderCompleted(true);
       clearCart();
+      setCustomer({ name: '', phone: '', notes: '' });
+      try {
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('catalogo_cart');
+          localStorage.setItem('catalogo_cart', '[]');
+        }
+      } catch (e) {}
     } catch (err) {
       console.error(err);
       alert('Error: ' + err.message);
@@ -92,8 +99,11 @@ export default function CartPage() {
             <h2 style={{ fontSize: '1.6rem', color: '#16a34a', margin: '0 0 0.5rem 0' }}>
               ¡Pedido Registrado con Éxito!
             </h2>
-            <p style={{ color: '#4b5563', fontSize: '1.05rem', margin: '0 0 1.5rem 0' }}>
-              Tu orden <strong>#{orderId}</strong> ha sido guardada y transferida a WhatsApp.
+            <p style={{ color: '#0f172a', fontSize: '1.35rem', fontWeight: 900, margin: '0 0 0.5rem 0' }}>
+              Su pedido ya está siendo coordinado
+            </p>
+            <p style={{ color: '#64748b', fontSize: '0.95rem', margin: '0 0 1.75rem 0' }}>
+              Orden #{orderId} registrada en el sistema de pedidos y enviada a WhatsApp
             </p>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
               <Link href="/" style={{

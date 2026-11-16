@@ -60,7 +60,15 @@ export const CartProvider = ({ children }) => {
     setItems((prev) => prev.filter((i) => i.id !== id));
   };
 
-  const clearCart = () => setItems([]);
+  const clearCart = () => {
+    setItems([]);
+    try {
+      localStorage.removeItem('catalogo_cart');
+      localStorage.setItem('catalogo_cart', '[]');
+    } catch (e) {
+      console.warn('Error clearing cart in localStorage', e);
+    }
+  };
 
   const total = items.reduce((sum, i) => sum + (parseFloat(i.price) || 0) * i.quantity, 0);
   const totalCount = items.reduce((sum, i) => sum + i.quantity, 0);

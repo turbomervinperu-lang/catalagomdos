@@ -11,3 +11,4 @@ for (const [cat, list] of Object.entries(byCat)) {
   console.log(`\n=== CATEGORIA: ${cat} (${list.length}) ===`);
   list.forEach(item => console.log(`  [${item.id}] ${item.name}`));
 }
+
