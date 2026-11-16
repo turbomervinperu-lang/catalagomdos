@@ -10,3 +10,7 @@ Thumbs.db
 !/.env.example
 
 .next/
+*.pdf
+*.xlsx
+scripts/*.txt
+
