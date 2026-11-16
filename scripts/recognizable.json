@@ -1,0 +1,487 @@
+[
+  {
+    "id": 36,
+    "brand": "MSI",
+    "name": "MONITOR MSI 22 PULGADAS (PRO MP225 E12VL) GAMING FHD VA"
+  },
+  {
+    "id": 37,
+    "brand": "HP",
+    "name": "MONITOR LED HP E24 G4 23.8\" ( 9VF99AA ) VGA - HDMI- D"
+  },
+  {
+    "id": 38,
+    "brand": "LG",
+    "name": "MONITOR LG U4 24U411B-B, 24 IPS, FHD, 144HZ, 1MS"
+  },
+  {
+    "id": 39,
+    "brand": "SAMSUNG",
+    "name": "MONITOR GAMING 49 SAMSUNG ODYSSEY OLED G9 LS49DG930SLXPE 240HZ/0"
+  },
+  {
+    "id": 40,
+    "brand": "SAMSUNG",
+    "name": "MONITOR SAMSUNG ODYSSEY G3 LS24DG300ELXPE 24\" FHD 1920X1080/180HZ/1MS/AMD RADEON FREESYNC"
+  },
+  {
+    "id": 41,
+    "brand": "SAMSUNG",
+    "name": "MONITOR SAMSUNG ODYSSEY G3 27 VA FULL HD 1920 X 1080"
+  },
+  {
+    "id": 42,
+    "brand": "SAMSUNG",
+    "name": "MONITOR SAMSUNG VIEWFINITY S5 S34C550GANXZA DE 34 UWQHD 120HZ HDR CURVO 2K MONITOR TEROS M"
+  },
+  {
+    "id": 54,
+    "brand": "XIAOMI",
+    "name": "MONITOR XIAOMI 27\" G27I PLANO IPS FHD 165 HZ 1MS"
+  },
+  {
+    "id": 55,
+    "brand": "LG",
+    "name": "TAMAÑO 24 PULGADAS RESOLUCIÓN FHD (1920 X 1080) ACIÓN DE PANTALLA: +5° A -20° PANEL A+: 0"
+  },
+  {
+    "id": 56,
+    "brand": "MICRON",
+    "name": "MONITOR MICRONICS DG 24FC GAMING CURVO 24 FULL HD 100HZ 3MS FREESYNC M"
+  },
+  {
+    "id": 57,
+    "brand": "MICRON",
+    "name": "MONITOR GAMING MATRIX 27\" QHD IPS 180HZ 1MS FREESYNC RGB MICRONICS MONITOR MICRONICS BRICK"
+  },
+  {
+    "id": 58,
+    "brand": "MICRON",
+    "name": "MONITOR MICRONICS CURVO 27\" BRIKELL MIC DG27FC 1OO HZ 3 MS VA FHD HDMI DP VESA FRESYNC BRI"
+  },
+  {
+    "id": 59,
+    "brand": "MICRON",
+    "name": "MONITOR MICRONICS PLAYER 27¨ 200HZ 1MS FHD FREE SYNC PLANO IPS INCLUYE PARLANTES MONITOR C"
+  },
+  {
+    "id": 63,
+    "brand": "CORSAIR",
+    "name": "REFRIGERACION ROG GAMING 240PRO BLANCO RELOJ DE TEMPERATURA COOLER CPU CORSAIR ICUE LINK T"
+  },
+  {
+    "id": 64,
+    "brand": "CORSAIR",
+    "name": "COOLER DE CPU CORSAIR ICUE LINK TITAN 240 RX RGB AIO BLACK INTEL AMD ALUMINUM CW-9061016-W"
+  },
+  {
+    "id": 65,
+    "brand": "CORSAIR",
+    "name": "COOLER DE CPU CORSAIR ICUE LINK TITAN 240 RX RGB AIO WHITE INTEL AMD ALUMINUM CW-9061020-W"
+  },
+  {
+    "id": 66,
+    "brand": "MSI",
+    "name": "SISTEMA DE ENFRIAMIENTO LIQUIDO MSI MAG CORELIQUID A13 360 BLACK"
+  },
+  {
+    "id": 67,
+    "brand": "MSI",
+    "name": "SISTEMA DE ENFRIAMIENTO LIQUIDO MSI MAG CORELIQUID A13 360 WHITE"
+  },
+  {
+    "id": 68,
+    "brand": "INTEL",
+    "name": "COOLER DE PROCESADRO GAMING ROG X RG400 AND/INTEL ARGB WHITE COOLER CYBERTEL DE COBRE PARA"
+  },
+  {
+    "id": 70,
+    "brand": "INTEL",
+    "name": "COOLER TEROS FAN RAINBOW TE 8161N COOLER TORRE TEROS 8162N PARA ( INTEL Y AMD)"
+  },
+  {
+    "id": 71,
+    "brand": "MSI",
+    "name": "COOLER PARA PROCESADOR TE-8162N, INTEL Y AMD, TDP 150W MÁX, AIRE COOLER MSI 120 MM"
+  },
+  {
+    "id": 72,
+    "brand": "MSI",
+    "name": "COOLER MSI 120 MM ORIGINAL COOLER AMD"
+  },
+  {
+    "id": 73,
+    "brand": "INTEL",
+    "name": "COOLER AMD ORIGINAL COOLER INTEL BASICO, CON BASE DE"
+  },
+  {
+    "id": 74,
+    "brand": "INTEL",
+    "name": "COOLER INTEL BASICO CON BASE DE COBRE COOLER INTEL BASICO, CON BASE DE ALUMINIO"
+  },
+  {
+    "id": 75,
+    "brand": "INTEL",
+    "name": "COOLER INTEL BASICO CON BASE DE ALUMINIO CAMARAS WEB"
+  },
+  {
+    "id": 77,
+    "brand": "MICRON",
+    "name": "CAMARA TEROS TE-9072 RESOLUCION 2K CAMARA WEB 2K QUAD HD MICRONICS QUANTUM MAS TRIPODE"
+  },
+  {
+    "id": 92,
+    "brand": "MICRON",
+    "name": "CASE CYBERTEL ROBOT NEGRO 6 COOLERS ARGB CASE MICRONICS FRANTIC MIC GC702 CON FUENTE REAL"
+  },
+  {
+    "id": 93,
+    "brand": "MICRON",
+    "name": "CASE FRANTIC MIC GC702 GABINETE MICRONICS ATX BLACK + PSU 650W REAL"
+  },
+  {
+    "id": 94,
+    "brand": "MICRON",
+    "name": "FURIOUS MIC GC701 GABINETE MICRONICS ATX BLACK + PSU 650W REAL"
+  },
+  {
+    "id": 96,
+    "brand": "MICRON",
+    "name": "CASE ENKORE FALCON ENC 5000 SIN FUENTE RAINBOW VIDRIO TEMPLADO MID TOWER CASE MICRONICS FA"
+  },
+  {
+    "id": 97,
+    "brand": "MICRON",
+    "name": "CASE MICRONICS FANATIC LEGEND FNT 8007 ATX, MICRO-ATX"
+  },
+  {
+    "id": 101,
+    "brand": "INTEL",
+    "name": "CASE CYBERTEL EPICO CBX C1000 230W PROCESADORES PROC. INTEL CORE ULTRA 5"
+  },
+  {
+    "id": 102,
+    "brand": "LG",
+    "name": "PROC. INTEL CORE ULTRA 5 225F LGA 1851 PROCESADOR CORE I5 12600KF LGA"
+  },
+  {
+    "id": 103,
+    "brand": "LG",
+    "name": "PROCESADOR CORE I5 12600KF LGA 1700 PROCESADOR CORE 10TH GEN CORE I3 - 10100F (LGA1200)"
+  },
+  {
+    "id": 104,
+    "brand": "LG",
+    "name": "PROCESADOR CORE 10TH GEN CORE I3 - 10100F (LGA1200) PROCESADOR INTEL CORE I5"
+  },
+  {
+    "id": 105,
+    "brand": "INTEL",
+    "name": "PROCESADOR INTEL CORE I5 12400 (BX8071512400) 2"
+  },
+  {
+    "id": 106,
+    "brand": "INTEL",
+    "name": "INTEL CORE I7-14700 PROCESADOR 20 NÚCLEOS 28 HILOS 5"
+  },
+  {
+    "id": 107,
+    "brand": "INTEL",
+    "name": "PROCESADOR INTEL CORE I9-14900, CACHE 36 MB, HASTA 5.8 GHZ"
+  },
+  {
+    "id": 108,
+    "brand": "LG",
+    "name": "LIBRE 10 PROCESADOR INTEL CORE I5 -10500T LGA 1200 10TH GEN OEM PROCESADOR CORE ULTRA 7 -"
+  },
+  {
+    "id": 109,
+    "brand": "INTEL",
+    "name": "PROCESADOR INTEL CORE ULTRA 7 270K PLUS PROCESADOR RYZEN 7 5700X - OEM NUEVO BAJÓ DE"
+  },
+  {
+    "id": 110,
+    "brand": "RYZEN",
+    "name": "LIBRE >10 PROCESADOR RYZEN 7 5700X - OEM - NUEVO PROCESADOR RYZEN 3 2200 G - OEM NUEVO"
+  },
+  {
+    "id": 111,
+    "brand": "RYZEN",
+    "name": "LIBRE 9 PROCESADOR RYZEN 3 2200 G - OEM NUEVO AM4 PROCESAADO R RYZEN 5 2400G - OEM NUEVO"
+  },
+  {
+    "id": 112,
+    "brand": "RYZEN",
+    "name": "LIBRE 5 PROCESAADOR RYZEN 5 2400G - OEM RYZEN 9 9900X 12 NUCLEOS Y 24 HILOS"
+  },
+  {
+    "id": 113,
+    "brand": "RYZEN",
+    "name": "RYZEN 9 9900X 12 NUCLEOS Y 24 HILOS AM5 RYZEN 5 9600X 6 NÚCLEOS Y 12 HILOS BAJÓ DE"
+  },
+  {
+    "id": 114,
+    "brand": "RYZEN",
+    "name": "RYZEN 5 9600X 6 NÚCLEOS Y 12 HILOS AM5 PROC RYZEN 5 8600G BAJÓ DE"
+  },
+  {
+    "id": 115,
+    "brand": "RYZEN",
+    "name": "PROC RYZEN 5 8600G 6 CORE 12 THREAD 5.0 GHZ PROCESADOR RYZEN 5 5500 AM4 NUEVO"
+  },
+  {
+    "id": 116,
+    "brand": "RYZEN",
+    "name": "PROCESADOR RYZEN 5 5500 AM4 PROCESADOR RYZEN 5 5600GT AM4 NUEVO"
+  },
+  {
+    "id": 117,
+    "brand": "AMD",
+    "name": "PROCESADOR AMD RYZEN 5 5600GT 3.6GHZ HASTA 4.6GHZ 19MB (100- 100001488BOX) AM4"
+  },
+  {
+    "id": 118,
+    "brand": "RYZEN",
+    "name": ".. PROCESADOR RYZEN 5 7600X AM5 BAJÓ DE"
+  },
+  {
+    "id": 119,
+    "brand": "RYZEN",
+    "name": "PROCESADOR RYZEN 5 7600X AM5. 4.7GHZ HASTA 5.3GHZ 6 NÚCLEOS Y 12 RAM - MEMORIAS"
+  },
+  {
+    "id": 120,
+    "brand": "CORSAIR",
+    "name": "MEMORIA PNY LR8 DUO 2X16 3200MHZ 32GB MEMORIA CORSAIR VENGEANCE DUO 2X8 3600HZ 16GB"
+  },
+  {
+    "id": 121,
+    "brand": "CORSAIR",
+    "name": "MEMORIA CORSAIR VENGEANCE DUO 2X8 3600HZ 16GB DDR4 MEMORIA DDR4 XPG SPECTRIX D60G 8GB 3200"
+  },
+  {
+    "id": 122,
+    "brand": "HP",
+    "name": "MEMORIA XPG SPECTRIX D60G 8GB 3200MZ MEMORIA DDR4 RGB LED HP 3600MHZ 8GB (PC)"
+  },
+  {
+    "id": 123,
+    "brand": "HP",
+    "name": "MEMORIA DDR4 RGB LED HP 3600MHZ 8GB PC CARCASA DE REFRIGERACION DE METAL CEPILLADO MEMORIA"
+  },
+  {
+    "id": 124,
+    "brand": "XPG",
+    "name": "MEMORIA 16GB DDR4 XPG GAMMIX D35 BLACK BUS 3200MHZ CON DISIPADOR MEMORIA XPG DDR4 DE 16GB"
+  },
+  {
+    "id": 125,
+    "brand": "KINGSTON",
+    "name": "MEMORIA RAM DDR4 16GB BUS 3200 MHZ XPG GAMMIX D35 WHITE, CL16 MEMORIA KINGSTON DDR3 FURY"
+  },
+  {
+    "id": 126,
+    "brand": "KINGSTON",
+    "name": "MEMORIA DDR3 KINGSTON FURY HYPERX 8GB 1600MHZ 8GB PARA PC MEMORIA KINGSTON DDR4 32GB 3200"
+  },
+  {
+    "id": 127,
+    "brand": "KINGSTON",
+    "name": "LIBRE 4 MEMORIA KINGSTON DDR4 32GB PARA ( PC ) (SIN DISIPADOR) MEMORIA PARA LAPTOP 8GB DRR"
+  },
+  {
+    "id": 129,
+    "brand": "SAMSUNG",
+    "name": "MEMORIA OEM LAPTOP 8GB SAMSUNG DRR4 2666 MEMORIA LAPTOP 8GB DRR4 3200 (OEM)"
+  },
+  {
+    "id": 131,
+    "brand": "KINGSTON",
+    "name": "MEMORIA LAPTOP 16GB DDR4 3200 ( OEM) MEMORIA SODIM DDR3 DE 8GB KINGSTON RED 1600"
+  },
+  {
+    "id": 132,
+    "brand": "KINGSTON",
+    "name": "MEMORIA SODIM DDR3 DE 8GB KINGSTON RED 1600 (SODIM )"
+  },
+  {
+    "id": 133,
+    "brand": "ADATA",
+    "name": "MEMORIA RAM PARA LAPTOP 16GB DDR4 3200 CL22 MEMORIA ADATA DDR4 DE 8GB BUSS 3200 ( SODIM)"
+  },
+  {
+    "id": 134,
+    "brand": "KINGSTON",
+    "name": "MEMORIA ADATA DDR4 BUSS 3200 ( SODIM ) SSD - DISCOS DUROS SSD KINGSTON NV3"
+  },
+  {
+    "id": 135,
+    "brand": "KINGSTON",
+    "name": "SSD KINGSTON NV3, 500GB, M.2, 2280, NVME PCIE 4"
+  },
+  {
+    "id": 136,
+    "brand": "KINGSTON",
+    "name": "SSD KINGSTON FURY RENEGADE 4G, 1TB , M.2 2280"
+  },
+  {
+    "id": 139,
+    "brand": "MICRON",
+    "name": "SSD M.2 MICRON DE 512GB PC (MINI) + ADAPTADOR 2500 GEN4 X4 NVME SSD M"
+  },
+  {
+    "id": 144,
+    "brand": "ADATA",
+    "name": "SSD CEAMERE SATA DE 240GB SSD ADATA 256GB SATA 2.5 SU650 NUEVO"
+  },
+  {
+    "id": 145,
+    "brand": "ADATA",
+    "name": "DISCO SOLIDO SSD SATA 2.5 ADATA 256GB SU630, UNIDAD DE ALMACENAMIENTO"
+  },
+  {
+    "id": 146,
+    "brand": "ADATA",
+    "name": "UNIDAD DE ALMACENAMIENTO SSD SATA 2.5 ADATA 512GB SU650 (ASU650SS-512GT-R) TARJETA GRAFICA"
+  },
+  {
+    "id": 150,
+    "brand": "ASUS",
+    "name": "UND TARJETA DE VIDEO ASUS GEFORCE RTX 3050 DUAL 6GB GDDR6 (90YV0K60-M0AA00) GEFORCE NVIDIA"
+  },
+  {
+    "id": 151,
+    "brand": "LG",
+    "name": "PLACA H610M ROG GAMING LGA DDR5 1700 PARA 12VA A 14VA GENERACIÓN DDR5 PLACA GIGABYTE Z890"
+  },
+  {
+    "id": 152,
+    "brand": "LG",
+    "name": "PLACA MADRE GIGABYTE Z890 EAGLE WIFI 7 GAMING (Z890 EAGLE WIFI 7) SOCKET LGA 1851"
+  },
+  {
+    "id": 153,
+    "brand": "AMD",
+    "name": "MOTHERBOARD ASUS PRIME B550M-A AC, CHIPSET AMD B550"
+  },
+  {
+    "id": 154,
+    "brand": "LG",
+    "name": "PLACA ASUS A520M-K SOCKET AM4 ASUS H610 DDR5 LGA"
+  },
+  {
+    "id": 155,
+    "brand": "LG",
+    "name": "ASUS H610 DDR5 LGA 1700 PARA 12VA,13VA,14VA GEN PLACA MADRE H110 WINNFOX DDR4 PARA 6TA A 9"
+  },
+  {
+    "id": 156,
+    "brand": "LG",
+    "name": "PLACA WINNFOX H110 DDR4 LGA 1151 PARA 6TA & 9NA GENERACION PLACA ASTROM AST B450-2 DE MICR"
+  },
+  {
+    "id": 157,
+    "brand": "AMD",
+    "name": "PROCESADOR B450 -2 DE MICRONICS SOCKE AMD AM4 COMPATIBLE PROCESADORES: RYZEN 1000 AL 5000"
+  },
+  {
+    "id": 160,
+    "brand": "LG",
+    "name": "PLACA MADRE ESONIC H110DA LGA 1151 I6 /I7 – 6TH/7TH/8TH/9TH M.2 NVM DDR4"
+  },
+  {
+    "id": 161,
+    "brand": "MSI",
+    "name": "PLACA ESONIC H61DA DDR3 LGA 1155 2DA & 3ERA GENERACION PLACA MSI H410M-D DDR4 SOLO PARA 10"
+  },
+  {
+    "id": 162,
+    "brand": "MSI",
+    "name": "TARJETA MADRE MSI PRIME H410M-E 1200 DDR4 M-ATX PLACA WINNFOX H510 DDR4 PARA 10MA Y"
+  },
+  {
+    "id": 165,
+    "brand": "SEASONIC",
+    "name": "FUENTE DE PODER SEASONIC FOCUS GX-1000W 80PLUS GOLD FULL MODULAR SSR-102-A5A32SF TOTALMENT"
+  },
+  {
+    "id": 166,
+    "brand": "MSI",
+    "name": "FUENTE DE PODER EVGA 500W W2 80 PLUS (100-W2-0500-K1) FUENTE CERTIFICA DA REAL 650W MSI MA"
+  },
+  {
+    "id": 167,
+    "brand": "MSI",
+    "name": "FUENTE CERTIFICADA REAL 650W MSI MAG 80PLUS BRONZE FUENTE TEROS 7160 600W BRONZE REAL"
+  },
+  {
+    "id": 168,
+    "brand": "XPG",
+    "name": "FUENTE TEROS 600W 7160 80 PLUS BRONZE FUENTE XPG PYLON 650W 80 PLUS BRONZE"
+  },
+  {
+    "id": 169,
+    "brand": "XPG",
+    "name": "FUENTE XPG PYLON 650W 80PLUS BRONCE PYLON FUENTE DE PODER ROG GAMING ATX- 600W 80 WHITE"
+  },
+  {
+    "id": 170,
+    "brand": "ASUS",
+    "name": "FUENTE DE PODER ASUS 600W ATX, WHITE 80 PLUS, ROG STRIX 650G MODULAR"
+  },
+  {
+    "id": 172,
+    "brand": "MICRON",
+    "name": "FUENTE MICRONICS GAMER MACHINE 80 PLUS BRONZE FUENTE DE PODER DE 650W"
+  },
+  {
+    "id": 173,
+    "brand": "MICRON",
+    "name": "FUENTE DE PODER GAMER ATX 500W REALES MICRONICS FANATIC FUENTE DE PODER MICRONICS 500W ATX"
+  },
+  {
+    "id": 174,
+    "brand": "GIGABYTE",
+    "name": "FUENTE DE PODER MICRONICS 500W (MIC P5000) ATX | BASIC | NEGRO/ROJO FUENTE GIGABYTE 850 W"
+  },
+  {
+    "id": 175,
+    "brand": "GIGABYTE",
+    "name": "FUENTE DE PODER GIGABYTE 850WATTS FULL MODULAR 80PLUS GOLD CERTIFICADA"
+  },
+  {
+    "id": 176,
+    "brand": "GIGABYTE",
+    "name": "FUENTE CERTIFICADA GIGABYTE P750W GM, 80+ GOLD FUENTE DE PODER ANTRIX KIRIN 850W GOLD"
+  },
+  {
+    "id": 177,
+    "brand": "EVGA",
+    "name": "FUENTE DE PODER ANTRIX KIRIN 850W GOLD FUENTE DE PODER EVGA"
+  },
+  {
+    "id": 178,
+    "brand": "EVGA",
+    "name": "FUENTE DE PODER EVGA 750W GOLD FUENTE ROG GAMING X GX850 80 PLUS 850 BRONZE"
+  },
+  {
+    "id": 182,
+    "brand": "MICRON",
+    "name": "FUENTE DE PODER MICRONINC 250W 1 VENTILADOR DE 12 CM 1 CONECTOR ATX 20 + 4 PINES / CABLE L"
+  },
+  {
+    "id": 201,
+    "brand": "MICRON",
+    "name": "COMBO GAMER 4 EN 1 MICRONICS GAMER MACHINE MIRAGE BLACK RGB ( AUDIFONO"
+  },
+  {
+    "id": 202,
+    "brand": "MICRON",
+    "name": "COMBO GAMER 4 EN 1 MICRONICS GAMER MACHINE MIRAGE WHITE RGB ( AUDIFONO"
+  },
+  {
+    "id": 205,
+    "brand": "DEEPCOOL",
+    "name": "PASTA TERMICA Z10 DEEPCOOL EL VALOR TÉRMICO PRINCIPAL DE LA PASTA TÉRMICA DEEPCOOL Z10 ES"
+  }
+]
