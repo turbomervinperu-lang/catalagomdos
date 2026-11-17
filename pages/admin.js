@@ -105,6 +105,7 @@ export default function AdminPage() {
       }
       if (sortBy) queryParams.set('sortBy', sortBy);
 
+      queryParams.set('nocache', '1');
       const res = await fetch(`/api/products?${queryParams.toString()}`);
       if (!res.ok) throw new Error('Error al obtener productos');
       const data = await res.json();
@@ -212,9 +213,19 @@ export default function AdminPage() {
 
     setLoadingSlot(slotIndex);
     try {
+      // 1) Comprimir en el navegador  2) subir al bucket  3) guardar solo la URL
       const compressedDataUrl = await compressImage(file, 1000, 0.82);
+      const upRes = await fetch('/api/admin/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ dataUrl: compressedDataUrl, name: form.name || 'foto' })
+      });
+      const upData = await upRes.json();
+      if (!upRes.ok || !upData.url) {
+        throw new Error(upData.error || 'No se pudo subir la imagen');
+      }
       const newImages = [...form.images];
-      newImages[slotIndex] = compressedDataUrl;
+      newImages[slotIndex] = upData.url;
       const cleanImages = newImages.filter(Boolean);
       setForm({ ...form, images: cleanImages });
     } catch (err) {

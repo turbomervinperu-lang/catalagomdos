@@ -22,6 +22,7 @@ export default function Home() {
 
   // Feedback de carrito
   const [addedId, setAddedId] = useState(null);
+  const [visibleCount, setVisibleCount] = useState(24); // se muestran de 24 en 24
   const { addItem } = useCart();
 
   const fetchProducts = async () => {
@@ -54,6 +55,7 @@ export default function Home() {
   };
 
   useEffect(() => {
+    setVisibleCount(24);
     fetchProducts();
   }, [selectedCategory, search]);
 
@@ -387,7 +389,7 @@ export default function Home() {
                 </tr>
               </thead>
               <tbody>
-                {products.map((p) => {
+                {products.slice(0, visibleCount).map((p) => {
                   const images = Array.isArray(p.images) && p.images.length > 0 ? p.images : (p.imageUrl ? [p.imageUrl] : []);
                   const thumb = images[0] || '';
                   const isAdded = addedId === p.id;
@@ -424,7 +426,7 @@ export default function Home() {
                             padding: '3px'
                           }}>
                             {thumb ? (
-                              <img src={thumb} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                              <img src={thumb} alt={p.name} loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                             ) : (
                               <span style={{ fontSize: '1.4rem', color: '#94a3b8' }}>🖥️</span>
                             )}
@@ -538,7 +540,7 @@ export default function Home() {
             gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
             gap: '1.5rem'
           }}>
-            {products.map((p) => {
+            {products.slice(0, visibleCount).map((p) => {
               const images = Array.isArray(p.images) && p.images.length > 0 ? p.images : (p.imageUrl ? [p.imageUrl] : []);
               const thumb = images[0] || '';
               const isAdded = addedId === p.id;
@@ -586,6 +588,8 @@ export default function Home() {
                       <img
                         src={thumb}
                         alt={p.name}
+                        loading="lazy"
+                        decoding="async"
                         style={{
                           width: '100%',
                           height: '100%',
@@ -716,6 +720,29 @@ export default function Home() {
                 </div>
               );
             })}
+          </div>
+        )}
+
+        {/* Cargar más productos de 24 en 24 */}
+        {!loading && products.length > visibleCount && (
+          <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+            <button
+              type="button"
+              onClick={() => setVisibleCount((c) => c + 24)}
+              style={{
+                background: '#ef4444',
+                color: '#ffffff',
+                border: 'none',
+                padding: '0.85rem 2.25rem',
+                borderRadius: '10px',
+                fontWeight: 800,
+                fontSize: '0.95rem',
+                cursor: 'pointer',
+                boxShadow: '0 4px 12px rgba(239, 68, 68, 0.3)'
+              }}
+            >
+              Mostrar más productos ({products.length - visibleCount} restantes)
+            </button>
           </div>
         )}
 

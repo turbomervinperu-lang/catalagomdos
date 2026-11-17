@@ -75,6 +75,13 @@ export default async function handler(req, res) {
       `;
 
       const result = await client.query(query, params);
+      // Caché de CDN corta: el catálogo carga rápido y se refresca solo.
+      // El panel de administración pide nocache=1 para ver los cambios al instante.
+      if (req.query.nocache) {
+        res.setHeader('Cache-Control', 'no-store');
+      } else {
+        res.setHeader('Cache-Control', 'public, s-maxage=20, stale-while-revalidate=120');
+      }
       return res.status(200).json(result.rows);
     }
 
