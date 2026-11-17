@@ -38,10 +38,17 @@ function compressImage(file, maxDimension = 1000, quality = 0.82) {
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [token, setToken] = useState('');
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [inputPassword, setInputPassword] = useState('');
   const [loginError, setLoginError] = useState(null);
   const [loginLoading, setLoginLoading] = useState(false);
+
+  // Helper para adjuntar token de autorización a peticiones administrativas
+  const getAuthHeaders = () => {
+    const curToken = token || (typeof window !== 'undefined' ? sessionStorage.getItem('admin_token') : '');
+    return curToken ? { 'Authorization': `Bearer ${curToken}` } : {};
+  };
 
   // Pestaña activa: 'products' o 'orders'
   const [activeTab, setActiveTab] = useState('products');
@@ -121,7 +128,13 @@ export default function AdminPage() {
   const fetchOrders = async () => {
     setOrdersLoading(true);
     try {
-      const res = await fetch('/api/admin/orders');
+      const res = await fetch('/api/admin/orders', {
+        headers: getAuthHeaders()
+      });
+      if (res.status === 401) {
+        handleLogout();
+        throw new Error('Sesión expirada o no autorizada. Por favor ingresa tu contraseña.');
+      }
       if (!res.ok) throw new Error('Error al obtener las órdenes de compra');
       const data = await res.json();
       setOrders(Array.isArray(data) ? data : []);
@@ -148,9 +161,16 @@ export default function AdminPage() {
     try {
       const res = await fetch('/api/admin/orders', {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAuthHeaders()
+        },
         body: JSON.stringify({ id, status: newStatus })
       });
+      if (res.status === 401) {
+        handleLogout();
+        throw new Error('Sesión expirada. Por favor ingresa tu contraseña.');
+      }
       if (!res.ok) throw new Error('No se pudo actualizar el estado');
       setOrders(orders.map((o) => (o.id === id ? { ...o, status: newStatus } : o)));
     } catch (err) {
@@ -163,7 +183,14 @@ export default function AdminPage() {
   const handleDeleteOrder = async (id) => {
     if (!window.confirm(`¿Estás seguro de eliminar la Orden #${id}?`)) return;
     try {
-      const res = await fetch(`/api/admin/orders?id=${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/admin/orders?id=${id}`, {
+        method: 'DELETE',
+        headers: getAuthHeaders()
+      });
+      if (res.status === 401) {
+        handleLogout();
+        throw new Error('Sesión expirada. Por favor ingresa tu contraseña.');
+      }
       if (!res.ok) throw new Error('No se pudo eliminar la orden');
       setOrders(orders.filter((o) => o.id !== id));
     } catch (err) {
@@ -189,6 +216,10 @@ export default function AdminPage() {
         throw new Error(data.error || 'Contraseña incorrecta');
       }
 
+      if (data.token) {
+        sessionStorage.setItem('admin_token', data.token);
+        setToken(data.token);
+      }
       sessionStorage.setItem('admin_auth', 'true');
       setIsAuthenticated(true);
       setInputPassword('');
@@ -201,8 +232,10 @@ export default function AdminPage() {
 
   const handleLogout = () => {
     try {
+      sessionStorage.removeItem('admin_token');
       sessionStorage.removeItem('admin_auth');
     } catch (e) {}
+    setToken('');
     setIsAuthenticated(false);
   };
 
@@ -217,9 +250,16 @@ export default function AdminPage() {
       const compressedDataUrl = await compressImage(file, 1000, 0.82);
       const upRes = await fetch('/api/admin/upload', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAuthHeaders()
+        },
         body: JSON.stringify({ dataUrl: compressedDataUrl, name: form.name || 'foto' })
       });
+      if (upRes.status === 401) {
+        handleLogout();
+        throw new Error('Sesión expirada. Por favor ingresa tu contraseña.');
+      }
       const upData = await upRes.json();
       if (!upRes.ok || !upData.url) {
         throw new Error(upData.error || 'No se pudo subir la imagen');
@@ -310,12 +350,19 @@ export default function AdminPage() {
       const method = isEditing ? 'PUT' : 'POST';
       const res = await fetch('/api/products', {
         method,
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAuthHeaders()
+        },
         body: JSON.stringify({
           ...form,
           imageUrl: form.images[0] || ''
         })
       });
+      if (res.status === 401) {
+        handleLogout();
+        throw new Error('Sesión expirada. Por favor ingresa tu contraseña.');
+      }
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Error al guardar');
 
@@ -332,7 +379,14 @@ export default function AdminPage() {
   const handleDelete = async (id) => {
     if (!confirm('¿Estás seguro de que deseas eliminar este producto?')) return;
     try {
-      const res = await fetch(`/api/products?id=${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/products?id=${id}`, {
+        method: 'DELETE',
+        headers: getAuthHeaders()
+      });
+      if (res.status === 401) {
+        handleLogout();
+        throw new Error('Sesión expirada. Por favor ingresa tu contraseña.');
+      }
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Error al eliminar');
       setMessage('Producto eliminado con éxito.');
@@ -352,7 +406,10 @@ export default function AdminPage() {
     try {
       const res = await fetch('/api/admin/auth', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAuthHeaders()
+        },
         body: JSON.stringify({
           action: 'change-password',
           currentPassword: passForm.currentPassword,
@@ -362,6 +419,11 @@ export default function AdminPage() {
       const data = await res.json();
       if (!res.ok || !data.ok) {
         throw new Error(data.error || 'Error al cambiar contraseña');
+      }
+
+      if (data.token) {
+        sessionStorage.setItem('admin_token', data.token);
+        setToken(data.token);
       }
 
       setPassMessage('¡Contraseña actualizada correctamente!');

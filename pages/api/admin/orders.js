@@ -1,10 +1,17 @@
 // pages/api/admin/orders.js
 import { Client } from 'pg';
 import dotenv from 'dotenv';
+import { verifyAdminToken } from '../../../lib/adminAuth';
 
 dotenv.config();
 
 export default async function handler(req, res) {
+  // Protección: Solo el administrador autenticado puede ver, modificar o eliminar pedidos
+  const auth = verifyAdminToken(req);
+  if (!auth.valid) {
+    return res.status(401).json({ error: auth.error });
+  }
+
   const client = new Client({
     connectionString: process.env.POSTGRES_URL,
     ssl: { rejectUnauthorized: false },
@@ -54,4 +61,3 @@ export default async function handler(req, res) {
     await client.end();
   }
 }
-

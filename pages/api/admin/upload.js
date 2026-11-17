@@ -2,6 +2,7 @@
 // Recibe una imagen (data URL ya comprimida en el navegador), la sube al bucket
 // de Vercel Blob y devuelve solo la URL pública corta.
 import { put } from '@vercel/blob';
+import { verifyAdminToken } from '../../../lib/adminAuth';
 
 export const config = {
   api: { bodyParser: { sizeLimit: '4mb' } },
@@ -11,6 +12,13 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
+
+  // Protección: Solo administradores autorizados pueden subir imágenes
+  const auth = verifyAdminToken(req);
+  if (!auth.valid) {
+    return res.status(401).json({ error: auth.error });
+  }
+
   if (!process.env.BLOB_READ_WRITE_TOKEN) {
     return res.status(500).json({ error: 'Almacenamiento de imágenes no configurado' });
   }

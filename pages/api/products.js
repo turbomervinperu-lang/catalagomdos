@@ -1,6 +1,8 @@
 // pages/api/products.js
 import { Client } from 'pg';
 import dotenv from 'dotenv';
+import { verifyAdminToken } from '../../lib/adminAuth';
+
 dotenv.config();
 
 function getPgClient() {
@@ -11,6 +13,14 @@ function getPgClient() {
 }
 
 export default async function handler(req, res) {
+  // Protección: Solo administradores autorizados pueden crear, modificar o eliminar productos
+  if (['POST', 'PUT', 'DELETE'].includes(req.method)) {
+    const auth = verifyAdminToken(req);
+    if (!auth.valid) {
+      return res.status(401).json({ error: auth.error });
+    }
+  }
+
   if (!process.env.POSTGRES_URL) {
     return res.status(200).json([
       { id: 1, name: 'Producto demo 1', price: 10, imageUrl: '', images: [], category: 'Otros', stock: '+5' },

@@ -1,6 +1,7 @@
 // pages/api/admin/auth.js
 import { Client } from 'pg';
 import dotenv from 'dotenv';
+import { createAdminToken } from '../../../lib/adminAuth';
 
 dotenv.config();
 
@@ -16,7 +17,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { action, password, currentPassword, newPassword } = req.body;
+  const { action, password, currentPassword, newPassword } = req.body || {};
 
   const client = getPgClient();
 
@@ -32,7 +33,8 @@ export default async function handler(req, res) {
       if (!password || password.toString().trim() !== savedPassword.toString().trim()) {
         return res.status(401).json({ ok: false, error: 'Contraseña incorrecta' });
       }
-      return res.status(200).json({ ok: true, message: 'Acceso autorizado' });
+      const token = createAdminToken(12);
+      return res.status(200).json({ ok: true, token, message: 'Acceso autorizado' });
     }
 
     // 2. Cambiar contraseña
@@ -51,7 +53,8 @@ export default async function handler(req, res) {
       `;
       await client.query(updateQuery, [newPassword.toString().trim()]);
 
-      return res.status(200).json({ ok: true, message: 'Contraseña actualizada exitosamente' });
+      const newToken = createAdminToken(12);
+      return res.status(200).json({ ok: true, token: newToken, message: 'Contraseña actualizada exitosamente' });
     }
 
     return res.status(400).json({ error: 'Acción no válida' });
@@ -62,4 +65,3 @@ export default async function handler(req, res) {
     await client.end();
   }
 }
-
