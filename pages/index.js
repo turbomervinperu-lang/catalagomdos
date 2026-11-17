@@ -393,6 +393,7 @@ export default function Home() {
                   const isAdded = addedId === p.id;
                   const isConsultar = parseFloat(p.price) === 0;
                   const stockDisplay = p.stock ? (String(p.stock).startsWith('+') ? `>${p.stock.slice(1)}` : p.stock) : '>5';
+                  const isOferta = (p.name && p.name.toUpperCase().includes('OFERTA')) || (p.description && p.description.toUpperCase().includes('OFERTA'));
 
                   return (
                     <tr
@@ -429,9 +430,24 @@ export default function Home() {
                             )}
                           </div>
                           <div>
-                            <span style={{ fontWeight: 800, color: '#0f172a', fontSize: '0.9rem', display: 'block' }}>
-                              {p.name.toUpperCase()}
-                            </span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', flexWrap: 'wrap' }}>
+                              <span style={{ fontWeight: 800, color: '#0f172a', fontSize: '0.9rem' }}>
+                                {p.name.toUpperCase()}
+                              </span>
+                              {isOferta && (
+                                <span style={{
+                                  background: '#fee2e2',
+                                  color: '#dc2626',
+                                  border: '1px solid #fca5a5',
+                                  padding: '0.1rem 0.45rem',
+                                  borderRadius: '4px',
+                                  fontSize: '0.7rem',
+                                  fontWeight: 900
+                                }}>
+                                  🔥 OFERTA
+                                </span>
+                              )}
+                            </div>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.2rem' }}>
                               <span style={{ color: '#f59e0b', fontSize: '0.8rem' }}>★★★★☆</span>
                               <span style={{ fontSize: '0.75rem', color: '#64748b' }}>id: {p.id}</span>
@@ -528,6 +544,7 @@ export default function Home() {
               const isAdded = addedId === p.id;
               const isConsultar = parseFloat(p.price) === 0;
               const stockDisplay = p.stock ? (String(p.stock).startsWith('+') ? `>${p.stock.slice(1)}` : p.stock) : '>5';
+              const isOferta = (p.name && p.name.toUpperCase().includes('OFERTA')) || (p.description && p.description.toUpperCase().includes('OFERTA'));
 
               return (
                 <div
@@ -536,21 +553,22 @@ export default function Home() {
                   style={{
                     background: '#ffffff',
                     borderRadius: '16px',
-                    border: '1px solid #e2e8f0',
+                    border: isOferta ? '2px solid #f87171' : '1px solid #e2e8f0',
                     overflow: 'hidden',
                     display: 'flex',
                     flexDirection: 'column',
-                    boxShadow: '0 4px 14px rgba(0,0,0,0.03)',
+                    boxShadow: isOferta ? '0 6px 20px rgba(239, 68, 68, 0.12)' : '0 4px 14px rgba(0,0,0,0.03)',
                     cursor: 'pointer',
-                    transition: 'transform 0.15s, box-shadow 0.15s'
+                    transition: 'transform 0.15s, box-shadow 0.15s',
+                    position: 'relative'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'translateY(-4px)';
-                    e.currentTarget.style.boxShadow = '0 10px 24px rgba(0,0,0,0.08)';
+                    e.currentTarget.style.boxShadow = isOferta ? '0 12px 28px rgba(239, 68, 68, 0.2)' : '0 10px 24px rgba(0,0,0,0.08)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 4px 14px rgba(0,0,0,0.03)';
+                    e.currentTarget.style.boxShadow = isOferta ? '0 6px 20px rgba(239, 68, 68, 0.12)' : '0 4px 14px rgba(0,0,0,0.03)';
                   }}
                 >
                   {/* Contenedor de Foto Grande (como en Imagen 2) */}
@@ -579,6 +597,28 @@ export default function Home() {
                       <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontSize: '2rem' }}>
                         🖥️
                       </div>
+                    )}
+
+                    {/* Badge de OFERTA en la esquina superior izquierda si corresponde */}
+                    {isOferta && (
+                      <span style={{
+                        position: 'absolute',
+                        top: '12px',
+                        left: '12px',
+                        background: 'linear-gradient(135deg, #ef4444 0%, #b91c1c 100%)',
+                        color: '#ffffff',
+                        padding: '0.25rem 0.65rem',
+                        borderRadius: '6px',
+                        fontSize: '0.74rem',
+                        fontWeight: 900,
+                        letterSpacing: '0.5px',
+                        boxShadow: '0 2px 8px rgba(239, 68, 68, 0.45)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.25rem'
+                      }}>
+                        🔥 OFERTA
+                      </span>
                     )}
 
                     {/* Badge de Stock Verde en la esquina superior derecha */}

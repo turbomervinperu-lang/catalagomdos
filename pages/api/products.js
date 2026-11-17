@@ -49,11 +49,14 @@ export default async function handler(req, res) {
         conditions.push(`price <= $${params.length}`);
       }
 
-      let orderClause = 'ORDER BY id DESC';
-      if (sortBy === 'price_asc') orderClause = 'ORDER BY price ASC';
-      else if (sortBy === 'price_desc') orderClause = 'ORDER BY price DESC';
-      else if (sortBy === 'name_asc') orderClause = 'ORDER BY name ASC';
-      else if (sortBy === 'id_asc') orderClause = 'ORDER BY id ASC';
+      let baseOrder = 'id DESC';
+      if (sortBy === 'price_asc') baseOrder = 'price ASC';
+      else if (sortBy === 'price_desc') baseOrder = 'price DESC';
+      else if (sortBy === 'name_asc') baseOrder = 'name ASC';
+      else if (sortBy === 'id_asc') baseOrder = 'id ASC';
+
+      // Los productos que contengan la palabra OFERTA siempre aparecen de primeros al cargar
+      const orderClause = `ORDER BY CASE WHEN (name ILIKE '%OFERTA%' OR description ILIKE '%OFERTA%') THEN 0 ELSE 1 END ASC, ${baseOrder}`;
 
       const whereClause = conditions.length > 0 ? `WHERE ${conditions.join(' AND ')}` : '';
       const query = `
