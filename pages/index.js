@@ -35,7 +35,25 @@ export default function Home() {
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Mostrar todas');
   const [showCategoryMenu, setShowCategoryMenu] = useState(false);
+  const categoryMenuRef = useRef(null);
   const [viewMode, setViewMode] = useState('grid'); // 'grid' por defecto con fotos grandes como en Imagen 2
+
+  // Cerrar menú de categorías automáticamente al hacer clic fuera
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (categoryMenuRef.current && !categoryMenuRef.current.contains(e.target)) {
+        setShowCategoryMenu(false);
+      }
+    }
+    if (showCategoryMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [showCategoryMenu]);
 
   // Modal de detalle de producto
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -191,7 +209,7 @@ export default function Home() {
             flexWrap: 'wrap'
           }}>
             {/* Botón Selector de Categoría */}
-            <div style={{ position: 'relative' }}>
+            <div ref={categoryMenuRef} style={{ position: 'relative' }}>
               <button
                 type="button"
                 onClick={() => setShowCategoryMenu(!showCategoryMenu)}

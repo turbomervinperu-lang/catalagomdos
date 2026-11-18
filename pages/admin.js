@@ -71,7 +71,26 @@ export default function AdminPage() {
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Mostrar todas');
   const [showCategoryMenu, setShowCategoryMenu] = useState(false);
+  const categoryMenuRef = useRef(null);
+  const passwordInputRef = useRef(null);
   const [sortBy, setSortBy] = useState('id_desc');
+
+  // Cerrar menú de categorías automáticamente al hacer clic fuera
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (categoryMenuRef.current && !categoryMenuRef.current.contains(e.target)) {
+        setShowCategoryMenu(false);
+      }
+    }
+    if (showCategoryMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [showCategoryMenu]);
 
   // Formulario de Producto (con categoría, stock y 4 cuadros de imágenes)
   const [form, setForm] = useState({
@@ -225,6 +244,12 @@ export default function AdminPage() {
       setInputPassword('');
     } catch (err) {
       setLoginError(err.message);
+      setInputPassword(''); // Se borra la contraseña errónea para volver a intentar de inmediato
+      setTimeout(() => {
+        if (passwordInputRef.current) {
+          passwordInputRef.current.focus();
+        }
+      }, 50);
     } finally {
       setLoginLoading(false);
     }
@@ -499,12 +524,13 @@ export default function AdminPage() {
               </div>
             )}
 
-            <form onSubmit={handleLogin} style={{ textAlign: 'left' }}>
+            <form onSubmit={handleLogin} style={{ textAlign: 'center' }}>
               <div style={{ marginBottom: '1.25rem' }}>
-                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#334155', marginBottom: '0.4rem' }}>
+                <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#334155', marginBottom: '0.5rem', textAlign: 'center' }}>
                   Contraseña de Acceso
                 </label>
                 <input
+                  ref={passwordInputRef}
                   type="password"
                   required
                   autoFocus
@@ -513,12 +539,15 @@ export default function AdminPage() {
                   onChange={(e) => setInputPassword(e.target.value)}
                   style={{
                     width: '100%',
-                    padding: '0.75rem 1rem',
-                    borderRadius: '8px',
-                    border: '1px solid #cbd5e1',
-                    fontSize: '1rem',
+                    padding: '0.85rem 1rem',
+                    borderRadius: '10px',
+                    border: '1.5px solid #cbd5e1',
+                    fontSize: '1.4rem',
+                    textAlign: 'center',
+                    letterSpacing: '5px',
                     outline: 'none',
-                    boxSizing: 'border-box'
+                    boxSizing: 'border-box',
+                    transition: 'border-color 0.15s, box-shadow 0.15s'
                   }}
                 />
               </div>
@@ -1305,7 +1334,7 @@ export default function AdminPage() {
           {/* Barra de control con selector de categoría y búsqueda exacta */}
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
             {/* Dropdown de Categorías */}
-            <div style={{ position: 'relative' }}>
+            <div ref={categoryMenuRef} style={{ position: 'relative' }}>
               <button
                 type="button"
                 onClick={() => setShowCategoryMenu(!showCategoryMenu)}
