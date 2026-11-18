@@ -1,14 +1,35 @@
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Header from '../components/Header';
 import { useCart } from '../components/CartContext';
 import { CATEGORIES } from '../lib/categories';
+
+// Cantidad máxima de productos por página (compaginación)
+const ITEMS_PER_PAGE = 12;
+
+// Función para generar números de página con elipsis inteligente
+function getPageNumbers(current, total) {
+  if (total <= 7) {
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+  if (current <= 4) {
+    return [1, 2, 3, 4, 5, '...', total];
+  }
+  if (current >= total - 3) {
+    return [1, '...', total - 4, total - 3, total - 2, total - 1, total];
+  }
+  return [1, '...', current - 1, current, current + 1, '...', total];
+}
 
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // Compaginación (12 artículos por página)
+  const [currentPage, setCurrentPage] = useState(1);
+  const catalogTopRef = useRef(null);
 
   // Filtros interactivos
   const [search, setSearch] = useState('');
@@ -22,7 +43,6 @@ export default function Home() {
 
   // Feedback de carrito
   const [addedId, setAddedId] = useState(null);
-  const [visibleCount, setVisibleCount] = useState(24); // se muestran de 24 en 24
   const { addItem } = useCart();
 
   const fetchProducts = async () => {
@@ -55,9 +75,26 @@ export default function Home() {
   };
 
   useEffect(() => {
-    setVisibleCount(24);
+    setCurrentPage(1);
     fetchProducts();
   }, [selectedCategory, search]);
+
+  // Cálculos de compaginación (12 productos por página)
+  const totalPages = Math.max(1, Math.ceil(products.length / ITEMS_PER_PAGE));
+  const validCurrentPage = Math.min(Math.max(1, currentPage), totalPages);
+  const startIndex = (validCurrentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const currentProducts = products.slice(startIndex, endIndex);
+
+  const handlePageChange = (newPage) => {
+    if (newPage < 1 || newPage > totalPages || newPage === validCurrentPage) return;
+    setCurrentPage(newPage);
+    if (catalogTopRef.current) {
+      catalogTopRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      window.scrollTo({ top: 350, behavior: 'smooth' });
+    }
+  };
 
   const handleAddToCart = (product, chosenImage, e) => {
     if (e) e.stopPropagation();
@@ -123,6 +160,9 @@ export default function Home() {
             />
           </div>
         </section>
+
+        {/* Ancla para scroll suave al cambiar de página */}
+        <div ref={catalogTopRef} style={{ scrollMarginTop: '80px' }} />
 
         {/* TÍTULO Y SUBTÍTULO: ACTUALIZACIÓN DE STOCK EN TIEMPO REAL */}
         <section style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
@@ -325,12 +365,19 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Subtítulo dinámico con contador exacto de productos */}
-          <div style={{ textAlign: 'center', color: '#64748b', fontSize: '0.85rem', marginTop: '0.65rem', marginBottom: '1.5rem' }}>
-            {selectedCategory !== 'Mostrar todas' || search.trim() ? (
-              <span>Mostrando {products.length} de {totalCount || products.length} productos</span>
+          {/* Subtítulo dinámico con contador exacto de productos y páginas */}
+          <div style={{ textAlign: 'center', color: '#64748b', fontSize: '0.9rem', marginTop: '0.65rem', marginBottom: '1.5rem', fontWeight: 600 }}>
+            {products.length > 0 ? (
+              <span>
+                Mostrando {startIndex + 1}–{Math.min(endIndex, products.length)} de {products.length} productos
+                {totalPages > 1 && (
+                  <span style={{ color: '#ef4444', marginLeft: '0.5rem', fontWeight: 800 }}>
+                    • Página {validCurrentPage} de {totalPages}
+                  </span>
+                )}
+              </span>
             ) : (
-              <span>Mostrando {products.length} productos</span>
+              <span>0 productos encontrados</span>
             )}
           </div>
         </section>
@@ -389,7 +436,7 @@ export default function Home() {
                 </tr>
               </thead>
               <tbody>
-                {products.slice(0, visibleCount).map((p) => {
+                {currentProducts.map((p) => {
                   const images = Array.isArray(p.images) && p.images.length > 0 ? p.images : (p.imageUrl ? [p.imageUrl] : []);
                   const thumb = images[0] || '';
                   const isAdded = addedId === p.id;
@@ -540,7 +587,7 @@ export default function Home() {
             gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
             gap: '1.5rem'
           }}>
-            {products.slice(0, visibleCount).map((p) => {
+            {currentProducts.map((p) => {
               const images = Array.isArray(p.images) && p.images.length > 0 ? p.images : (p.imageUrl ? [p.imageUrl] : []);
               const thumb = images[0] || '';
               const isAdded = addedId === p.id;
@@ -723,27 +770,131 @@ export default function Home() {
           </div>
         )}
 
-        {/* Cargar más productos de 24 en 24 */}
-        {!loading && products.length > visibleCount && (
-          <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-            <button
-              type="button"
-              onClick={() => setVisibleCount((c) => c + 24)}
-              style={{
-                background: '#ef4444',
-                color: '#ffffff',
-                border: 'none',
-                padding: '0.85rem 2.25rem',
-                borderRadius: '10px',
-                fontWeight: 800,
-                fontSize: '0.95rem',
-                cursor: 'pointer',
-                boxShadow: '0 4px 12px rgba(239, 68, 68, 0.3)'
-              }}
-            >
-              Mostrar más productos ({products.length - visibleCount} restantes)
-            </button>
-          </div>
+        {/* COMPAGINACIÓN: 12 ARTÍCULOS POR PÁGINA (PÁGINA 1, 2, 3...) */}
+        {!loading && totalPages > 1 && (
+          <nav aria-label="Paginación del catálogo" style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: '2.5rem',
+            marginBottom: '1rem',
+            gap: '0.85rem'
+          }}>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.35rem',
+              flexWrap: 'wrap',
+              background: '#ffffff',
+              padding: '0.5rem 0.75rem',
+              borderRadius: '12px',
+              border: '1px solid #e2e8f0',
+              boxShadow: '0 4px 14px rgba(0,0,0,0.04)'
+            }}>
+              {/* Botón Anterior */}
+              <button
+                type="button"
+                onClick={() => handlePageChange(validCurrentPage - 1)}
+                disabled={validCurrentPage === 1}
+                title="Página anterior"
+                style={{
+                  padding: '0.5rem 0.9rem',
+                  borderRadius: '8px',
+                  border: '1px solid #e2e8f0',
+                  background: validCurrentPage === 1 ? '#f8fafc' : '#ffffff',
+                  color: validCurrentPage === 1 ? '#94a3b8' : '#0f172a',
+                  fontWeight: 800,
+                  fontSize: '0.85rem',
+                  cursor: validCurrentPage === 1 ? 'not-allowed' : 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.25rem',
+                  transition: 'all 0.15s'
+                }}
+              >
+                ← Anterior
+              </button>
+
+              {/* Botones numéricos de página */}
+              {getPageNumbers(validCurrentPage, totalPages).map((p, idx) => {
+                if (p === '...') {
+                  return (
+                    <span
+                      key={`dots-${idx}`}
+                      style={{
+                        padding: '0 0.35rem',
+                        color: '#94a3b8',
+                        fontWeight: 800,
+                        fontSize: '0.9rem',
+                        userSelect: 'none'
+                      }}
+                    >
+                      •••
+                    </span>
+                  );
+                }
+
+                const isActive = p === validCurrentPage;
+                return (
+                  <button
+                    key={p}
+                    type="button"
+                    onClick={() => handlePageChange(p)}
+                    title={`Ir a la página ${p}`}
+                    style={{
+                      minWidth: '38px',
+                      height: '38px',
+                      padding: '0 0.5rem',
+                      borderRadius: '8px',
+                      border: isActive ? 'none' : '1px solid #e2e8f0',
+                      background: isActive ? '#ef4444' : '#ffffff',
+                      color: isActive ? '#ffffff' : '#1e293b',
+                      fontWeight: 900,
+                      fontSize: '0.88rem',
+                      cursor: 'pointer',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      boxShadow: isActive ? '0 2px 8px rgba(239, 68, 68, 0.35)' : 'none',
+                      transition: 'all 0.15s'
+                    }}
+                  >
+                    {p}
+                  </button>
+                );
+              })}
+
+              {/* Botón Siguiente */}
+              <button
+                type="button"
+                onClick={() => handlePageChange(validCurrentPage + 1)}
+                disabled={validCurrentPage === totalPages}
+                title="Página siguiente"
+                style={{
+                  padding: '0.5rem 0.9rem',
+                  borderRadius: '8px',
+                  border: '1px solid #e2e8f0',
+                  background: validCurrentPage === totalPages ? '#f8fafc' : '#ffffff',
+                  color: validCurrentPage === totalPages ? '#94a3b8' : '#0f172a',
+                  fontWeight: 800,
+                  fontSize: '0.85rem',
+                  cursor: validCurrentPage === totalPages ? 'not-allowed' : 'pointer',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.25rem',
+                  transition: 'all 0.15s'
+                }}
+              >
+                Siguiente →
+              </button>
+            </div>
+
+            <div style={{ color: '#64748b', fontSize: '0.82rem', fontWeight: 600 }}>
+              Página <strong style={{ color: '#0f172a' }}>{validCurrentPage}</strong> de <strong style={{ color: '#0f172a' }}>{totalPages}</strong> • 12 artículos por página
+            </div>
+          </nav>
         )}
 
         {/* MODAL DE DETALLE DE PRODUCTO (GALERÍA DE HASTA 4 FOTOS Y PEDIDO) */}
