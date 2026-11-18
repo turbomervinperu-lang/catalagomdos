@@ -317,7 +317,7 @@ export default function AdminPage() {
     setForm({
       id: p.id,
       name: p.name,
-      category: p.category || 'Otros',
+      category: p.category || '',
       stock: p.stock || '+5',
       description: p.description || '',
       price: p.price,
@@ -1489,7 +1489,7 @@ export default function AdminPage() {
                             fontSize: '0.78rem',
                             fontWeight: 700
                           }}>
-                            {p.category || 'Otros'}
+                            {p.category || 'General'}
                           </span>
                         </td>
                         <td style={{ padding: '0.75rem 1rem', textAlign: 'center' }}>

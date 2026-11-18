@@ -1014,7 +1014,7 @@ export default function Home() {
                   width: 'fit-content',
                   marginBottom: '0.75rem'
                 }}>
-                  {selectedProduct.category || 'Otros'}
+                  {selectedProduct.category || 'General'}
                 </span>
 
                 <h2 style={{ fontSize: '1.35rem', fontWeight: 900, color: '#0f172a', margin: '0 0 0.75rem 0', lineHeight: '1.3' }}>

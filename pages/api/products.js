@@ -23,8 +23,8 @@ export default async function handler(req, res) {
 
   if (!process.env.POSTGRES_URL) {
     return res.status(200).json([
-      { id: 1, name: 'Producto demo 1', price: 10, imageUrl: '', images: [], category: 'Otros', stock: '+5' },
-      { id: 2, name: 'Producto demo 2', price: 20, imageUrl: '', images: [], category: 'Otros', stock: '+5' }
+      { id: 1, name: 'Producto demo 1', price: 10, imageUrl: '', images: [], category: 'Almacenamiento', stock: '+5' },
+      { id: 2, name: 'Producto demo 2', price: 20, imageUrl: '', images: [], category: 'Almacenamiento', stock: '+5' }
     ]);
   }
 
@@ -77,7 +77,7 @@ export default async function handler(req, res) {
           price, 
           "imageUrl", 
           COALESCE(images, '[]'::jsonb) as images,
-          COALESCE(category, 'Otros') as category,
+          COALESCE(category, '') as category,
           COALESCE(stock, '+5') as stock
         FROM "Product"
         ${whereClause}
@@ -107,7 +107,7 @@ export default async function handler(req, res) {
         imagesArray = [imageUrl];
       }
       const primaryImage = imagesArray[0] || imageUrl || '';
-      const prodCategory = category && category.trim() ? category.trim() : 'Otros';
+      const prodCategory = category && category.trim() ? category.trim() : '';
       const prodStock = stock && stock.trim() ? stock.trim() : '+5';
 
       const query = `
@@ -138,7 +138,7 @@ export default async function handler(req, res) {
         imagesArray = [imageUrl];
       }
       const primaryImage = imagesArray[0] || imageUrl || '';
-      const prodCategory = category && category.trim() ? category.trim() : 'Otros';
+      const prodCategory = category && category.trim() ? category.trim() : '';
       const prodStock = stock && stock.trim() ? stock.trim() : '+5';
 
       const query = `
