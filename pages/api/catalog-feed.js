@@ -110,7 +110,7 @@ export default async function handler(req, res) {
         imgs[0],
         imgs.slice(1, 10).join(','),
         detectBrand(title),
-        'CN',
+        'PE',
         p.category || 'Case',
         'Electronics > Computers > Computer Components'
       ];
